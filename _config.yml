@@ -31,11 +31,10 @@ projects:
 
 topics:
   - name: Theat Analaysis
-    web_url: https://github.com/topics/css
-    image_url: https://raw.githubusercontent.com/github/explore/6c6508f34230f0ac0d49e847a326429eefbfc030/topics/css/css.png
+    image_url: https://www.iotworldtoday.com/files/2020/01/GettyImages-1145882183.jpg
 
-  - name: 
+  - name: Penetration Testing
+    image_url: https://images.idgesg.net/images/article/2019/06/cso_breakthrough_penetration_testing_hammer_hitting_glass_by_photodisc_gettyimages-bu010600_binary_code_by_metamorworks_gettyimages-1029147330_2400x1600-100798328-large.jpg
 
-  - name: Sass
-    web_url: https://github.com/topics/sass
-    image_url: https://raw.githubusercontent.com/github/explore/6c6508f34230f0ac0d49e847a326429eefbfc030/topics/sass/sass.png
+  - name: Remediation and Compliance
+    image_url: https://cdn.lynda.com/course/748580/748580-637199656053673141-16x9.jpg
