@@ -1,6 +1,5 @@
-layout: stacked
+layout: single
 style: dark
-
 plugins:
   - jekyll-octicons
   - jekyll-github-metadata
@@ -38,3 +37,8 @@ topics:
 
   - name: Remediation and Compliance
     image_url: https://cdn.lynda.com/course/748580/748580-637199656053673141-16x9.jpg
+
+
+
+social_media:
+  linkedin: "rootsaadbaig"
