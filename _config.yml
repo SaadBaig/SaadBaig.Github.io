@@ -30,13 +30,13 @@ projects:
 
 topics:
   - name: Threat Analysis
-    image_url: https://www.iotworldtoday.com/files/2020/01/GettyImages-1145882183.jpg
+    image_url: https://lh3.googleusercontent.com/proxy/loEzmFBIvWjZsECAsvyDtpHr2QmHV-LuZcbMckIPlFcPbn2JO5Xge-TN-U4Gw5w_1Ld2KBWaT_kNnAray3af1fE1BCwcSuTVUQHKVpMOP7Jn-_QQvtA8
 
   - name: Penetration Testing
-    image_url: https://images.idgesg.net/images/article/2019/06/cso_breakthrough_penetration_testing_hammer_hitting_glass_by_photodisc_gettyimages-bu010600_binary_code_by_metamorworks_gettyimages-1029147330_2400x1600-100798328-large.jpg
+    image_url: https://www.compass-security.com/fileadmin/Datein/Bilder/penetration-testing-lg.png
 
-  - name: Remediation and Compliance
-    image_url: https://cdn.lynda.com/course/748580/748580-637199656053673141-16x9.jpg
+  - name: Social Engineering
+    image_url: https://cdn1.iconfinder.com/data/icons/hitech-business/512/brain_surgery-512.png
 
 
 
