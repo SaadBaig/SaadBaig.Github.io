@@ -30,8 +30,8 @@ projects:
 
 topics:
   - name: Threat Analysis
-    image_url: https://lh3.googleusercontent.com/proxy/loEzmFBIvWjZsECAsvyDtpHr2QmHV-LuZcbMckIPlFcPbn2JO5Xge-TN-U4Gw5w_1Ld2KBWaT_kNnAray3af1fE1BCwcSuTVUQHKVpMOP7Jn-_QQvtA8
-
+    image_url: https://user-images.githubusercontent.com/38113471/90684086-cf217d80-e224-11ea-9e92-754c36524777.png
+    
   - name: Penetration Testing
     image_url: https://www.compass-security.com/fileadmin/Datein/Bilder/penetration-testing-lg.png
 
