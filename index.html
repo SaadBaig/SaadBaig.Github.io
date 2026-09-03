@@ -8,60 +8,51 @@
 	</head>
 	<body>
 
-		<!-- Banner -->
-			<section class="banner full">
+		<!-- Rotating background (spans the whole page). Each slide carries its
+		     own caption so the text cross-fades together with the image, just
+		     like the original banner. -->
+			<div id="bg" class="banner">
 				<article>
 					<img src="images/banner1.jpg" alt="" />
-					<div class="inner">
-						<header style="position: relative;">
-							<h2><a href="https://github.com/saadbaig">Saad Baig</a></h2>
-							<h1 style="position: absolute; top: 100%; left: 0; width: 100%; margin: .5 rem 0 0 0; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.35em; text-indent: 0.35em; white-space: nowrap;">
-								<a href="https://github.com/saadbaig" style="text-decoration: none; color: inherit;">Security Engineer</a>
-							</h1>
-						</header>
+					<div class="caption">
+						<h2><a href="https://github.com/saadbaig">Saad Baig</a></h2>
+						<h1 class="hero-subtitle"><a href="https://github.com/saadbaig">Security Engineer</a></h1>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner2.jpg"  alt="" />
-					<div class="inner">
-						<header>
-							<h2><a href="https://github.com/saadbaig/Pentesting-Methodology">Penetration Testing</a></h2>
-						</header>
+					<img src="images/banner2.jpg" alt="" />
+					<div class="caption">
+						<h2><a href="https://github.com/saadbaig/Pentesting-Methodology">Penetration Testing</a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner3.jpg"  alt="" />
-					<div class="inner">
-						<header>
-							<h2><a href="https://github.com/saadbaig/Reverse-Engineering">Reverse Engineering</a></h2>
-						</header>
+					<img src="images/banner3.jpg" alt="" />
+					<div class="caption">
+						<h2><a href="https://github.com/saadbaig/Reverse-Engineering">Reverse Engineering</a></h2>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner4.jpg" alt="" />
-					<div class="inner">
-						<header>
-							<h2>Incident Reponse</h2>
-						</header>
+					<div class="caption">
+						<h2>Incident Response</h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner5.jpg"  alt="" />
-					<div class="inner">
-						<header>
-							<h2>Social Engineering</h2>
-						</header>
+					<img src="images/banner5.jpg" alt="" />
+					<div class="caption">
+						<h2>Social Engineering</h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner6.jpg"  alt="" />
-					<div class="inner">
-						<header>
-							<h2><a href="https://github.com/saadbaig/pqcscan">Open Source development</a></h2>
-						</header>
+					<img src="images/banner6.jpg" alt="" />
+					<div class="caption">
+						<h2><a href="https://github.com/saadbaig/pqcscan">Open Source Development</a></h2>
 					</div>
 				</article>
-			</section>
+			</div>
+
+		<!-- Spacer so the first screen (the hero) is scrolled past into content. -->
+			<section class="hero"></section>
 
 		
 			<section id="one" class="wrapper style2">

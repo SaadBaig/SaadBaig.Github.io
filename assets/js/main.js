@@ -19,7 +19,8 @@ var settings = {
 			delay: 5000,
 
 		// Parallax intensity (between 0 and 1; higher = more intense, lower = less intense; 0 = off)
-			parallax: 0.25
+		// Off: the background is fixed and spans the whole page while content scrolls over it.
+			parallax: 0
 
 	}
 
@@ -171,6 +172,10 @@ var settings = {
 					if (options.indicators)
 						indicators[pos].addClass('visible');
 
+				// Notify listener of the active slide.
+					if (typeof options.onChange == 'function')
+						options.onChange(pos, slides[pos]);
+
 				// Finish hiding last slide after a short delay.
 					window.setTimeout(function() {
 
@@ -234,6 +239,9 @@ var settings = {
 			if (options.indicators)
 				indicators[pos].addClass('visible');
 
+			if (typeof options.onChange == 'function')
+				options.onChange(pos, slides[pos]);
+
 		// Bail if we only have a single slide.
 			if (slides.length == 1)
 				return;
@@ -257,7 +265,7 @@ var settings = {
 		var	$window 	= $(window),
 			$body 		= $('body'),
 			$header 	= $('#header'),
-			$banner 	= $('.banner');
+			$banner 	= $('#bg');
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
@@ -268,6 +276,40 @@ var settings = {
 				}, 100);
 			});
 
+		// Fade the hero caption out as the page is scrolled into content.
+		// (The readability tint is handled purely in CSS on the projects
+		// section, so it can never cover the footer.)
+			(function() {
+
+				var $bg = $('#bg'),
+					ticking = false;
+
+				if ($bg.length == 0)
+					return;
+
+				function updateCaption() {
+
+					var vh = $window.height(),
+						scroll = $window.scrollTop();
+
+					var capFade = vh > 0 ? Math.max(0, 1 - (scroll / (vh * 0.6))) : 1;
+					$bg[0].style.setProperty('--caption-opacity', capFade.toFixed(3));
+
+					ticking = false;
+
+				}
+
+				$window.on('scroll resize', function() {
+					if (!ticking) {
+						ticking = true;
+						window.requestAnimationFrame(updateCaption);
+					}
+				});
+
+				updateCaption();
+
+			})();
+
 		// Prioritize "important" elements on medium.
 			skel.on('+medium -medium', function() {
 				$.prioritize(
@@ -276,7 +318,8 @@ var settings = {
 				);
 			});
 
-		// Banner.
+		// Banner. Each slide carries its own caption, so the template's built-in
+		// per-slide opacity transition cross-fades the text with the image.
 			$banner._slider(settings.banner);
 
 		// Menu.

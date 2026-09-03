@@ -3117,10 +3117,6 @@
 		.wrapper.style3 {
 			background-color: #000;
 			color: #bfbfbf;
-			background-image: url(../../images/banner1.jpg);
-			background-size: cover;
-			background-attachment: fixed;
-			background-position: center;
 			position: relative;
 		}
 
@@ -4338,9 +4334,17 @@
 		color: #cccccc;
 	}
 
-	/* Project section (was light gray with white cards) */
+	/* Project section: a vertical gradient that starts clear at the top (so it
+	   blends out of the hero) and darkens for readability behind the cards.
+	   Being confined to this section, it never covers the footer. */
 	.wrapper.style2 {
-		background-color: #181818;
+		background-color: transparent;
+		background-image: linear-gradient(
+			to bottom,
+			rgba(16, 16, 20, 0) 0%,
+			rgba(16, 16, 20, 0.55) 22%,
+			rgba(16, 16, 20, 0.55) 100%
+		);
 		color: #b0b0b0;
 	}
 
@@ -4395,3 +4399,123 @@
 		a.box:hover {
 			box-shadow: 0 0.75rem 2rem rgba(var(--glow, 124, 58, 237), 0.55);
 		}
+
+/* ==========================================================================
+   Continuous rotating background (spans the whole page)
+   ========================================================================== */
+
+	/* Fixed full-viewport layer that sits behind all content. The slider
+	   (main.js) toggles .visible/.top on the child <article> elements, and
+	   the existing ".banner > article" rules handle the cover-fit cross-fade. */
+	#bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		background-color: #121212;
+		padding: 0;
+	}
+
+		/* (No fixed overlay. Readability darkening lives on the projects
+		   section itself so it can never extend over the footer.) */
+
+		/* No per-slide overlay tint (it would cover the whole fixed viewport,
+		   including the footer). The hero-area tint is applied by .hero instead
+		   so it scrolls away and never reaches the footer. */
+		#bg > article:after {
+			display: none;
+		}
+
+		#bg .indicators {
+			display: none;
+		}
+
+	/* Make the page itself transparent so #bg shows through. */
+	body {
+		background: transparent;
+	}
+
+	/* Hero: empty spacer occupying the first screen. The caption lives inside
+	   the fixed #bg slides so it cross-fades together with the image. The 0.35
+	   black tint here keeps the banner text readable; being in normal flow it
+	   scrolls away with the hero and never covers the footer. */
+	.hero {
+		position: relative;
+		min-height: 100vh;
+		background: rgba(0, 0, 0, 0.35);
+	}
+
+	/* Per-slide caption: centered over the first viewport. Because it sits
+	   inside .banner > article, it inherits the article's 1.5s opacity
+	   transition and cross-fades in step with the background image. */
+	#bg > article .caption {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		text-align: center;
+		padding: 2rem;
+		z-index: 2;
+		color: #ffffff;
+		/* Fade the caption out as the page scrolls past the hero. */
+		opacity: var(--caption-opacity, 1);
+	}
+
+		#bg > article .caption h2 {
+			font-size: 7rem;
+			font-weight: 300;
+			line-height: 1.1;
+			margin: 0;
+			color: #ffffff;
+			text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.6);
+		}
+
+			#bg > article .caption h2:after {
+				display: none;
+			}
+
+		#bg > article .caption .hero-subtitle {
+			margin: 1rem 0 0 0;
+			font-size: 0.95rem;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 0.35em;
+			text-indent: 0.35em;
+			color: rgba(255, 255, 255, 0.85);
+			text-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.6);
+		}
+
+		#bg > article .caption a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		@media screen and (max-width: 736px) {
+
+			#bg > article .caption h2 {
+				font-size: 4rem;
+			}
+
+		}
+
+	/* Footer (style3): drop the template's hardcoded static image and let the
+	   rotating #bg show through with a light translucent tint. */
+	.wrapper.style3 {
+		background-color: transparent;
+		background-image: none;
+	}
