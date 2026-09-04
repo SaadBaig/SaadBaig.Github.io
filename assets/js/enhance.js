@@ -1,7 +1,7 @@
 /* ==========================================================================
    enhance.js — progressive enhancements layered on top of the base site:
-   terminal-style hero intro, live GitHub "last updated" stamps, easter eggs,
-   and PWA service-worker registration. All features degrade gracefully.
+   terminal-style hero intro, easter eggs, and PWA service-worker
+   registration. All features degrade gracefully.
    ========================================================================== */
 (function () {
 	'use strict';
@@ -88,54 +88,7 @@
 	}
 
 	/* ----------------------------------------------------------------------
-	   2. Live GitHub "last updated" per project card
-	   ---------------------------------------------------------------------- */
-	function relativeTime(iso) {
-		var then = new Date(iso).getTime();
-		if (isNaN(then)) return null;
-		var secs = Math.max(0, (Date.now() - then) / 1000);
-		var units = [
-			['year', 31536000],
-			['month', 2592000],
-			['week', 604800],
-			['day', 86400],
-			['hour', 3600],
-			['minute', 60]
-		];
-		for (var i = 0; i < units.length; i++) {
-			var n = Math.floor(secs / units[i][1]);
-			if (n >= 1) return n + ' ' + units[i][0] + (n > 1 ? 's' : '') + ' ago';
-		}
-		return 'just now';
-	}
-
-	function loadRepoStamps() {
-		var cards = document.querySelectorAll('.box[data-repo]');
-		if (!cards.length || typeof fetch !== 'function') return;
-
-		cards.forEach(function (card) {
-			var repo = card.getAttribute('data-repo');
-			var slot = card.querySelector('.updated');
-			if (!repo || !slot) return;
-
-			fetch('https://api.github.com/repos/' + repo, {
-				headers: { 'Accept': 'application/vnd.github+json' }
-			})
-				.then(function (res) { return res.ok ? res.json() : null; })
-				.then(function (data) {
-					if (!data || !data.pushed_at) return;
-					var rel = relativeTime(data.pushed_at);
-					if (!rel) return;
-					slot.textContent = 'Updated ' + rel;
-					slot.removeAttribute('aria-hidden');
-					slot.classList.add('is-shown');
-				})
-				.catch(function () { /* rate-limited or offline: leave blank */ });
-		});
-	}
-
-	/* ----------------------------------------------------------------------
-	   3. Easter eggs
+	   2. Easter eggs
 	   ---------------------------------------------------------------------- */
 	function consoleGreeting() {
 		try {
@@ -144,41 +97,57 @@
 			var hint = 'color:#7a7a7a;font-size:12px;font-style:italic;';
 			console.log('%cSaad Baig // Security Engineer', title);
 			console.log('%cPoking around the console? I like you already.', body);
-			console.log('%cTry the Konami code on the page. ↑ ↑ ↓ ↓ ← → ← → B A', hint);
+			console.log('%cPsst — try typing "pwned", or the Konami code (↑ ↑ ↓ ↓ ← → ← → B A).', hint);
 		} catch (e) { /* no console */ }
 	}
 
-	function konami() {
-		var seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-		var pos = 0;
+	var eggFired = false;
+
+	// Two ways in: the Konami code, or simply typing "pwned". Both drop you
+	// into the /root terminal after a brief "ACCESS GRANTED" flash.
+	function easterEggs() {
+		// Konami: ↑ ↑ ↓ ↓ ← → ← → B A
+		var konamiSeq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+		var konamiPos = 0;
+
+		// "pwned" typed anywhere.
+		var word = 'pwned';
+		var typed = '';
+
 		window.addEventListener('keydown', function (e) {
-			pos = (e.keyCode === seq[pos]) ? pos + 1 : (e.keyCode === seq[0] ? 1 : 0);
-			if (pos === seq.length) {
-				pos = 0;
-				activateHackerMode();
+			// Ignore when typing into a field.
+			var t = e.target;
+			if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+
+			// Konami tracking.
+			konamiPos = (e.keyCode === konamiSeq[konamiPos]) ? konamiPos + 1 : (e.keyCode === konamiSeq[0] ? 1 : 0);
+			if (konamiPos === konamiSeq.length) { konamiPos = 0; enterRoot(); }
+
+			// "pwned" tracking (letters only).
+			if (e.key && e.key.length === 1 && /[a-z]/i.test(e.key)) {
+				typed = (typed + e.key.toLowerCase()).slice(-word.length);
+				if (typed === word) enterRoot();
 			}
 		});
 	}
 
-	function activateHackerMode() {
-		document.body.classList.toggle('hacker-mode');
-		// Brief on-screen "access granted" flash.
+	function enterRoot() {
+		if (eggFired) return;   // guard against double-trigger
+		eggFired = true;
+
 		var flash = document.createElement('div');
 		flash.className = 'egg-flash';
-		flash.textContent = document.body.classList.contains('hacker-mode')
-			? '> ACCESS GRANTED'
-			: '> SESSION CLOSED';
+		flash.textContent = '> ACCESS GRANTED';
 		document.body.appendChild(flash);
-		window.setTimeout(function () {
-			flash.classList.add('is-gone');
-			window.setTimeout(function () {
-				if (flash.parentNode) flash.parentNode.removeChild(flash);
-			}, 600);
-		}, 1200);
+
+		var go = function () { window.location.href = 'root/index.html'; };
+
+		if (reduceMotion) { go(); return; }
+		window.setTimeout(go, 900);
 	}
 
 	/* ----------------------------------------------------------------------
-	   4. PWA service-worker registration
+	   3. PWA service-worker registration
 	   ---------------------------------------------------------------------- */
 	function registerSW() {
 		if (!('serviceWorker' in navigator)) return;
@@ -194,9 +163,8 @@
 	/* ---------------------------------------------------------------------- */
 	function init() {
 		typeTerminal();
-		loadRepoStamps();
 		consoleGreeting();
-		konami();
+		easterEggs();
 		registerSW();
 	}
 

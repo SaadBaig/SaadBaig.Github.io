@@ -349,6 +349,48 @@ var settings = {
 
 			})();
 
+		// Scroll-spy dot navigation: reveal the dots past the hero and mark the
+		// section currently in view as active.
+			(function() {
+
+				var nav = document.querySelector('.dot-nav');
+				if (!nav) return;
+
+				var links = {};
+				nav.querySelectorAll('a[data-section]').forEach(function(a) {
+					links[a.getAttribute('data-section')] = a;
+				});
+
+				var sections = Object.keys(links)
+					.map(function(id) { return document.getElementById(id); })
+					.filter(Boolean);
+
+				if (sections.length === 0) return;
+
+				function setActive(id) {
+					for (var key in links) {
+						links[key].classList.toggle('is-active', key === id);
+					}
+				}
+
+				// Reveal the dot-nav only after the hero has scrolled away.
+				function onScroll() {
+					document.body.classList.toggle('past-hero', $window.scrollTop() > $window.height() * 0.6);
+				}
+				$window.on('scroll resize', onScroll);
+				onScroll();
+
+				if ('IntersectionObserver' in window) {
+					var spy = new IntersectionObserver(function(entries) {
+						entries.forEach(function(entry) {
+							if (entry.isIntersecting) setActive(entry.target.id);
+						});
+					}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+					sections.forEach(function(s) { spy.observe(s); });
+				}
+
+			})();
+
 	});
 
 })(jQuery);

@@ -4398,6 +4398,99 @@
 		outline-offset: 3px;
 	}
 
+	/* --- Scroll-spy dot navigation ----------------------------------------- */
+	.dot-nav {
+		position: fixed;
+		top: 50%;
+		right: 1.5rem;
+		transform: translateY(-50%);
+		z-index: 50;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		gap: 1.1rem;
+		/* Hidden until the user scrolls past the hero (toggled via body class). */
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.4s ease, visibility 0.4s ease;
+	}
+
+		body.past-hero .dot-nav {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		/* Each link is a fixed-width column so the dot always sits on the same
+		   vertical line; the label is absolutely positioned to its left and
+		   never displaces the dot. */
+		.dot-nav a {
+			position: relative;
+			display: block;
+			width: 0.9rem;
+			height: 0.9rem;
+			text-decoration: none;
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		.dot-nav .dot {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 0.7rem;
+			height: 0.7rem;
+			border-radius: 50%;
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			background: transparent;
+			/* translate(-50%,-50%) keeps the dot centered in its column even when
+			   scaled, so scaling the active dot doesn't shift it. */
+			transform: translate(-50%, -50%);
+			transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+		}
+
+		.dot-nav .dot-label {
+			position: absolute;
+			right: 1.6rem;
+			top: 50%;
+			transform: translateY(-50%) translateX(0.5rem);
+			font-size: 0.7rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			opacity: 0;
+			transition: opacity 0.25s ease, transform 0.25s ease;
+			text-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.7);
+			pointer-events: none;
+			white-space: nowrap;
+		}
+
+		/* Reveal the label on hover/focus of a dot. */
+		.dot-nav a:hover .dot-label,
+		.dot-nav a:focus-visible .dot-label {
+			opacity: 1;
+			transform: translateY(-50%) translateX(0);
+		}
+
+		/* Active section: filled purple dot + persistent label. Scale is added
+		   to the centering translate so the dot stays put. */
+		.dot-nav a.is-active .dot {
+			background: #c98fc0;
+			border-color: #c98fc0;
+			transform: translate(-50%, -50%) scale(1.25);
+			box-shadow: 0 0 0.6rem rgba(201, 143, 192, 0.7);
+		}
+
+		.dot-nav a.is-active .dot-label {
+			opacity: 1;
+			transform: translateY(-50%) translateX(0);
+			color: #ffffff;
+		}
+
+		@media screen and (max-width: 736px) {
+			.dot-nav { display: none; }
+		}
+
 	/* --- Scroll-down cue in the hero --------------------------------------- */
 	.scroll-cue {
 		display: -webkit-flex;
@@ -4676,23 +4769,7 @@
 	@-webkit-keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 	@keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
-	/* --- GitHub "last updated" stamp on cards ------------------------------ */
-	.box .content .updated {
-		margin: 0.9rem 0 0 0;
-		font-size: 0.7rem;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.5);
-		opacity: 0;
-		transition: opacity 0.4s ease;
-		min-height: 0.9rem; /* reserve space so the card doesn't jump */
-	}
-
-		.box .content .updated.is-shown {
-			opacity: 1;
-		}
-
-	/* --- Easter egg: Konami "hacker mode" ---------------------------------- */
+	/* --- Easter egg: "ACCESS GRANTED" flash before redirecting to /root ---- */
 	.egg-flash {
 		position: fixed;
 		top: 50%;
@@ -4715,33 +4792,6 @@
 		.egg-flash.is-gone {
 			opacity: 0;
 		}
-
-	/* Hacker mode: green terminal tint + monospace vibe over the whole page. */
-	body.hacker-mode .box .content,
-	body.hacker-mode .cert-card,
-	body.hacker-mode .about .about-focus span,
-	body.hacker-mode .box .content .tags li {
-		border-color: rgba(51, 255, 102, 0.6) !important;
-	}
-
-	body.hacker-mode .wrapper.style2 h2,
-	body.hacker-mode .box .content h2,
-	body.hacker-mode .cert-card h3,
-	body.hacker-mode .caption-terminal h2 {
-		color: #33ff66 !important;
-		text-shadow: 0 0 10px rgba(51, 255, 102, 0.6);
-		font-family: 'Courier New', monospace;
-	}
-
-	/* Green the rotating background. The filter is applied to #bg ITSELF (not an
-	   ancestor like <body>) — a filter on an ancestor would create a containing
-	   block and break #bg's own `position: fixed`, clipping/misplacing it. On
-	   the element itself it's safe, so the background stays fixed. */
-	body.hacker-mode #bg {
-		-webkit-filter: hue-rotate(85deg) saturate(1.3);
-		filter: hue-rotate(85deg) saturate(1.3);
-		transition: -webkit-filter 0.5s ease, filter 0.5s ease;
-	}
 
 	/* --- Reduced motion: stop cursor blink and egg animations -------------- */
 	@media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v1';
+var CACHE_VERSION = 'saadbaig-v2';
 
 var CORE_ASSETS = [
 	'./',
@@ -14,6 +14,7 @@ var CORE_ASSETS = [
 	'./assets/js/enhance.js',
 	'./manifest.webmanifest',
 	'./favicon.svg',
+	'./root/index.html',
 	'./images/banner1.webp',
 	'./images/banner2.webp',
 	'./images/banner3.webp',

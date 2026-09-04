@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>root@saadbaig:~#</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="An interactive terminal — poke around Saad Baig's shell." />
+		<meta name="robots" content="noindex" />
+		<meta name="theme-color" content="#0b0f0b" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<style>
+			:root { --green: #33ff66; --green-dim: #1f9c40; --amber: #ffb200; --bg: #0a0d0a; }
+
+			* { box-sizing: border-box; }
+
+			html, body { height: 100%; margin: 0; }
+
+			body {
+				background: var(--bg);
+				color: var(--green);
+				font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+				font-size: 15px;
+				line-height: 1.55;
+				/* subtle CRT scanline overlay */
+				background-image:
+					repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.25) 2px 3px);
+			}
+
+			.crt {
+				min-height: 100%;
+				padding: 1.5rem clamp(1rem, 4vw, 3rem) 4rem;
+				max-width: 60rem;
+				margin: 0 auto;
+				text-shadow: 0 0 4px rgba(51, 255, 102, 0.45);
+			}
+
+			a { color: var(--amber); text-decoration: none; }
+			a:hover { text-decoration: underline; }
+
+			.boot { color: var(--green-dim); white-space: pre-wrap; }
+			.banner { color: var(--green); white-space: pre; font-size: clamp(6px, 1.6vw, 12px); line-height: 1.1; margin: 0.5rem 0 1rem; }
+
+			#output { white-space: pre-wrap; word-break: break-word; }
+			#output .cmd { color: #eaffea; }
+			#output .muted { color: var(--green-dim); }
+			#output .amber { color: var(--amber); }
+			#output .err { color: #ff5f5f; text-shadow: 0 0 4px rgba(255,95,95,0.5); }
+			#output .block { display: block; margin: 0.35rem 0; }
+
+			.prompt-line { display: flex; align-items: baseline; flex-wrap: wrap; }
+			.prompt { color: var(--green); margin-right: 0.5ch; white-space: nowrap; }
+			.prompt .user { color: var(--amber); }
+
+			#input {
+				flex: 1 1 8rem;
+				min-width: 8rem;
+				background: transparent;
+				border: none;
+				outline: none;
+				color: #eaffea;
+				font: inherit;
+				text-shadow: inherit;
+				caret-color: var(--green);
+			}
+
+			.hint { color: var(--green-dim); margin-bottom: 1rem; }
+
+			@media (prefers-reduced-motion: no-preference) {
+				.cursor-blink::after { content: '▊'; animation: blink 1s steps(1) infinite; color: var(--green); }
+				@keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+			}
+		</style>
+	</head>
+	<body>
+		<main class="crt" id="crt">
+			<pre class="banner" aria-hidden="true">
+ ____                  _   ____        _
+/ ___|  __ _  __ _  __| | | __ )  __ _(_) __ _
+\___ \ / _` |/ _` |/ _` | |  _ \ / _` | |/ _` |
+ ___) | (_| | (_| | (_| | | |_) | (_| | | (_| |
+|____/ \__,_|\__,_|\__,_| |____/ \__,_|_|\__, |
+                                         |___/
+			</pre>
+			<div class="boot" id="boot"></div>
+			<div id="output"></div>
+			<div class="prompt-line" id="promptLine" hidden>
+				<span class="prompt"><span class="user">root@saadbaig</span>:~# </span>
+				<input id="input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="terminal input" />
+			</div>
+		</main>
+
+		<script>
+		(function () {
+			'use strict';
+
+			var boot = document.getElementById('boot');
+			var output = document.getElementById('output');
+			var promptLine = document.getElementById('promptLine');
+			var input = document.getElementById('input');
+			var crt = document.getElementById('crt');
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			var history = [];
+			var histIdx = -1;
+
+			function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+			function print(html, cls) {
+				var div = document.createElement('div');
+				div.className = 'block' + (cls ? ' ' + cls : '');
+				div.innerHTML = html;
+				output.appendChild(div);
+			}
+
+			function scrollDown() { window.scrollTo(0, document.body.scrollHeight); }
+
+			// ---- command definitions ----
+			var COMMANDS = {
+				help: function () {
+					return [
+						'Available commands:',
+						'  <span class="amber">whoami</span>      who is this',
+						'  <span class="amber">about</span>       a bit more about me',
+						'  <span class="amber">skills</span>      what I work with',
+						'  <span class="amber">projects</span>    list featured projects',
+						'  <span class="amber">certs</span>       certifications',
+						'  <span class="amber">talks</span>       speaking engagements',
+						'  <span class="amber">social</span>      where to find me',
+						'  <span class="amber">sudo</span>        try it',
+						'  <span class="amber">banner</span>      redraw the banner',
+						'  <span class="amber">clear</span>       clear the screen',
+						'  <span class="amber">exit</span>        back to the site'
+					].join('\n');
+				},
+				whoami: function () {
+					return 'saad — security engineer. offensive security, reverse engineering, and open-source tooling.';
+				},
+				about: function () {
+					return [
+						'Saad Baig / Security Engineer',
+						'',
+						'I take systems apart to understand exactly how they break, then turn',
+						'that into practical defenses and tools. I also speak at conferences',
+						'(RMISC, IEEE, BSides, OWASP).'
+					].join('\n');
+				},
+				skills: function () {
+					return 'Penetration Testing · Reverse Engineering · Exploit Development · Open-Source Tooling · Post-Quantum Cryptography';
+				},
+				projects: function () {
+					return [
+						'featured projects (see the site for full write-ups):',
+						'  <span class="amber">pqcscan</span>              post-quantum crypto scanner',
+						'  <span class="amber">ddos-defcon-2026</span>     DEFCON 34 DDoS village writeup',
+						'  <span class="amber">pentesting</span>           methodology cheatsheet',
+						'  <span class="amber">tryhackme</span>            box walkthroughs',
+						'',
+						'run <span class="amber">exit</span> then click a card, or: <a href="https://github.com/saadbaig" target="_blank" rel="noopener">github.com/saadbaig</a>'
+					].join('\n');
+				},
+				certs: function () {
+					return 'CompTIA PenTest+ · CompTIA Security+ · Cisco CCNA';
+				},
+				talks: function () {
+					return 'RMISC · IEEE · Security BSides · OWASP';
+				},
+				social: function () {
+					return [
+						'  github    <a href="https://github.com/saadbaig" target="_blank" rel="noopener">github.com/saadbaig</a>',
+						'  linkedin  <a href="https://www.linkedin.com/in/sudosaad/" target="_blank" rel="noopener">linkedin.com/in/sudosaad</a>'
+					].join('\n');
+				},
+				ls: function () {
+					return '<span class="amber">about.txt</span>  <span class="amber">skills.txt</span>  <span class="amber">projects/</span>  <span class="amber">certs.txt</span>  <span class="amber">talks.txt</span>  .secret';
+				},
+				cat: function (args) {
+					var f = (args[0] || '').replace(/^\.\//, '');
+					if (f === 'about.txt') return COMMANDS.about();
+					if (f === 'skills.txt') return COMMANDS.skills();
+					if (f === 'certs.txt') return COMMANDS.certs();
+					if (f === 'talks.txt') return COMMANDS.talks();
+					if (f === '.secret') return '<span class="muted">you already found the terminal. that was the secret. :)</span>';
+					if (!f) return { err: 'cat: missing operand' };
+					return { err: 'cat: ' + esc(f) + ': No such file or directory' };
+				},
+				sudo: function () {
+					return { err: 'saad is not in the sudoers file. This incident will be reported.' };
+				},
+				pwd: function () { return '/home/saad'; },
+				date: function () { return new Date().toString(); },
+				echo: function (args) { return esc(args.join(' ')); },
+				banner: function () { drawBanner(); return ''; },
+				clear: function () { output.innerHTML = ''; return null; },
+				exit: function () {
+					print('<span class="muted">logging out…</span>');
+					setTimeout(function () { window.location.href = '../index.html'; }, 500);
+					return null;
+				}
+			};
+
+			var ALIASES = { man: 'help', '?': 'help', quit: 'exit', logout: 'exit', me: 'whoami' };
+
+			function run(raw) {
+				var line = raw.trim();
+				// echo the command
+				print('<span class="prompt"><span class="user">root@saadbaig</span>:~# </span><span class="cmd">' + esc(raw) + '</span>');
+				if (!line) return;
+
+				history.push(raw); histIdx = history.length;
+
+				var parts = line.split(/\s+/);
+				var name = parts[0].toLowerCase();
+				var args = parts.slice(1);
+				if (ALIASES[name]) name = ALIASES[name];
+
+				var fn = COMMANDS[name];
+				if (!fn) {
+					print('<span class="err">' + esc(parts[0]) + ': command not found</span> — type <span class="amber">help</span>');
+					return;
+				}
+				var result = fn(args);
+				if (result === null) return;               // handled internally (clear/exit)
+				if (result && typeof result === 'object' && 'err' in result) {
+					print('<span class="err">' + result.err + '</span>');
+				} else if (result) {
+					print(result);
+				}
+			}
+
+			function drawBanner() { /* banner is static in markup; no-op refresh */ }
+
+			// ---- boot sequence ----
+			var bootLines = [
+				'Booting saadOS 1.0.0 …',
+				'[ OK ] Mounting /home/saad',
+				'[ OK ] Starting offensive-security daemon',
+				'[ OK ] Loading profile',
+				'',
+				'Type <span class="amber">help</span> to get started, or <span class="amber">whoami</span>.'
+			];
+
+			function startPrompt() {
+				promptLine.hidden = false;
+				input.focus();
+			}
+
+			if (reduce) {
+				boot.innerHTML = bootLines.join('\n');
+				startPrompt();
+			} else {
+				var i = 0;
+				(function nextLine() {
+					if (i >= bootLines.length) { startPrompt(); return; }
+					boot.innerHTML += (i ? '\n' : '') + bootLines[i];
+					i++;
+					scrollDown();
+					setTimeout(nextLine, 260 + Math.random() * 160);
+				})();
+			}
+
+			// ---- input handling ----
+			input.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter') {
+					var val = input.value;
+					input.value = '';
+					run(val);
+					scrollDown();
+				} else if (e.key === 'ArrowUp') {
+					if (histIdx > 0) { histIdx--; input.value = history[histIdx]; e.preventDefault(); }
+				} else if (e.key === 'ArrowDown') {
+					if (histIdx < history.length - 1) { histIdx++; input.value = history[histIdx]; }
+					else { histIdx = history.length; input.value = ''; }
+				} else if (e.key === 'l' && e.ctrlKey) {
+					output.innerHTML = ''; e.preventDefault();
+				}
+			});
+
+			// clicking anywhere focuses the input
+			crt.addEventListener('click', function () {
+				if (!promptLine.hidden) input.focus();
+			});
+		})();
+		</script>
+	</body>
+</html>
