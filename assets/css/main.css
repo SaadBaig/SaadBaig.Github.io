@@ -4206,7 +4206,11 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 100%;
+		/* Use the *large* viewport height (toolbar retracted) so the fixed
+		   background doesn't resize — and rescale its cover image (zoom) — when
+		   mobile browsers hide/show the URL bar on scroll. Falls back to vh. */
+		height: 100vh;
+		height: 100lvh;
 		z-index: -1;
 		background-color: #121212;
 		padding: 0;
@@ -4234,7 +4238,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 100vh;
+		height: 100%;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
