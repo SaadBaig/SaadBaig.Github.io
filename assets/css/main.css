@@ -4329,8 +4329,9 @@
    Dark mode overrides
    ========================================================================== */
 
+	/* Transparent so the fixed rotating #bg shows through the whole page. */
 	body {
-		background: #121212;
+		background: transparent;
 		color: #cccccc;
 	}
 
@@ -4418,12 +4419,9 @@
 		padding: 0;
 	}
 
-		/* (No fixed overlay. Readability darkening lives on the projects
-		   section itself so it can never extend over the footer.) */
-
-		/* No per-slide overlay tint (it would cover the whole fixed viewport,
-		   including the footer). The hero-area tint is applied by .hero instead
-		   so it scrolls away and never reaches the footer. */
+		/* No per-slide/overlay tint here: it would cover the whole fixed
+		   viewport (including the footer). Readability darkening is applied to
+		   the projects section and the hero instead. */
 		#bg > article:after {
 			display: none;
 		}
@@ -4432,19 +4430,11 @@
 			display: none;
 		}
 
-	/* Make the page itself transparent so #bg shows through. */
-	body {
-		background: transparent;
-	}
-
 	/* Hero: empty spacer occupying the first screen. The caption lives inside
-	   the fixed #bg slides so it cross-fades together with the image. The 0.35
-	   black tint here keeps the banner text readable; being in normal flow it
-	   scrolls away with the hero and never covers the footer. */
+	   the fixed #bg slides so it cross-fades together with the image. */
 	.hero {
 		position: relative;
 		min-height: 100vh;
-		background: rgba(0, 0, 0, 0.35);
 	}
 
 	/* Per-slide caption: centered over the first viewport. Because it sits
@@ -4513,8 +4503,8 @@
 
 		}
 
-	/* Footer (style3): drop the template's hardcoded static image and let the
-	   rotating #bg show through with a light translucent tint. */
+	/* Footer (style3): fully transparent so the rotating #bg shows through
+	   untinted. (The template's hardcoded static image was removed above.) */
 	.wrapper.style3 {
 		background-color: transparent;
 		background-image: none;

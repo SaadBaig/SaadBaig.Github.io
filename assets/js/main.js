@@ -172,10 +172,6 @@ var settings = {
 					if (options.indicators)
 						indicators[pos].addClass('visible');
 
-				// Notify listener of the active slide.
-					if (typeof options.onChange == 'function')
-						options.onChange(pos, slides[pos]);
-
 				// Finish hiding last slide after a short delay.
 					window.setTimeout(function() {
 
@@ -239,9 +235,6 @@ var settings = {
 			if (options.indicators)
 				indicators[pos].addClass('visible');
 
-			if (typeof options.onChange == 'function')
-				options.onChange(pos, slides[pos]);
-
 		// Bail if we only have a single slide.
 			if (slides.length == 1)
 				return;
@@ -264,7 +257,6 @@ var settings = {
 
 		var	$window 	= $(window),
 			$body 		= $('body'),
-			$header 	= $('#header'),
 			$banner 	= $('#bg');
 
 		// Disable animations/transitions until the page has loaded.
@@ -321,37 +313,6 @@ var settings = {
 		// Banner. Each slide carries its own caption, so the template's built-in
 		// per-slide opacity transition cross-fades the text with the image.
 			$banner._slider(settings.banner);
-
-		// Menu.
-			$('#menu')
-				.append('<a href="#menu" class="close"></a>')
-				.appendTo($body)
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					side: 'right'
-				});
-
-		// Header.
-			if (skel.vars.IEVersion < 9)
-				$header.removeClass('alt');
-
-			if ($banner.length > 0
-			&&	$header.hasClass('alt')) {
-
-				$window.on('resize', function() { $window.trigger('scroll'); });
-
-				$banner.scrollex({
-					bottom:		$header.outerHeight(),
-					terminate:	function() { $header.removeClass('alt'); },
-					enter:		function() { $header.addClass('alt'); },
-					leave:		function() { $header.removeClass('alt'); $header.addClass('reveal'); }
-				});
-
-			}
 
 	});
 
