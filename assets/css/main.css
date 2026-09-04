@@ -4372,17 +4372,44 @@
 			border-color: rgba(255, 255, 255, 0.12);
 		}
 
-	/* Cards: neutral elevated surface with a purple glow on hover */
+	/* Cards: frosted-glass panels so the rotating background glows through.
+	   Each card is tinted by its own image color via the --glow variable. */
 	.box {
-		background: #262626;
-		border: 1px solid rgba(255, 255, 255, 0.06);
-		border-radius: 6px;
+		background: transparent;
+		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.22);
+		border-radius: 10px;
 		overflow: hidden;
-		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.35);
+		box-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.25rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.25);
+		transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 	}
 
 		.wrapper.style2 .box {
-			border-color: rgba(255, 255, 255, 0.06);
+			border-color: rgba(var(--glow, 255, 255, 255), 0.22);
+		}
+
+		/* Keep the image crisp; blend its lower edge into the frosted panel. */
+		.box .image.fit {
+			position: relative;
+		}
+
+			.box .image.fit:after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 40%;
+				background: linear-gradient(to bottom, rgba(20, 18, 26, 0), rgba(20, 18, 26, 0.55));
+				pointer-events: none;
+			}
+
+		/* Frosted-glass content area. */
+		.box .content {
+			background: rgba(22, 20, 28, 0.55);
+			-webkit-backdrop-filter: blur(12px) saturate(120%);
+			backdrop-filter: blur(12px) saturate(120%);
 		}
 
 		.box header p:after {
@@ -4391,15 +4418,19 @@
 
 	/* Clickable card in dark mode */
 	a.box {
-		border-radius: 6px;
+		border-radius: 10px;
 	}
 
 		a.box .content p {
-			color: #b0b0b0;
+			color: #c7c2cf;
 		}
 
 		a.box:hover {
-			box-shadow: 0 0.75rem 2rem rgba(var(--glow, 124, 58, 237), 0.55);
+			transform: translateY(-5px);
+			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
+			box-shadow:
+				0 0.9rem 2.25rem rgba(0, 0, 0, 0.5),
+				0 0 2rem rgba(var(--glow, 124, 58, 237), 0.55);
 		}
 
 /* ==========================================================================
