@@ -8,8 +8,9 @@ var settings = {
 
 	banner: {
 
-		// Indicators (= the clickable dots at the bottom).
-			indicators: true,
+		// Indicators (= the clickable dots at the bottom). Off: this is a
+		// full-page background slideshow, so the dots aren't shown.
+			indicators: false,
 
 		// Transition speed (in ms)
 		// For timing purposes only. It *must* match the transition speed of "#banner > article".
