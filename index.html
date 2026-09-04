@@ -20,8 +20,11 @@
 		<link rel="icon" href="favicon.svg" type="image/svg+xml" />
 		<link rel="apple-touch-icon" href="icon-180.png" />
 
-		<!-- Preload the first banner (the only image needed for first paint). -->
+		<!-- Preload first-paint assets: the first banner + the two most-used
+		     font weights (300 body text, 700 hero title). -->
 		<link rel="preload" as="image" href="images/banner1.webp" />
+		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body>
@@ -406,12 +409,9 @@
 				</div>
 			</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/enhance.js"></script>
+		<!-- Scripts (vanilla JS, deferred so they never block rendering) -->
+			<script src="assets/js/main.js" defer></script>
+			<script src="assets/js/enhance.js" defer></script>
 
 	</body>
 </html>

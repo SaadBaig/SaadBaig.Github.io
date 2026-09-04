@@ -1,396 +1,174 @@
-/*
-	Hielo by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
-*/
+/* ==========================================================================
+   main.js — vanilla JS (no jQuery / no skel).
+   Handles: the full-page background slideshow, the hero caption/scroll-cue
+   fade, scroll-reveal, and the scroll-spy dot navigation.
+   Original slideshow concept: "Hielo" by TEMPLATED (CC BY 3.0).
+   ========================================================================== */
+(function () {
+	'use strict';
 
-var settings = {
+	var SLIDE_SPEED = 1500;   // cross-fade duration (must match CSS transition)
+	var SLIDE_DELAY = 5000;   // time each slide is shown
 
-	banner: {
+	var reduceMotion = window.matchMedia
+		&& window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-		// Indicators (= the clickable dots at the bottom). Off: this is a
-		// full-page background slideshow, so the dots aren't shown.
-			indicators: false,
+	/* ----------------------------------------------------------------------
+	   Background slideshow (#bg > article). Sets each slide's background image
+	   from its child <img>, then cross-fades between them by toggling classes.
+	   ---------------------------------------------------------------------- */
+	function initSlider(root) {
+		var slides = Array.prototype.slice.call(root.querySelectorAll('article'));
+		if (!slides.length) return;
 
-		// Transition speed (in ms)
-		// For timing purposes only. It *must* match the transition speed of "#banner > article".
-			speed: 1500,
-
-		// Transition delay (in ms)
-			delay: 5000,
-
-		// Parallax intensity (between 0 and 1; higher = more intense, lower = less intense; 0 = off)
-		// Off: the background is fixed and spans the whole page while content scrolls over it.
-			parallax: 0
-
-	}
-
-};
-
-(function($) {
-
-	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
-		medium:	'(max-width: 980px)',
-		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)'
-	});
-
-	/**
-	 * Applies parallax scrolling to an element's background image.
-	 * @return {jQuery} jQuery object.
-	 */
-	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.mobile) ? function() { return $(this) } : function(intensity) {
-
-		var	$window = $(window),
-			$this = $(this);
-
-		if (this.length == 0 || intensity === 0)
-			return $this;
-
-		if (this.length > 1) {
-
-			for (var i=0; i < this.length; i++)
-				$(this[i])._parallax(intensity);
-
-			return $this;
-
-		}
-
-		if (!intensity)
-			intensity = 0.25;
-
-		$this.each(function() {
-
-			var $t = $(this),
-				on, off;
-
-			on = function() {
-
-				$t.css('background-position', 'center 100%, center 100%, center 0px');
-
-				$window
-					.on('scroll._parallax', function() {
-
-						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
-
-						$t.css('background-position', 'center ' + (pos * (-1 * intensity)) + 'px');
-
-					});
-
-			};
-
-			off = function() {
-
-				$t
-					.css('background-position', '');
-
-				$window
-					.off('scroll._parallax');
-
-			};
-
-			skel.on('change', function() {
-
-				if (skel.breakpoint('medium').active)
-					(off)();
-				else
-					(on)();
-
-			});
-
+		// Prime each slide's background-image from its <img src>.
+		slides.forEach(function (slide) {
+			var img = slide.querySelector('img');
+			if (img) {
+				slide.style.backgroundImage = 'url("' + img.getAttribute('src') + '")';
+				slide.style.backgroundPosition = slide.getAttribute('data-position') || 'center';
+			}
 		});
 
-		$window
-			.off('load._parallax resize._parallax')
-			.on('load._parallax resize._parallax', function() {
-				$window.trigger('scroll');
-			});
+		var pos = 0;
+		var locked = false;
 
-		return $(this);
+		slides[pos].classList.add('visible', 'top');
+		if (slides.length === 1) return;
 
-	};
+		function switchTo(next) {
+			if (locked || next === pos) return;
+			locked = true;
 
-	/**
-	 * Custom banner slider for Slate.
-	 * @return {jQuery} jQuery object.
-	 */
-	$.fn._slider = function(options) {
+			var last = pos;
+			pos = next;
 
-		var	$window = $(window),
-			$this = $(this);
+			slides[last].classList.remove('top');
+			slides[pos].classList.add('visible', 'top');
 
-		if (this.length == 0)
-			return $this;
-
-		if (this.length > 1) {
-
-			for (var i=0; i < this.length; i++)
-				$(this[i])._slider(options);
-
-			return $this;
-
+			window.setTimeout(function () {
+				slides[last].classList.add('instant');
+				slides[last].classList.remove('visible');
+				window.setTimeout(function () {
+					slides[last].classList.remove('instant');
+					locked = false;
+				}, 100);
+			}, SLIDE_SPEED);
 		}
 
-		// Vars.
-			var	current = 0, pos = 0, lastPos = 0,
-				slides = [], indicators = [],
-				$indicators,
-				$slides = $this.children('article'),
-				intervalId,
-				isLocked = false,
-				i = 0;
+		var current = 0;
+		window.setInterval(function () {
+			current = (current + 1) % slides.length;
+			switchTo(current);
+		}, SLIDE_DELAY);
+	}
 
-		// Turn off indicators if we only have one slide.
-			if ($slides.length == 1)
-				options.indicators = false;
+	/* ----------------------------------------------------------------------
+	   Hero caption + scroll-cue fade. Sets --caption-opacity on :root so it
+	   inherits to both #bg's caption and the .hero's scroll-cue.
+	   ---------------------------------------------------------------------- */
+	function initCaptionFade() {
+		var bg = document.getElementById('bg');
+		if (!bg) return;
+		var ticking = false;
 
-		// Functions.
-			$this._switchTo = function(x, stop) {
+		function update() {
+			var vh = window.innerHeight;
+			var scroll = window.pageYOffset;
+			var fade = vh > 0 ? Math.max(0, 1 - (scroll / (vh * 0.6))) : 1;
+			document.documentElement.style.setProperty('--caption-opacity', fade.toFixed(3));
+			ticking = false;
+		}
 
-				if (isLocked || pos == x)
-					return;
+		window.addEventListener('scroll', function () {
+			if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+		}, { passive: true });
+		window.addEventListener('resize', update);
+		update();
+	}
 
-				isLocked = true;
+	/* ----------------------------------------------------------------------
+	   Scroll-reveal: fade/rise elements in as they enter view.
+	   ---------------------------------------------------------------------- */
+	function initReveal() {
+		var items = document.querySelectorAll('[data-reveal]');
+		if (!items.length) return;
 
-				if (stop)
-					window.clearInterval(intervalId);
+		if (reduceMotion || !('IntersectionObserver' in window)) {
+			for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
+			return;
+		}
 
-				// Update positions.
-					lastPos = pos;
-					pos = x;
-
-				// Hide last slide.
-					slides[lastPos].removeClass('top');
-
-					if (options.indicators)
-						indicators[lastPos].removeClass('visible');
-
-				// Show new slide.
-					slides[pos].addClass('visible').addClass('top');
-
-					if (options.indicators)
-						indicators[pos].addClass('visible');
-
-				// Finish hiding last slide after a short delay.
-					window.setTimeout(function() {
-
-						slides[lastPos].addClass('instant').removeClass('visible');
-
-						window.setTimeout(function() {
-
-							slides[lastPos].removeClass('instant');
-							isLocked = false;
-
-						}, 100);
-
-					}, options.speed);
-
-			};
-
-		// Indicators.
-			if (options.indicators)
-				$indicators = $('<ul class="indicators"></ul>').appendTo($this);
-
-		// Slides.
-			$slides
-				.each(function() {
-
-					var $slide = $(this),
-						$img = $slide.find('img');
-
-					// Slide.
-						$slide
-							.css('background-image', 'url("' + $img.attr('src') + '")')
-							.css('background-position', ($slide.data('position') ? $slide.data('position') : 'center'));
-
-					// Add to slides.
-						slides.push($slide);
-
-					// Indicators.
-						if (options.indicators) {
-
-							var $indicator_li = $('<li>' + i + '</li>').appendTo($indicators);
-
-							// Indicator.
-								$indicator_li
-									.data('index', i)
-									.on('click', function() {
-										$this._switchTo($(this).data('index'), true);
-									});
-
-							// Add to indicators.
-								indicators.push($indicator_li);
-
-						}
-
-					i++;
-
-				})
-				._parallax(options.parallax);
-
-		// Initial slide.
-			slides[pos].addClass('visible').addClass('top');
-
-			if (options.indicators)
-				indicators[pos].addClass('visible');
-
-		// Bail if we only have a single slide.
-			if (slides.length == 1)
-				return;
-
-		// Main loop.
-			intervalId = window.setInterval(function() {
-
-				current++;
-
-				if (current >= slides.length)
-					current = 0;
-
-				$this._switchTo(current);
-
-			}, options.delay);
-
-	};
-
-	$(function() {
-
-		var	$window 	= $(window),
-			$body 		= $('body'),
-			$banner 	= $('#bg');
-
-		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
-
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
+		var observer = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+					observer.unobserve(entry.target);
+				}
 			});
+		}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
-		// Fade the hero caption and scroll-cue out as the page scrolls past the
-		// hero (via the --caption-opacity custom property on :root).
-			(function() {
+		for (var j = 0; j < items.length; j++) observer.observe(items[j]);
+	}
 
-				var ticking = false;
+	/* ----------------------------------------------------------------------
+	   Scroll-spy dot navigation: reveal past the hero + mark the active section.
+	   ---------------------------------------------------------------------- */
+	function initDotNav() {
+		var nav = document.querySelector('.dot-nav');
+		if (!nav) return;
 
-				if ($banner.length == 0)
-					return;
+		var links = {};
+		nav.querySelectorAll('a[data-section]').forEach(function (a) {
+			links[a.getAttribute('data-section')] = a;
+		});
 
-				function updateCaption() {
+		var sections = Object.keys(links)
+			.map(function (id) { return document.getElementById(id); })
+			.filter(Boolean);
+		if (!sections.length) return;
 
-					var vh = $window.height(),
-						scroll = $window.scrollTop();
+		function setActive(id) {
+			for (var key in links) links[key].classList.toggle('is-active', key === id);
+		}
 
-					// Hero caption / scroll-cue: fade out over the first ~0.6 vh.
-					var capFade = vh > 0 ? Math.max(0, 1 - (scroll / (vh * 0.6))) : 1;
-					// Set on :root so it inherits to both #bg's caption and the
-					// .hero's scroll-cue (which live in separate subtrees).
-					document.documentElement.style.setProperty('--caption-opacity', capFade.toFixed(3));
+		function onScroll() {
+			document.body.classList.toggle('past-hero', window.pageYOffset > window.innerHeight * 0.6);
+		}
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll);
+		onScroll();
 
-					ticking = false;
-
-				}
-
-				$window.on('scroll resize', function() {
-					if (!ticking) {
-						ticking = true;
-						window.requestAnimationFrame(updateCaption);
-					}
+		if ('IntersectionObserver' in window) {
+			var spy = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) setActive(entry.target.id);
 				});
+			}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+			sections.forEach(function (s) { spy.observe(s); });
+		}
+	}
 
-				updateCaption();
+	/* ---------------------------------------------------------------------- */
+	function init() {
+		// Disable animations until loaded (matches the template's .is-loading).
+		document.body.classList.add('is-loading');
+		window.addEventListener('load', function () {
+			window.setTimeout(function () {
+				document.body.classList.remove('is-loading');
+			}, 100);
+		});
 
-			})();
+		var bg = document.getElementById('bg');
+		if (bg) initSlider(bg);
+		initCaptionFade();
+		initReveal();
+		initDotNav();
+	}
 
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
-				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
-				);
-			});
-
-		// Banner. Each slide carries its own caption, so the template's built-in
-		// per-slide opacity transition cross-fades the text with the image.
-			$banner._slider(settings.banner);
-
-		// Scroll-reveal: fade/rise elements in as they enter the viewport.
-		// Respects prefers-reduced-motion and degrades gracefully.
-			(function() {
-
-				var items = document.querySelectorAll('[data-reveal]');
-
-				if (items.length === 0)
-					return;
-
-				var reduce = window.matchMedia
-					&& window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-				// No IntersectionObserver or reduced motion: just show everything.
-				if (reduce || !('IntersectionObserver' in window)) {
-					for (var i = 0; i < items.length; i++)
-						items[i].classList.add('is-visible');
-					return;
-				}
-
-				var observer = new IntersectionObserver(function(entries) {
-					entries.forEach(function(entry) {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('is-visible');
-							observer.unobserve(entry.target);
-						}
-					});
-				}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-
-				for (var j = 0; j < items.length; j++)
-					observer.observe(items[j]);
-
-			})();
-
-		// Scroll-spy dot navigation: reveal the dots past the hero and mark the
-		// section currently in view as active.
-			(function() {
-
-				var nav = document.querySelector('.dot-nav');
-				if (!nav) return;
-
-				var links = {};
-				nav.querySelectorAll('a[data-section]').forEach(function(a) {
-					links[a.getAttribute('data-section')] = a;
-				});
-
-				var sections = Object.keys(links)
-					.map(function(id) { return document.getElementById(id); })
-					.filter(Boolean);
-
-				if (sections.length === 0) return;
-
-				function setActive(id) {
-					for (var key in links) {
-						links[key].classList.toggle('is-active', key === id);
-					}
-				}
-
-				// Reveal the dot-nav only after the hero has scrolled away.
-				function onScroll() {
-					document.body.classList.toggle('past-hero', $window.scrollTop() > $window.height() * 0.6);
-				}
-				$window.on('scroll resize', onScroll);
-				onScroll();
-
-				if ('IntersectionObserver' in window) {
-					var spy = new IntersectionObserver(function(entries) {
-						entries.forEach(function(entry) {
-							if (entry.isIntersecting) setActive(entry.target.id);
-						});
-					}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-					sections.forEach(function(s) { spy.observe(s); });
-				}
-
-			})();
-
-	});
-
-})(jQuery);
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+})();

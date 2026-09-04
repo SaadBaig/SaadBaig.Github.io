@@ -1,17 +1,18 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v2';
+var CACHE_VERSION = 'saadbaig-v5';
 
 var CORE_ASSETS = [
 	'./',
 	'./index.html',
 	'./assets/css/main.css',
-	'./assets/css/font-awesome.min.css',
-	'./assets/js/jquery.min.js',
-	'./assets/js/skel.min.js',
-	'./assets/js/util.js',
 	'./assets/js/main.js',
 	'./assets/js/enhance.js',
+	'./assets/fonts/poppins/poppins-300.woff2',
+	'./assets/fonts/poppins/poppins-400.woff2',
+	'./assets/fonts/poppins/poppins-500.woff2',
+	'./assets/fonts/poppins/poppins-600.woff2',
+	'./assets/fonts/poppins/poppins-700.woff2',
 	'./manifest.webmanifest',
 	'./favicon.svg',
 	'./root/index.html',
