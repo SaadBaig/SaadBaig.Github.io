@@ -285,8 +285,11 @@ var settings = {
 					var vh = $window.height(),
 						scroll = $window.scrollTop();
 
+					// Hero caption / scroll-cue: fade out over the first ~0.6 vh.
 					var capFade = vh > 0 ? Math.max(0, 1 - (scroll / (vh * 0.6))) : 1;
-					$bg[0].style.setProperty('--caption-opacity', capFade.toFixed(3));
+					// Set on :root so it inherits to both #bg's caption and the
+					// .hero's scroll-cue (which live in separate subtrees).
+					document.documentElement.style.setProperty('--caption-opacity', capFade.toFixed(3));
 
 					ticking = false;
 

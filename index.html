@@ -14,6 +14,12 @@
 		<meta property="og:url" content="https://saadbaig.dev" />
 		<meta name="twitter:card" content="summary_large_image" />
 
+		<!-- PWA: installable + offline caching -->
+		<link rel="manifest" href="manifest.webmanifest" />
+		<meta name="theme-color" content="#8a4680" />
+		<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="icon-180.png" />
+
 		<!-- Preload the first banner (the only image needed for first paint). -->
 		<link rel="preload" as="image" href="images/banner1.webp" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -30,39 +36,41 @@
 			<div id="bg" class="banner" aria-hidden="true">
 				<article>
 					<img src="images/banner1.webp" alt="" />
-					<div class="caption">
-						<h2><a href="https://github.com/saadbaig">Saad Baig</a></h2>
+					<div class="caption caption-terminal">
+						<h2>
+							<a href="https://github.com/saadbaig"><span class="type-target" data-text="Saad Baig"></span><span class="type-cursor" aria-hidden="true"></span></a>
+						</h2>
 						<h1 class="hero-subtitle"><a href="https://github.com/saadbaig">Security Engineer</a></h1>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner2.webp" alt="" />
-					<div class="caption">
-						<h2><a href="https://github.com/saadbaig/Pentesting-Methodology">Penetration Testing</a></h2>
+					<div class="caption caption-terminal">
+						<h2><a href="https://github.com/saadbaig/Pentesting-Methodology"><span class="type-target" data-text="Penetration Testing"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner3.webp" alt="" />
-					<div class="caption">
-						<h2><a href="https://github.com/saadbaig/Reverse-Engineering">Reverse Engineering</a></h2>
+					<div class="caption caption-terminal">
+						<h2><a href="https://github.com/saadbaig/Reverse-Engineering"><span class="type-target" data-text="Reverse Engineering"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner4.webp" alt="" />
-					<div class="caption">
-						<h2>Incident Response</h2>
+					<div class="caption caption-terminal">
+						<h2><span class="type-target" data-text="Incident Response"></span><span class="type-cursor" aria-hidden="true"></span></h2>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner5.webp" alt="" />
-					<div class="caption">
-						<h2>Social Engineering</h2>
+					<div class="caption caption-terminal">
+						<h2><span class="type-target" data-text="Social Engineering"></span><span class="type-cursor" aria-hidden="true"></span></h2>
 					</div>
 				</article>
 				<article>
 					<img src="images/banner6.webp" alt="" />
-					<div class="caption">
-						<h2><a href="https://github.com/saadbaig/pqcscan">Open Source Development</a></h2>
+					<div class="caption caption-terminal">
+						<h2><a href="https://github.com/saadbaig/pqcscan"><span class="type-target" data-text="Open Source Development"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 			</div>
@@ -78,29 +86,108 @@
 		<!-- About -->
 			<section id="about" class="wrapper style2 about" data-reveal>
 				<div class="inner">
-					<header class="align-center">
-						<h2>About</h2>
-					</header>
-					<p class="about-lead">
-						I'm Saad Baig, a security engineer focused on offensive security —
-						penetration testing, reverse engineering, and building open-source
-						tooling that makes hard problems easier. I like taking systems apart
-						to understand exactly how they break, then turning that into practical
-						defenses and tools.
-					</p>
-					<ul class="about-focus">
-						<li><span>Penetration Testing</span></li>
-						<li><span>Reverse Engineering</span></li>
-						<li><span>Exploit Development</span></li>
-						<li><span>Open-Source Tooling</span></li>
-						<li><span>Post-Quantum Cryptography</span></li>
-					</ul>
-					<p class="about-cta">
-						Currently exploring post-quantum security and always open to interesting
-						problems. Find me on
-						<a href="https://github.com/saadbaig">GitHub</a> and
-						<a href="https://www.linkedin.com/in/sudosaad/">LinkedIn</a>.
-					</p>
+					<div class="glass-panel">
+						<header class="align-center">
+							<h2>About Me</h2>
+						</header>
+						<p class="about-lead">
+							I'm Saad Baig, a security engineer focused on offensive security —
+							penetration testing, reverse engineering, and building open-source
+							tooling that makes hard problems easier. I like taking systems apart
+							to understand exactly how they break, then turning that into practical
+							defenses and tools. I'm also a public speaker, having presented my
+							research at conferences including RMISC, IEEE, BSides, and OWASP.
+						</p>
+						<ul class="about-focus">
+							<li><span>Penetration Testing</span></li>
+							<li><span>Reverse Engineering</span></li>
+							<li><span>Exploit Development</span></li>
+							<li><span>Open-Source Tooling</span></li>
+							<li><span>Post-Quantum Cryptography</span></li>
+						</ul>
+						<p class="about-cta">
+							Currently exploring post-quantum security and always open to interesting
+							problems. Find me on
+							<a href="https://github.com/saadbaig">GitHub</a> and
+							<a href="https://www.linkedin.com/in/sudosaad/">LinkedIn</a>.
+						</p>
+					</div>
+				</div>
+			</section>
+
+		<!-- Certifications -->
+			<section id="certifications" class="wrapper style2 certs">
+				<div class="inner">
+					<div class="glass-panel" data-reveal>
+						<header class="align-center">
+							<h2>Certifications</h2>
+						</header>
+						<ul class="cert-grid">
+							<li>
+								<div class="cert-card" style="--glow: 46, 191, 145;">
+									<span class="cert-badge">PenTest+</span>
+									<h3>CompTIA PenTest+</h3>
+									<p>Penetration testing &amp; vulnerability management</p>
+								</div>
+							</li>
+							<li>
+								<div class="cert-card" style="--glow: 9, 174, 191;">
+									<span class="cert-badge">Security+</span>
+									<h3>CompTIA Security+</h3>
+									<p>Core security principles &amp; best practices</p>
+								</div>
+							</li>
+							<li>
+								<div class="cert-card" style="--glow: 0, 139, 191;">
+									<span class="cert-badge">CCNA</span>
+									<h3>Cisco CCNA</h3>
+									<p>Networking fundamentals &amp; infrastructure</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+		<!-- Speaking -->
+			<section id="speaking" class="wrapper style2 certs speaking">
+				<div class="inner">
+					<div class="glass-panel" data-reveal>
+						<header class="align-center">
+							<h2>Speaking</h2>
+							<p class="section-lead">Conferences where I've presented my research and work.</p>
+						</header>
+						<ul class="cert-grid">
+							<li>
+								<div class="cert-card" style="--glow: 240, 154, 58;">
+									<span class="cert-badge">RMISC</span>
+									<h3>RMISC</h3>
+									<p>Rocky Mountain Information Security Conference</p>
+								</div>
+							</li>
+							<li>
+								<div class="cert-card" style="--glow: 0, 218, 234;">
+									<span class="cert-badge">IEEE</span>
+									<h3>IEEE</h3>
+									<p>Institute of Electrical and Electronics Engineers</p>
+								</div>
+							</li>
+							<li>
+								<div class="cert-card" style="--glow: 191, 0, 107;">
+									<span class="cert-badge">BSides</span>
+									<h3>Security BSides</h3>
+									<p>Community-driven security conference</p>
+								</div>
+							</li>
+							<li>
+								<div class="cert-card" style="--glow: 46, 191, 145;">
+									<span class="cert-badge">OWASP</span>
+									<h3>OWASP</h3>
+									<p>Open Worldwide Application Security Project</p>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</section>
 
@@ -114,7 +201,7 @@
 
 		<!-- pqcscan -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/pqcscan" class="box" style="--glow: 240, 154, 58;">
+							<a href="projects/pqcscan.html" class="box" style="--glow: 240, 154, 58;" data-repo="SaadBaig/pqcscan">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/pqcscan.webp" type="image/webp" />
@@ -131,13 +218,14 @@
 										<li>Cryptography</li>
 										<li>PQC</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- DEFCON DDoS 2026 -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/DDoSing-DEFCON-2026" class="box" style="--glow: 9, 174, 191;">
+							<a href="projects/ddos-defcon-2026.html" class="box" style="--glow: 9, 174, 191;" data-repo="SaadBaig/DDoSing-DEFCON-2026">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/ddos.webp" type="image/webp" />
@@ -154,13 +242,14 @@
 										<li>Networking</li>
 										<li>Security</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- Pentesting Methodology -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Pentesting-Methodology" class="box" style="--glow: 46, 191, 145;">
+							<a href="projects/pentesting-methodology.html" class="box" style="--glow: 46, 191, 145;" data-repo="SaadBaig/Pentesting-Methodology">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/pentesting.webp" type="image/webp" />
@@ -177,13 +266,14 @@
 										<li>Recon</li>
 										<li>Exploitation</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- TryHackMe -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/TryHackMe" class="box" style="--glow: 112, 157, 191;">
+							<a href="projects/tryhackme.html" class="box" style="--glow: 112, 157, 191;" data-repo="SaadBaig/TryHackMe">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/tryhackme.webp" type="image/webp" />
@@ -200,13 +290,14 @@
 										<li>Linux</li>
 										<li>Web</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- Python Pentesting -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
+							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;" data-repo="SaadBaig/Python-Pentesting-Practice">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/pythondev.webp" type="image/webp" />
@@ -223,13 +314,14 @@
 										<li>Automation</li>
 										<li>Tooling</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- Reverse Engineering -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Reverse-Engineering" class="box" style="--glow: 0, 218, 234;">
+							<a href="https://github.com/SaadBaig/Reverse-Engineering" class="box" style="--glow: 0, 218, 234;" data-repo="SaadBaig/Reverse-Engineering">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/RE.webp" type="image/webp" />
@@ -246,13 +338,14 @@
 										<li>Assembly</li>
 										<li>Binary</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- Exploit dev -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
+							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;" data-repo="SaadBaig/Basic-Exploitation-Practice">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/exploitdev.webp" type="image/webp" />
@@ -269,13 +362,14 @@
 										<li>Memory</li>
 										<li>Shellcode</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
 
 		<!-- Machine Learning -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
+							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;" data-repo="SaadBaig/Machine-Learning">
 								<div class="image fit">
 									<picture>
 										<source srcset="images/ML.webp" type="image/webp" />
@@ -292,6 +386,7 @@
 										<li>ML</li>
 										<li>Data</li>
 									</ul>
+									<p class="updated" aria-hidden="true"></p>
 								</div>
 							</a>
 						</div>
@@ -316,6 +411,7 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/enhance.js"></script>
 
 	</body>
 </html>

@@ -1,0 +1,453 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
+
+/* ==========================================================================
+   Shared styles for project detail pages. Matches the main site's dark,
+   frosted-glass aesthetic. Each page sets --glow for its accent color.
+   ========================================================================== */
+
+	:root {
+		--glow: 138, 70, 128; /* default purple accent, overridden per page */
+	}
+
+	* , *:before, *:after { box-sizing: border-box; }
+
+	html { font-size: 16px; scroll-behavior: smooth; }
+
+	body {
+		margin: 0;
+		font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-weight: 300;
+		line-height: 1.7;
+		color: #cdc8d6;
+		background: #101014;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	/* Fixed accent glow backdrop (subtle, tinted per project). */
+	body:before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background:
+			radial-gradient(120vw 80vh at 80% -10%, rgba(var(--glow), 0.18), transparent 60%),
+			radial-gradient(90vw 70vh at -10% 110%, rgba(var(--glow), 0.12), transparent 55%),
+			#101014;
+	}
+
+	a { color: rgb(var(--glow)); text-decoration: none; }
+	a:hover { text-decoration: underline; }
+
+	/* --- Top bar ----------------------------------------------------------- */
+	.topbar {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.5rem;
+		background: rgba(16, 16, 20, 0.72);
+		-webkit-backdrop-filter: blur(14px);
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+		.topbar .back {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			color: #e6def0;
+			font-size: 0.9rem;
+			letter-spacing: 0.03em;
+		}
+
+			.topbar .back:hover { color: #fff; text-decoration: none; }
+
+			.topbar .back:before {
+				content: '';
+				width: 0.55rem;
+				height: 0.55rem;
+				border-left: 2px solid currentColor;
+				border-bottom: 2px solid currentColor;
+				transform: rotate(45deg);
+			}
+
+		.topbar .repo-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.45rem 1rem;
+			border-radius: 2rem;
+			font-size: 0.82rem;
+			letter-spacing: 0.05em;
+			color: rgb(var(--glow));
+			border: 1px solid rgba(var(--glow), 0.5);
+			background: rgba(var(--glow), 0.08);
+			transition: background 0.2s ease, border-color 0.2s ease;
+		}
+
+			.topbar .repo-link:hover {
+				background: rgba(var(--glow), 0.18);
+				text-decoration: none;
+			}
+
+	/* --- Hero --------------------------------------------------------------- */
+	.proj-hero {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: 4rem 1.5rem 2rem;
+		text-align: center;
+	}
+
+		.proj-hero .eyebrow {
+			display: inline-block;
+			margin-bottom: 1rem;
+			padding: 0.35rem 0.9rem;
+			border-radius: 2rem;
+			font-size: 0.7rem;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: rgb(var(--glow));
+			border: 1px solid rgba(var(--glow), 0.5);
+			background: rgba(var(--glow), 0.08);
+		}
+
+		.proj-hero h1 {
+			margin: 0.5rem 0;
+			font-size: clamp(2.4rem, 6vw, 4rem);
+			font-weight: 600;
+			line-height: 1.1;
+			color: #fff;
+			text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.5);
+		}
+
+		.proj-hero .tagline {
+			font-size: 1.1rem;
+			color: #b8b2c2;
+			max-width: 40rem;
+			margin: 0.5rem auto 0;
+		}
+
+		.proj-hero .tags {
+			list-style: none;
+			padding: 0;
+			margin: 1.5rem 0 0;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+			.proj-hero .tags li {
+				padding: 0.3rem 0.8rem;
+				border-radius: 1rem;
+				font-size: 0.72rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: rgba(var(--glow), 0.95);
+				border: 1px solid rgba(var(--glow), 0.35);
+				background: rgba(var(--glow), 0.08);
+			}
+
+	.proj-hero-image {
+		max-width: 60rem;
+		margin: 1.5rem auto 0;
+		padding: 0 1.5rem;
+	}
+
+		.proj-hero-image img {
+			width: 100%;
+			height: auto;
+			border-radius: 12px;
+			border: 1px solid rgba(var(--glow), 0.25);
+			box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+		}
+
+	/* --- Content ------------------------------------------------------------ */
+	.proj-content {
+		max-width: 52rem;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 5rem;
+	}
+
+		.proj-content section {
+			margin: 2.5rem 0;
+			padding: 2rem;
+			border-radius: 12px;
+			background: rgba(22, 20, 28, 0.55);
+			-webkit-backdrop-filter: blur(16px) saturate(120%);
+			backdrop-filter: blur(16px) saturate(120%);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+		}
+
+		.proj-content h2 {
+			margin: 0 0 1rem;
+			font-size: 1.6rem;
+			font-weight: 600;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			gap: 0.6rem;
+		}
+
+			.proj-content h2:before {
+				content: '';
+				width: 0.35rem;
+				height: 1.4rem;
+				border-radius: 2px;
+				background: rgb(var(--glow));
+			}
+
+		.proj-content h3 {
+			margin: 1.75rem 0 0.75rem;
+			font-size: 1.15rem;
+			font-weight: 600;
+			color: #e6def0;
+		}
+
+		.proj-content p { margin: 0 0 1rem; }
+		.proj-content strong, .proj-content b { color: #fff; font-weight: 600; }
+
+		.proj-content ul, .proj-content ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+		.proj-content li { margin: 0.35rem 0; }
+
+		.proj-content blockquote {
+			margin: 1rem 0;
+			padding: 0.75rem 1.25rem;
+			border-left: 3px solid rgb(var(--glow));
+			background: rgba(var(--glow), 0.06);
+			border-radius: 0 8px 8px 0;
+			color: #c7c2cf;
+		}
+
+		/* Inline + block code */
+		.proj-content code {
+			font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+			font-size: 0.86em;
+			background: rgba(255, 255, 255, 0.08);
+			padding: 0.1rem 0.4rem;
+			border-radius: 4px;
+			color: #e6df8a;
+		}
+
+		.proj-content pre {
+			margin: 1rem 0;
+			padding: 1.1rem 1.25rem;
+			overflow-x: auto;
+			border-radius: 10px;
+			background: #0b0b0f;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			line-height: 1.5;
+		}
+
+			.proj-content pre code {
+				background: none;
+				padding: 0;
+				color: #c9d1d9;
+				font-size: 0.82rem;
+			}
+
+		/* Tables */
+		.proj-content .table-wrap { overflow-x: auto; margin: 1rem 0; }
+
+		.proj-content table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.9rem;
+		}
+
+		.proj-content th, .proj-content td {
+			padding: 0.6rem 0.9rem;
+			text-align: left;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		}
+
+		.proj-content th {
+			color: #fff;
+			font-weight: 600;
+			background: rgba(var(--glow), 0.12);
+		}
+
+		.proj-content tr:hover td { background: rgba(255, 255, 255, 0.03); }
+
+		/* Risk / status pills */
+		.pill {
+			display: inline-block;
+			padding: 0.15rem 0.6rem;
+			border-radius: 1rem;
+			font-size: 0.78rem;
+			font-weight: 600;
+		}
+			.pill.critical { background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220,38,38,0.5); }
+			.pill.high     { background: rgba(234, 88, 12, 0.2);  color: #fb923c; border: 1px solid rgba(234,88,12,0.5); }
+			.pill.medium   { background: rgba(202, 138, 4, 0.2);  color: #facc15; border: 1px solid rgba(202,138,4,0.5); }
+			.pill.low      { background: rgba(22, 163, 74, 0.2);  color: #4ade80; border: 1px solid rgba(22,163,74,0.5); }
+			.pill.info     { background: rgba(37, 99, 235, 0.2);  color: #60a5fa; border: 1px solid rgba(37,99,235,0.5); }
+
+	/* --- Footer ------------------------------------------------------------- */
+	.proj-footer {
+		text-align: center;
+		padding: 2.5rem 1.5rem 3rem;
+		color: #8a8494;
+		font-size: 0.9rem;
+	}
+
+		.proj-footer a { color: rgb(var(--glow)); }
+
+	/* --- Reduced motion ----------------------------------------------------- */
+	@media (prefers-reduced-motion: reduce) {
+		html { scroll-behavior: auto; }
+	}
+
+	@media screen and (max-width: 600px) {
+		.proj-content section { padding: 1.5rem; }
+		.topbar { padding: 0.85rem 1rem; }
+	}
+
+/* ==========================================================================
+   Rendered README (full markdown) content
+   ========================================================================== */
+
+	.readme {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: 1rem 1.5rem 5rem;
+	}
+
+	.readme-body {
+		padding: 2.5rem;
+		border-radius: 12px;
+		background: rgba(22, 20, 28, 0.6);
+		-webkit-backdrop-filter: blur(16px) saturate(120%);
+		backdrop-filter: blur(16px) saturate(120%);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+		.readme-body h1,
+		.readme-body h2,
+		.readme-body h3,
+		.readme-body h4,
+		.readme-body h5,
+		.readme-body h6 {
+			color: #fff;
+			line-height: 1.25;
+			margin: 2rem 0 0.9rem;
+			/* Offset so TOC jumps don't hide the heading under the sticky topbar. */
+			scroll-margin-top: 5rem;
+		}
+
+		.readme-body h1 { font-size: 1.9rem; font-weight: 600; }
+		.readme-body h2 {
+			font-size: 1.45rem;
+			font-weight: 600;
+			padding-bottom: 0.4rem;
+			border-bottom: 1px solid rgba(var(--glow), 0.3);
+		}
+		.readme-body h3 { font-size: 1.15rem; font-weight: 600; color: #e6def0; }
+		.readme-body h4 { font-size: 1rem; font-weight: 600; color: #e6def0; }
+
+		.readme-body > :first-child { margin-top: 0; }
+
+		.readme-body p { margin: 0 0 1rem; }
+		.readme-body strong, .readme-body b { color: #fff; font-weight: 600; }
+		.readme-body em { color: #d7d2df; }
+
+		.readme-body a { color: rgb(var(--glow)); }
+
+		.readme-body ul, .readme-body ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+		.readme-body li { margin: 0.3rem 0; }
+		.readme-body li > ul, .readme-body li > ol { margin: 0.3rem 0; }
+
+		.readme-body hr {
+			border: 0;
+			height: 1px;
+			background: rgba(255, 255, 255, 0.12);
+			margin: 2.5rem 0;
+		}
+
+		.readme-body blockquote {
+			margin: 1rem 0;
+			padding: 0.75rem 1.25rem;
+			border-left: 3px solid rgb(var(--glow));
+			background: rgba(var(--glow), 0.07);
+			border-radius: 0 8px 8px 0;
+			color: #c7c2cf;
+		}
+
+			.readme-body blockquote > :last-child { margin-bottom: 0; }
+
+		.readme-body img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 10px;
+			display: block;
+			margin: 1rem auto;
+		}
+
+		/* Inline + block code */
+		.readme-body code {
+			font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+			font-size: 0.86em;
+			background: rgba(255, 255, 255, 0.08);
+			padding: 0.1rem 0.4rem;
+			border-radius: 4px;
+			color: #e6df8a;
+			word-break: break-word;
+		}
+
+		.readme-body pre {
+			margin: 1rem 0;
+			padding: 1.1rem 1.25rem;
+			overflow-x: auto;
+			border-radius: 10px;
+			background: #0b0b0f;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			line-height: 1.5;
+		}
+
+			.readme-body pre code {
+				background: none;
+				padding: 0;
+				color: #c9d1d9;
+				font-size: 0.82rem;
+				word-break: normal;
+			}
+
+		/* Tables (wrapped by render.js in .table-wrap) */
+		.readme-body .table-wrap { overflow-x: auto; margin: 1rem 0; }
+
+		.readme-body table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.9rem;
+		}
+
+		.readme-body th, .readme-body td {
+			padding: 0.55rem 0.85rem;
+			text-align: left;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			vertical-align: top;
+		}
+
+		.readme-body th {
+			color: #fff;
+			font-weight: 600;
+			background: rgba(var(--glow), 0.14);
+		}
+
+		.readme-body tr:nth-child(2n) td { background: rgba(255, 255, 255, 0.02); }
+
+	/* Loading state before markdown renders. */
+	.readme-loading {
+		text-align: center;
+		color: #8a8494;
+		padding: 3rem 1rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		.readme-body { padding: 1.5rem; }
+	}

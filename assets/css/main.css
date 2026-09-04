@@ -4098,17 +4098,32 @@
 	/* Project section: a vertical gradient that starts clear at the top (so it
 	   blends out of the hero) and darkens for readability behind the cards.
 	   Being confined to this section, it never covers the footer. */
+	/* Content sections are transparent; each text block sits on its own
+	   frosted-glass panel (.glass-panel / .cert-card) matching the project
+	   boxes, so readability is consistent without a page-wide tint. */
 	.wrapper.style2 {
 		background-color: transparent;
-		background-image: linear-gradient(
-			to bottom,
-			rgba(16, 16, 20, 0) 0%,
-			rgba(16, 16, 20, 0.55) 20%,
-			rgba(16, 16, 20, 0.55) 80%,
-			rgba(16, 16, 20, 0) 100%
-		);
+		background-image: none;
 		color: #b0b0b0;
 	}
+
+	/* Frosted-glass panel — same recipe as the project cards (.box .content
+	   + .box frame) so About/section panels look identical to the boxes. */
+	.glass-panel {
+		padding: 3rem;
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		background: rgba(20, 18, 26, 0.8);
+		-webkit-backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
+		backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
+		box-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.25rem -0.25rem rgba(124, 58, 237, 0.25);
+	}
+
+		@media screen and (max-width: 736px) {
+			.glass-panel { padding: 2rem; }
+		}
 
 		.wrapper.style2 h1,
 		.wrapper.style2 h2,
@@ -4216,12 +4231,14 @@
 		padding: 0;
 	}
 
-		/* No per-slide/overlay tint here: it would cover the whole fixed
-		   viewport (including the footer). Readability darkening is applied to
-		   the projects section and the hero instead. */
+		/* Per-slide overlay disabled; the readability tint is a single fixed
+		   overlay (#bg:after) instead, so it's consistent across all content. */
 		#bg > article:after {
 			display: none;
 		}
+
+	/* (No page tint overlay — each text section uses its own frosted-glass
+	   panel instead, matching the project cards for a consistent look.) */
 
 	/* Hero: empty spacer occupying the first screen. The caption lives inside
 	   the fixed #bg slides so it cross-fades together with the image. */
@@ -4414,8 +4431,10 @@
 		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		z-index: 3;
-		/* Fade the cue out as the page scrolls (shares the caption fade var). */
+		/* Fade the cue out as the page scrolls, and back in near the top.
+		   Driven by --caption-opacity (set on :root by main.js). */
 		opacity: var(--caption-opacity, 1);
+		transition: opacity 0.4s ease;
 		-webkit-animation: cue-bob 2s ease-in-out infinite;
 		animation: cue-bob 2s ease-in-out infinite;
 	}
@@ -4497,6 +4516,9 @@
 		.about .about-cta {
 			text-align: center;
 			color: #ffffff;
+			/* Remove the default paragraph bottom margin so the gap below About
+			   matches the gap below the Certifications section. */
+			margin-bottom: 0;
 		}
 
 	/* --- Project card tag chips -------------------------------------------- */
@@ -4562,6 +4584,192 @@
 		[data-reveal] {
 			opacity: 1 !important;
 			transform: none !important;
+		}
+
+	}
+
+/* ==========================================================================
+   Certifications, terminal hero, GitHub stamps, easter eggs
+   ========================================================================== */
+
+	/* --- Certifications ---------------------------------------------------- */
+	.certs .inner {
+		max-width: 60rem;
+	}
+
+		.certs header {
+			margin-bottom: 2.5rem;
+		}
+
+		.certs h2 {
+			margin-bottom: 0;
+		}
+
+		.certs .section-lead {
+			text-align: center;
+			color: #b8b2c2;
+			margin: 0.75rem 0 0 0;
+		}
+
+	.cert-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		gap: 1.5rem;
+	}
+
+		.cert-grid > li {
+			padding: 0;
+			-webkit-flex: 1 1 15rem;
+			-ms-flex: 1 1 15rem;
+			flex: 1 1 15rem;
+			max-width: 18rem;
+		}
+
+	.cert-card {
+		height: 100%;
+		padding: 2rem 1.5rem;
+		text-align: center;
+		border-radius: 10px;
+		/* These cards sit inside a frosted .glass-panel, so they use a lighter
+		   translucent surface (no heavy re-blur) with a glow border to read as
+		   distinct sub-cards. */
+		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.28);
+		background: rgba(255, 255, 255, 0.04);
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
+		transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+	}
+
+		.cert-card:hover {
+			transform: translateY(-5px);
+			background: rgba(var(--glow, 124, 58, 237), 0.1);
+			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
+			box-shadow:
+				0 0.6rem 1.5rem rgba(0, 0, 0, 0.35),
+				0 0 1.5rem rgba(var(--glow, 124, 58, 237), 0.45);
+		}
+
+		.cert-badge {
+			display: inline-block;
+			margin-bottom: 1rem;
+			padding: 0.35rem 0.9rem;
+			border-radius: 2rem;
+			font-size: 0.72rem;
+			font-weight: 600;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(var(--glow, 255, 255, 255), 0.95);
+			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.5);
+			background: rgba(var(--glow, 255, 255, 255), 0.1);
+		}
+
+		.cert-card h3 {
+			margin: 0 0 0.5rem 0;
+			font-size: 1.1rem;
+			color: #ffffff;
+		}
+
+		.cert-card p {
+			margin: 0;
+			font-size: 0.85rem;
+			color: #b8b2c2;
+		}
+
+	/* --- Terminal hero: blinking cursor ------------------------------------ */
+	.caption-terminal .type-cursor {
+		display: inline-block;
+		width: 0.06em;
+		min-width: 3px;
+		height: 0.9em;
+		margin-left: 0.08em;
+		background: currentColor;
+		vertical-align: -0.08em;
+		-webkit-animation: term-blink 1.05s steps(1) infinite;
+		animation: term-blink 1.05s steps(1) infinite;
+	}
+
+	@-webkit-keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+	@keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+	/* --- GitHub "last updated" stamp on cards ------------------------------ */
+	.box .content .updated {
+		margin: 0.9rem 0 0 0;
+		font-size: 0.7rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
+		opacity: 0;
+		transition: opacity 0.4s ease;
+		min-height: 0.9rem; /* reserve space so the card doesn't jump */
+	}
+
+		.box .content .updated.is-shown {
+			opacity: 1;
+		}
+
+	/* --- Easter egg: Konami "hacker mode" ---------------------------------- */
+	.egg-flash {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 200;
+		padding: 1rem 2rem;
+		font-family: 'Courier New', monospace;
+		font-size: 1.5rem;
+		letter-spacing: 0.1em;
+		color: #33ff66;
+		background: rgba(0, 0, 0, 0.85);
+		border: 1px solid #33ff66;
+		border-radius: 6px;
+		box-shadow: 0 0 2rem rgba(51, 255, 102, 0.5);
+		text-shadow: 0 0 8px rgba(51, 255, 102, 0.8);
+		transition: opacity 0.6s ease;
+	}
+
+		.egg-flash.is-gone {
+			opacity: 0;
+		}
+
+	/* Hacker mode: green terminal tint + monospace vibe over the whole page. */
+	body.hacker-mode .box .content,
+	body.hacker-mode .cert-card,
+	body.hacker-mode .about .about-focus span,
+	body.hacker-mode .box .content .tags li {
+		border-color: rgba(51, 255, 102, 0.6) !important;
+	}
+
+	body.hacker-mode .wrapper.style2 h2,
+	body.hacker-mode .box .content h2,
+	body.hacker-mode .cert-card h3,
+	body.hacker-mode .caption-terminal h2 {
+		color: #33ff66 !important;
+		text-shadow: 0 0 10px rgba(51, 255, 102, 0.6);
+		font-family: 'Courier New', monospace;
+	}
+
+	body.hacker-mode {
+		-webkit-filter: hue-rotate(85deg) saturate(1.2);
+		filter: hue-rotate(85deg) saturate(1.2);
+		transition: -webkit-filter 0.5s ease, filter 0.5s ease;
+	}
+
+	/* --- Reduced motion: stop cursor blink and egg animations -------------- */
+	@media (prefers-reduced-motion: reduce) {
+
+		.caption-terminal .type-cursor {
+			-webkit-animation: none !important;
+			animation: none !important;
+			opacity: 1;
 		}
 
 	}
