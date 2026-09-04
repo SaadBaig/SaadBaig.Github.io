@@ -4095,30 +4095,36 @@
 		color: #cccccc;
 	}
 
-	/* Project section: a vertical gradient that starts clear at the top (so it
-	   blends out of the hero) and darkens for readability behind the cards.
-	   Being confined to this section, it never covers the footer. */
-	/* Content sections are transparent; each text block sits on its own
-	   frosted-glass panel (.glass-panel / .cert-card) matching the project
-	   boxes, so readability is consistent without a page-wide tint. */
+	/* Shared panel surface tokens used by every text block (.glass-panel,
+	   .box .content, .cert-card). A simple semi-transparent dark fill (80%
+	   opaque) with NO backdrop-filter: the 20% transparency lets the background
+	   show through, and with no backdrop-filter the surface never samples the
+	   live background, so it stays static (no shift as the slideshow cycles or
+	   on hover). Keeping it in one place keeps every section consistent. */
+	:root {
+		--panel-surface: rgba(20, 18, 26, 0.8);
+		--panel-border: rgba(255, 255, 255, 0.22);
+		--panel-radius: 10px;
+		--panel-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.25rem -0.25rem rgba(124, 58, 237, 0.25);
+	}
+
+	/* Content sections themselves stay transparent; each text block sits on a
+	   translucent panel. */
 	.wrapper.style2 {
 		background-color: transparent;
 		background-image: none;
 		color: #b0b0b0;
 	}
 
-	/* Frosted-glass panel — same recipe as the project cards (.box .content
-	   + .box frame) so About/section panels look identical to the boxes. */
+	/* About / section panel — uses the shared translucent surface. */
 	.glass-panel {
+		background: var(--panel-surface);
+		border: 1px solid var(--panel-border);
+		border-radius: var(--panel-radius);
+		box-shadow: var(--panel-shadow);
 		padding: 3rem;
-		border-radius: 10px;
-		border: 1px solid rgba(255, 255, 255, 0.22);
-		background: rgba(20, 18, 26, 0.8);
-		-webkit-backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
-		backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
-		box-shadow:
-			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
-			0 0 1.25rem -0.25rem rgba(124, 58, 237, 0.25);
 	}
 
 		@media screen and (max-width: 736px) {
@@ -4143,66 +4149,51 @@
 			color: #c98fc0;
 		}
 
-		.wrapper.style2 .box {
-			border-color: rgba(255, 255, 255, 0.12);
-		}
-
-	/* Cards: frosted-glass panels so the rotating background glows through.
-	   Each card is tinted by its own image color via the --glow variable. */
+	/* Project cards — the frame holds the glow-tinted border + shadow; the
+	   .content area is the shared translucent surface. Hover changes ONLY the
+	   border + glow (no transform, no background change), so the translucency
+	   looks identical hovered or not. */
 	.box {
 		background: transparent;
 		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.22);
-		border-radius: 10px;
+		border-radius: var(--panel-radius);
 		overflow: hidden;
 		box-shadow:
 			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
 			0 0 1.25rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.25);
-		transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+		transition: box-shadow 0.25s ease, border-color 0.25s ease;
 	}
 
 		.wrapper.style2 .box {
 			border-color: rgba(var(--glow, 255, 255, 255), 0.22);
 		}
 
-		/* Keep the image crisp; blend its lower edge into the frosted panel. */
 		.box .image.fit {
 			position: relative;
 		}
 
-			.box .image.fit:after {
-				content: '';
-				position: absolute;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				height: 40%;
-				background: linear-gradient(to bottom, rgba(20, 18, 26, 0), rgba(20, 18, 26, 0.55));
-				pointer-events: none;
-			}
-
-		/* Frosted-glass content area. Stronger blur + a more opaque panel so
-		   card text stays legible over busy background imagery. */
+		/* Translucent content area — the background shows through the 20% gap. */
 		.box .content {
-			background: rgba(20, 18, 26, 0.8);
-			-webkit-backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
-			backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
+			background: var(--panel-surface);
 		}
 
 		.box header p:after {
 			background-color: rgba(255, 255, 255, 0.15);
 		}
 
-	/* Clickable card in dark mode */
+	/* Clickable card */
 	a.box {
-		border-radius: 10px;
+		border-radius: var(--panel-radius);
 	}
 
 		a.box .content p {
 			color: #c7c2cf;
 		}
 
+		/* Hover: surface/opacity never changes. Only the border + glow respond.
+		   No transform (moving the element is unnecessary and was the source of
+		   perceived opacity shifts). */
 		a.box:hover {
-			transform: translateY(-5px);
 			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
 			box-shadow:
 				0 0.9rem 2.25rem rgba(0, 0, 0, 0.5),
@@ -4231,20 +4222,27 @@
 		padding: 0;
 	}
 
-		/* Per-slide overlay disabled; the readability tint is a single fixed
-		   overlay (#bg:after) instead, so it's consistent across all content. */
+		/* Disable the template's per-slide dark overlay; readability comes from
+		   each text block's own translucent panel instead. */
 		#bg > article:after {
 			display: none;
 		}
 
-	/* (No page tint overlay — each text section uses its own frosted-glass
-	   panel instead, matching the project cards for a consistent look.) */
-
 	/* Hero: empty spacer occupying the first screen. The caption lives inside
-	   the fixed #bg slides so it cross-fades together with the image. */
+	   the fixed #bg slides so it cross-fades together with the image. Flex is
+	   used to anchor the scroll-down cue at the bottom-center. */
 	.hero {
 		position: relative;
 		min-height: 100vh;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: flex-end;
+		-ms-flex-align: end;
+		align-items: flex-end;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
 	}
 
 	/* Per-slide caption: centered over the first viewport. Because it sits
@@ -4363,9 +4361,6 @@
 
 	.wrapper.style3 {
 		padding-top: 2rem;
-	}
-
-	.wrapper.style3 {
 		background-color: transparent;
 		background-image: none;
 	}
@@ -4404,18 +4399,6 @@
 	}
 
 	/* --- Scroll-down cue in the hero --------------------------------------- */
-	.hero {
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-align-items: flex-end;
-		-ms-flex-align: end;
-		align-items: flex-end;
-		-webkit-justify-content: center;
-		-ms-flex-pack: center;
-		justify-content: center;
-	}
-
 	.scroll-cue {
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -4506,8 +4489,6 @@
 				border: 1px solid rgba(201, 143, 192, 0.4);
 				border-radius: 2rem;
 				background: rgba(138, 70, 128, 0.12);
-				-webkit-backdrop-filter: blur(6px);
-				backdrop-filter: blur(6px);
 				font-size: 0.8rem;
 				letter-spacing: 0.05em;
 				color: #e6def0;
@@ -4635,27 +4616,22 @@
 			max-width: 18rem;
 		}
 
+	/* Cert / speaking cards sit inside the section's single translucent
+	   .glass-panel (matching the About panel). They have NO surface of their
+	   own — just a glow border — so the section keeps one consistent translucent
+	   layer. Hover changes only the border. */
 	.cert-card {
 		height: 100%;
 		padding: 2rem 1.5rem;
 		text-align: center;
-		border-radius: 10px;
-		/* These cards sit inside a frosted .glass-panel, so they use a lighter
-		   translucent surface (no heavy re-blur) with a glow border to read as
-		   distinct sub-cards. */
+		border-radius: var(--panel-radius);
 		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.28);
-		background: rgba(255, 255, 255, 0.04);
-		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
-		transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+		background: transparent;
+		transition: border-color 0.25s ease;
 	}
 
 		.cert-card:hover {
-			transform: translateY(-5px);
-			background: rgba(var(--glow, 124, 58, 237), 0.1);
 			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
-			box-shadow:
-				0 0.6rem 1.5rem rgba(0, 0, 0, 0.35),
-				0 0 1.5rem rgba(var(--glow, 124, 58, 237), 0.45);
 		}
 
 		.cert-badge {
@@ -4757,9 +4733,13 @@
 		font-family: 'Courier New', monospace;
 	}
 
-	body.hacker-mode {
-		-webkit-filter: hue-rotate(85deg) saturate(1.2);
-		filter: hue-rotate(85deg) saturate(1.2);
+	/* Green the rotating background. The filter is applied to #bg ITSELF (not an
+	   ancestor like <body>) — a filter on an ancestor would create a containing
+	   block and break #bg's own `position: fixed`, clipping/misplacing it. On
+	   the element itself it's safe, so the background stays fixed. */
+	body.hacker-mode #bg {
+		-webkit-filter: hue-rotate(85deg) saturate(1.3);
+		filter: hue-rotate(85deg) saturate(1.3);
 		transition: -webkit-filter 0.5s ease, filter 0.5s ease;
 	}
 

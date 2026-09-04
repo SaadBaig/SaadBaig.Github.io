@@ -269,15 +269,13 @@ var settings = {
 				}, 100);
 			});
 
-		// Fade the hero caption out as the page is scrolled into content.
-		// (The readability tint is handled purely in CSS on the projects
-		// section, so it can never cover the footer.)
+		// Fade the hero caption and scroll-cue out as the page scrolls past the
+		// hero (via the --caption-opacity custom property on :root).
 			(function() {
 
-				var $bg = $('#bg'),
-					ticking = false;
+				var ticking = false;
 
-				if ($bg.length == 0)
+				if ($banner.length == 0)
 					return;
 
 				function updateCaption() {
