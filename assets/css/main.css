@@ -4310,7 +4310,7 @@
 			}
 
 		#footer .copyright {
-			color: #bbb;
+			color: #ffffff;
 			font-size: 0.9rem;
 			margin: 0 0 2rem 0;
 			padding: 0;
@@ -4343,8 +4343,9 @@
 		background-image: linear-gradient(
 			to bottom,
 			rgba(16, 16, 20, 0) 0%,
-			rgba(16, 16, 20, 0.55) 22%,
-			rgba(16, 16, 20, 0.55) 100%
+			rgba(16, 16, 20, 0.55) 20%,
+			rgba(16, 16, 20, 0.55) 80%,
+			rgba(16, 16, 20, 0) 100%
 		);
 		color: #b0b0b0;
 	}
@@ -4504,7 +4505,20 @@
 		}
 
 	/* Footer (style3): fully transparent so the rotating #bg shows through
-	   untinted. (The template's hardcoded static image was removed above.) */
+	   untinted. The template adds a .wrapper.style3:before overlay
+	   (rgba(0,0,0,0.95) at 0.75 opacity) to darken its static image; disable it
+	   since our footer sits over the live rotating background. */
+	.wrapper.style3:before {
+		display: none;
+	}
+
+	/* The footer element is #four (not #footer), so the template's
+	   "#footer .copyright" rule never applies; the quote otherwise inherits the
+	   grey .wrapper.style3 color. Force it white to match the banner text. */
+	.wrapper.style3 .copyright {
+		color: #ffffff;
+	}
+
 	.wrapper.style3 {
 		background-color: transparent;
 		background-image: none;
