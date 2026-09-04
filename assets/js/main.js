@@ -315,6 +315,39 @@ var settings = {
 		// per-slide opacity transition cross-fades the text with the image.
 			$banner._slider(settings.banner);
 
+		// Scroll-reveal: fade/rise elements in as they enter the viewport.
+		// Respects prefers-reduced-motion and degrades gracefully.
+			(function() {
+
+				var items = document.querySelectorAll('[data-reveal]');
+
+				if (items.length === 0)
+					return;
+
+				var reduce = window.matchMedia
+					&& window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+				// No IntersectionObserver or reduced motion: just show everything.
+				if (reduce || !('IntersectionObserver' in window)) {
+					for (var i = 0; i < items.length; i++)
+						items[i].classList.add('is-visible');
+					return;
+				}
+
+				var observer = new IntersectionObserver(function(entries) {
+					entries.forEach(function(entry) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible');
+							observer.unobserve(entry.target);
+						}
+					});
+				}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+				for (var j = 0; j < items.length; j++)
+					observer.observe(items[j]);
+
+			})();
+
 	});
 
 })(jQuery);

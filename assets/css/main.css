@@ -4165,11 +4165,12 @@
 				pointer-events: none;
 			}
 
-		/* Frosted-glass content area. */
+		/* Frosted-glass content area. Stronger blur + a more opaque panel so
+		   card text stays legible over busy background imagery. */
 		.box .content {
-			background: rgba(22, 20, 28, 0.55);
-			-webkit-backdrop-filter: blur(12px) saturate(120%);
-			backdrop-filter: blur(12px) saturate(120%);
+			background: rgba(20, 18, 26, 0.8);
+			-webkit-backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
+			backdrop-filter: blur(22px) saturate(130%) brightness(0.85);
 		}
 
 		.box header p:after {
@@ -4283,10 +4284,35 @@
 			text-decoration: none;
 		}
 
+		/* Tablet: the base 7rem title is too large for ~740-980px widths. */
+		@media screen and (max-width: 980px) {
+
+			#bg > article .caption h2 {
+				font-size: 5rem;
+			}
+
+		}
+
 		@media screen and (max-width: 736px) {
 
 			#bg > article .caption h2 {
 				font-size: 4rem;
+			}
+
+		}
+
+		/* Small phones: prevent long titles (e.g. "Open Source Development")
+		   from overflowing the viewport. Placed after the 736px rule so it
+		   wins at narrow widths (equal specificity → later rule applies). */
+		@media screen and (max-width: 480px) {
+
+			#bg > article .caption h2 {
+				font-size: 2.6rem;
+			}
+
+			#bg > article .caption .hero-subtitle {
+				font-size: 0.8rem;
+				letter-spacing: 0.25em;
 			}
 
 		}
@@ -4308,8 +4334,9 @@
 
 	/* Tighten the large gap between the last cards and the footer: the footer
 	   inherits .wrapper's 6rem top padding on top of the projects section's
-	   4rem bottom padding. Pull both in. */
-	.wrapper.style2 {
+	   4rem bottom padding. Pull both in. (Scoped to #projects so the About
+	   section keeps its normal spacing.) */
+	#projects.wrapper.style2 {
 		padding-bottom: 1rem;
 	}
 
@@ -4320,4 +4347,217 @@
 	.wrapper.style3 {
 		background-color: transparent;
 		background-image: none;
+	}
+
+/* ==========================================================================
+   Enhancements: skip link, scroll cue, About, tags, scroll-reveal
+   ========================================================================== */
+
+	/* Skip link — visually hidden until focused (keyboard/AT users). */
+	.skip-link {
+		position: absolute;
+		left: 50%;
+		top: -3rem;
+		transform: translateX(-50%);
+		z-index: 100;
+		padding: 0.6rem 1.2rem;
+		background: #8a4680;
+		color: #fff !important;
+		border-radius: 0 0 6px 6px;
+		text-decoration: none;
+		font-size: 0.85rem;
+		letter-spacing: 0.1em;
+		transition: top 0.2s ease;
+	}
+
+		.skip-link:focus {
+			top: 0;
+			outline: 2px solid #fff;
+		}
+
+	/* Visible focus outline for keyboard navigation on interactive elements. */
+	a:focus-visible,
+	.box:focus-visible {
+		outline: 2px solid #c98fc0;
+		outline-offset: 3px;
+	}
+
+	/* --- Scroll-down cue in the hero --------------------------------------- */
+	.hero {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: flex-end;
+		-ms-flex-align: end;
+		align-items: flex-end;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+	}
+
+	.scroll-cue {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 2.5rem;
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		z-index: 3;
+		/* Fade the cue out as the page scrolls (shares the caption fade var). */
+		opacity: var(--caption-opacity, 1);
+		-webkit-animation: cue-bob 2s ease-in-out infinite;
+		animation: cue-bob 2s ease-in-out infinite;
+	}
+
+		.scroll-cue-text {
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 0.35em;
+			text-indent: 0.35em;
+			text-shadow: 0 0.1rem 0.75rem rgba(0, 0, 0, 0.6);
+		}
+
+		.scroll-cue-chevron {
+			width: 0.85rem;
+			height: 0.85rem;
+			border-right: 2px solid rgba(255, 255, 255, 0.85);
+			border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+			transform: rotate(45deg);
+		}
+
+	@-webkit-keyframes cue-bob {
+		0%, 100% { transform: translateY(0); }
+		50%      { transform: translateY(0.4rem); }
+	}
+	@keyframes cue-bob {
+		0%, 100% { transform: translateY(0); }
+		50%      { transform: translateY(0.4rem); }
+	}
+
+	/* --- About section ----------------------------------------------------- */
+	.about .inner {
+		max-width: 52rem;
+	}
+
+		.about h2 {
+			margin-bottom: 1.5rem;
+		}
+
+		.about .about-lead {
+			text-align: center;
+			font-size: 1.05rem;
+			line-height: 1.8;
+			color: #d7d2df;
+		}
+
+		.about .about-focus {
+			list-style: none;
+			padding: 0;
+			margin: 2rem 0;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			gap: 0.6rem;
+		}
+
+			.about .about-focus li {
+				padding: 0;
+			}
+
+			.about .about-focus span {
+				display: inline-block;
+				padding: 0.45rem 1rem;
+				border: 1px solid rgba(201, 143, 192, 0.4);
+				border-radius: 2rem;
+				background: rgba(138, 70, 128, 0.12);
+				-webkit-backdrop-filter: blur(6px);
+				backdrop-filter: blur(6px);
+				font-size: 0.8rem;
+				letter-spacing: 0.05em;
+				color: #e6def0;
+			}
+
+		.about .about-cta {
+			text-align: center;
+			color: #ffffff;
+		}
+
+	/* --- Project card tag chips -------------------------------------------- */
+	.box .content .tags {
+		list-style: none;
+		margin: 1.25rem 0 0 0;
+		padding: 0;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		gap: 0.4rem;
+	}
+
+		.box .content .tags li {
+			padding: 0.25rem 0.65rem;
+			border-radius: 1rem;
+			font-size: 0.68rem;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			color: rgba(var(--glow, 255, 255, 255), 0.95);
+			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.35);
+			background: rgba(var(--glow, 255, 255, 255), 0.08);
+		}
+
+	/* --- Scroll-reveal ----------------------------------------------------- */
+	[data-reveal] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition: opacity 0.7s ease, transform 0.7s ease;
+		will-change: opacity, transform;
+	}
+
+		[data-reveal].is-visible {
+			opacity: 1;
+			transform: none;
+		}
+
+	/* --- Respect reduced-motion preferences -------------------------------- */
+	@media (prefers-reduced-motion: reduce) {
+
+		*,
+		*:before,
+		*:after {
+			-webkit-animation-duration: 0.001ms !important;
+			animation-duration: 0.001ms !important;
+			-webkit-animation-iteration-count: 1 !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.001ms !important;
+			scroll-behavior: auto !important;
+		}
+
+		.scroll-cue {
+			-webkit-animation: none !important;
+			animation: none !important;
+		}
+
+		[data-reveal] {
+			opacity: 1 !important;
+			transform: none !important;
+		}
+
 	}

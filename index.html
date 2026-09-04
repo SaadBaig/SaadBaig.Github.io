@@ -1,190 +1,309 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 	<head>
-		<title>Saad Baig</title>
+		<title>Saad Baig — Security Engineer</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Saad Baig — Security Engineer specializing in penetration testing, reverse engineering, and open-source security tooling. Explore projects, tools, and research." />
+
+		<!-- Open Graph / social preview -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Saad Baig — Security Engineer" />
+		<meta property="og:description" content="Penetration testing, reverse engineering, and open-source security tooling." />
+		<meta property="og:image" content="images/banner1.jpg" />
+		<meta property="og:url" content="https://saadbaig.dev" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<!-- Preload the first banner (the only image needed for first paint). -->
+		<link rel="preload" as="image" href="images/banner1.webp" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body>
 
+		<!-- Skip link for keyboard/screen-reader users. -->
+			<a class="skip-link" href="#projects">Skip to content</a>
+
 		<!-- Rotating background (spans the whole page). Each slide carries its
-		     own caption so the text cross-fades together with the image, just
-		     like the original banner. -->
-			<div id="bg" class="banner">
+		     own caption so the text cross-fades together with the image.
+		     The <img> src drives the CSS background set by the slider, so it
+		     points at the optimized WebP directly. -->
+			<div id="bg" class="banner" aria-hidden="true">
 				<article>
-					<img src="images/banner1.jpg" alt="" />
+					<img src="images/banner1.webp" alt="" />
 					<div class="caption">
 						<h2><a href="https://github.com/saadbaig">Saad Baig</a></h2>
 						<h1 class="hero-subtitle"><a href="https://github.com/saadbaig">Security Engineer</a></h1>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner2.jpg" alt="" />
+					<img src="images/banner2.webp" alt="" />
 					<div class="caption">
 						<h2><a href="https://github.com/saadbaig/Pentesting-Methodology">Penetration Testing</a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner3.jpg" alt="" />
+					<img src="images/banner3.webp" alt="" />
 					<div class="caption">
 						<h2><a href="https://github.com/saadbaig/Reverse-Engineering">Reverse Engineering</a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner4.jpg" alt="" />
+					<img src="images/banner4.webp" alt="" />
 					<div class="caption">
 						<h2>Incident Response</h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner5.jpg" alt="" />
+					<img src="images/banner5.webp" alt="" />
 					<div class="caption">
 						<h2>Social Engineering</h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner6.jpg" alt="" />
+					<img src="images/banner6.webp" alt="" />
 					<div class="caption">
 						<h2><a href="https://github.com/saadbaig/pqcscan">Open Source Development</a></h2>
 					</div>
 				</article>
 			</div>
 
-		<!-- Spacer so the first screen (the hero) is scrolled past into content. -->
-			<section class="hero"></section>
+		<!-- Hero: spacer occupying the first screen, with a scroll-down cue. -->
+			<section class="hero">
+				<a class="scroll-cue" href="#about" aria-label="Scroll to content">
+					<span class="scroll-cue-text">Scroll</span>
+					<span class="scroll-cue-chevron"></span>
+				</a>
+			</section>
 
-		
-			<section id="one" class="wrapper style2">
+		<!-- About -->
+			<section id="about" class="wrapper style2 about" data-reveal>
 				<div class="inner">
+					<header class="align-center">
+						<h2>About</h2>
+					</header>
+					<p class="about-lead">
+						I'm Saad Baig, a security engineer focused on offensive security —
+						penetration testing, reverse engineering, and building open-source
+						tooling that makes hard problems easier. I like taking systems apart
+						to understand exactly how they break, then turning that into practical
+						defenses and tools.
+					</p>
+					<ul class="about-focus">
+						<li><span>Penetration Testing</span></li>
+						<li><span>Reverse Engineering</span></li>
+						<li><span>Exploit Development</span></li>
+						<li><span>Open-Source Tooling</span></li>
+						<li><span>Post-Quantum Cryptography</span></li>
+					</ul>
+					<p class="about-cta">
+						Currently exploring post-quantum security and always open to interesting
+						problems. Find me on
+						<a href="https://github.com/saadbaig">GitHub</a> and
+						<a href="https://www.linkedin.com/in/sudosaad/">LinkedIn</a>.
+					</p>
+				</div>
+			</section>
+
+		<!-- Projects -->
+			<section id="projects" class="wrapper style2">
+				<div class="inner">
+					<header class="align-center">
+						<h2>Projects</h2>
+					</header>
 					<div class="grid-style">
-		<!-- pqcscan -->	
-						<div>
+
+		<!-- pqcscan -->
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/pqcscan" class="box" style="--glow: 240, 154, 58;">
 								<div class="image fit">
-									<img src="images/pqcscan.jpg" alt="" />
+									<picture>
+										<source srcset="images/pqcscan.webp" type="image/webp" />
+										<img src="images/pqcscan.jpg" alt="PQCScan project banner: a stylized quantum computer" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>PQCScan</h2>
 									</header>
-									<p>Post Quantum Cryptopgrahy scanner</p>
+									<p>A scanner for post-quantum cryptography — checks systems for quantum-resistant readiness.</p>
+									<ul class="tags">
+										<li>Rust</li>
+										<li>Cryptography</li>
+										<li>PQC</li>
+									</ul>
 								</div>
 							</a>
 						</div>
-		
-		<!-- DEFCON DDoS 2026 -->	
-						<div>
+
+		<!-- DEFCON DDoS 2026 -->
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/DDoSing-DEFCON-2026" class="box" style="--glow: 9, 174, 191;">
 								<div class="image fit">
-									<img src="images/ddos.jpg" alt="" />
+									<picture>
+										<source srcset="images/ddos.webp" type="image/webp" />
+										<img src="images/ddos.jpg" alt="DEFCON 2026 DDoS CTF banner with a circuit-board motif" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>DEFCON 2026 DDoS CTF</h2>
 									</header>
-									<p>DDoS CTF Contest for DEFCON 2026</p>
+									<p>A DDoS-themed capture-the-flag challenge built for DEFCON 2026.</p>
+									<ul class="tags">
+										<li>CTF</li>
+										<li>Networking</li>
+										<li>Security</li>
+									</ul>
 								</div>
 							</a>
 						</div>
 
-		<!-- Pentesting Methodology -->	
-						<div>
+		<!-- Pentesting Methodology -->
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Pentesting-Methodology" class="box" style="--glow: 46, 191, 145;">
 								<div class="image fit">
-									<img src="images/pentesting.jpg" alt="" />
+									<picture>
+										<source srcset="images/pentesting.webp" type="image/webp" />
+										<img src="images/pentesting.jpg" alt="Penetration testing methodology banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>Pentesting Methodology</h2>
 									</header>
-									<p>Pentesting Methodology</p>
+									<p>My repeatable methodology and checklists for approaching engagements end to end.</p>
+									<ul class="tags">
+										<li>Methodology</li>
+										<li>Recon</li>
+										<li>Exploitation</li>
+									</ul>
 								</div>
 							</a>
 						</div>
 
 		<!-- TryHackMe -->
-						<div>
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/TryHackMe" class="box" style="--glow: 112, 157, 191;">
 								<div class="image fit">
-									<img src="images/tryhackme.jpg" alt="" />
+									<picture>
+										<source srcset="images/tryhackme.webp" type="image/webp" />
+										<img src="images/tryhackme.jpg" alt="TryHackMe walkthroughs banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>TryHackMe</h2>
 									</header>
-									<p>Walkthroughs of various TryHackMe boxes.</p>
+									<p>Detailed walkthroughs of TryHackMe boxes, documenting each step and takeaway.</p>
+									<ul class="tags">
+										<li>Write-ups</li>
+										<li>Linux</li>
+										<li>Web</li>
+									</ul>
 								</div>
 							</a>
 						</div>
+
 		<!-- Python Pentesting -->
-						<div>
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
 								<div class="image fit">
-									<img src="images/pythondev.jpg" alt="" />
+									<picture>
+										<source srcset="images/pythondev.webp" type="image/webp" />
+										<img src="images/pythondev.jpg" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
-										<h2>Python Penetration Testing </h2>
+										<h2>Python Penetration Testing</h2>
 									</header>
-									<p>A variety of home baked python tools.</p>
+									<p>A collection of home-baked Python tools for offensive security tasks.</p>
+									<ul class="tags">
+										<li>Python</li>
+										<li>Automation</li>
+										<li>Tooling</li>
+									</ul>
 								</div>
 							</a>
 						</div>
+
 		<!-- Reverse Engineering -->
-						<div>
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Reverse-Engineering" class="box" style="--glow: 0, 218, 234;">
 								<div class="image fit">
-									<img src="images/RE.jpg" alt="" />
+									<picture>
+										<source srcset="images/RE.webp" type="image/webp" />
+										<img src="images/RE.jpg" alt="Reverse engineering banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>Reverse Engineering</h2>
 									</header>
-									<p>Ripping apart code</p>
+									<p>Taking binaries apart to understand how they work — notes, tools, and challenges.</p>
+									<ul class="tags">
+										<li>Ghidra</li>
+										<li>Assembly</li>
+										<li>Binary</li>
+									</ul>
 								</div>
 							</a>
 						</div>
+
 		<!-- Exploit dev -->
-						<div>
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
 								<div class="image fit">
-									<img src="images/exploitdev.jpg" alt="" />
+									<picture>
+										<source srcset="images/exploitdev.webp" type="image/webp" />
+										<img src="images/exploitdev.jpg" alt="Exploit development banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>Exploit Development</h2>
 									</header>
-									<p>Trying to develop my own exploits</p>
+									<p>Hands-on practice writing my own exploits, from buffer overflows upward.</p>
+									<ul class="tags">
+										<li>C</li>
+										<li>Memory</li>
+										<li>Shellcode</li>
+									</ul>
 								</div>
 							</a>
 						</div>
+
 		<!-- Machine Learning -->
-						<div>
+						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
 								<div class="image fit">
-									<img src="images/ML.jpg" alt="" />
+									<picture>
+										<source srcset="images/ML.webp" type="image/webp" />
+										<img src="images/ML.jpg" alt="Machine learning banner" loading="lazy" decoding="async" />
+									</picture>
 								</div>
 								<div class="content">
 									<header class="align-center">
 										<h2>Machine Learning</h2>
 									</header>
-									<p>Wanted to practice something outside of cyber security. </p>
+									<p>Practicing something outside of security — experiments and models in ML.</p>
+									<ul class="tags">
+										<li>Python</li>
+										<li>ML</li>
+										<li>Data</li>
+									</ul>
 								</div>
 							</a>
 						</div>
+
 					</div>
 				</div>
 			</section>
 
-			<!-- Four -->
+		<!-- Footer -->
 			<section id="four" class="wrapper style3">
 				<div class="inner">
 					<header class="align-center">
-						<ul class="icons">
-							<li><a href="https://github.com/saadbaig" class="icon fa-github"><span class="label">GitHub</span></a></li>
-							<li><a href="https://www.linkedin.com/in/sudosaad/" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-						</ul>
 						<div class="copyright">
 							A journey of a thousand miles begins with a single step ~ Lao Tzu
 						</div>
