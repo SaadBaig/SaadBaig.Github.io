@@ -75,7 +75,13 @@
 		function update() {
 			var vh = window.innerHeight;
 			var scroll = window.pageYOffset;
-			var fade = vh > 0 ? Math.max(0, 1 - (scroll / (vh * 0.6))) : 1;
+			var progress = vh > 0 ? Math.min(1, scroll / (vh * 0.6)) : 0;
+			// Caption scrolls UP and away: translate it upward by up to 50% of
+			// the viewport height as the hero scrolls past. A light opacity
+			// fade near the end keeps it from clipping abruptly at the top.
+			var shift = -(progress * vh * 0.5);
+			var fade = Math.max(0, 1 - progress * progress);
+			document.documentElement.style.setProperty('--caption-shift', shift.toFixed(1) + 'px');
 			document.documentElement.style.setProperty('--caption-opacity', fade.toFixed(3));
 			ticking = false;
 		}

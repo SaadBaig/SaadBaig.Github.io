@@ -173,127 +173,6 @@
 			box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
 		}
 
-	/* --- Content ------------------------------------------------------------ */
-	.proj-content {
-		max-width: 52rem;
-		margin: 0 auto;
-		padding: 2rem 1.5rem 5rem;
-	}
-
-		.proj-content section {
-			margin: 2.5rem 0;
-			padding: 2rem;
-			border-radius: 12px;
-			background: rgba(22, 20, 28, 0.55);
-			-webkit-backdrop-filter: blur(16px) saturate(120%);
-			backdrop-filter: blur(16px) saturate(120%);
-			border: 1px solid rgba(255, 255, 255, 0.06);
-		}
-
-		.proj-content h2 {
-			margin: 0 0 1rem;
-			font-size: 1.6rem;
-			font-weight: 600;
-			color: #fff;
-			display: flex;
-			align-items: center;
-			gap: 0.6rem;
-		}
-
-			.proj-content h2:before {
-				content: '';
-				width: 0.35rem;
-				height: 1.4rem;
-				border-radius: 2px;
-				background: rgb(var(--glow));
-			}
-
-		.proj-content h3 {
-			margin: 1.75rem 0 0.75rem;
-			font-size: 1.15rem;
-			font-weight: 600;
-			color: #e6def0;
-		}
-
-		.proj-content p { margin: 0 0 1rem; }
-		.proj-content strong, .proj-content b { color: #fff; font-weight: 600; }
-
-		.proj-content ul, .proj-content ol { margin: 0 0 1rem; padding-left: 1.4rem; }
-		.proj-content li { margin: 0.35rem 0; }
-
-		.proj-content blockquote {
-			margin: 1rem 0;
-			padding: 0.75rem 1.25rem;
-			border-left: 3px solid rgb(var(--glow));
-			background: rgba(var(--glow), 0.06);
-			border-radius: 0 8px 8px 0;
-			color: #c7c2cf;
-		}
-
-		/* Inline + block code */
-		.proj-content code {
-			font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
-			font-size: 0.86em;
-			background: rgba(255, 255, 255, 0.08);
-			padding: 0.1rem 0.4rem;
-			border-radius: 4px;
-			color: #e6df8a;
-		}
-
-		.proj-content pre {
-			margin: 1rem 0;
-			padding: 1.1rem 1.25rem;
-			overflow-x: auto;
-			border-radius: 10px;
-			background: #0b0b0f;
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			line-height: 1.5;
-		}
-
-			.proj-content pre code {
-				background: none;
-				padding: 0;
-				color: #c9d1d9;
-				font-size: 0.82rem;
-			}
-
-		/* Tables */
-		.proj-content .table-wrap { overflow-x: auto; margin: 1rem 0; }
-
-		.proj-content table {
-			width: 100%;
-			border-collapse: collapse;
-			font-size: 0.9rem;
-		}
-
-		.proj-content th, .proj-content td {
-			padding: 0.6rem 0.9rem;
-			text-align: left;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-		}
-
-		.proj-content th {
-			color: #fff;
-			font-weight: 600;
-			background: rgba(var(--glow), 0.12);
-		}
-
-		.proj-content tr:hover td { background: rgba(255, 255, 255, 0.03); }
-
-		/* Risk / status pills */
-		.pill {
-			display: inline-block;
-			padding: 0.15rem 0.6rem;
-			border-radius: 1rem;
-			font-size: 0.78rem;
-			font-weight: 600;
-		}
-			.pill.critical { background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220,38,38,0.5); }
-			.pill.high     { background: rgba(234, 88, 12, 0.2);  color: #fb923c; border: 1px solid rgba(234,88,12,0.5); }
-			.pill.medium   { background: rgba(202, 138, 4, 0.2);  color: #facc15; border: 1px solid rgba(202,138,4,0.5); }
-			.pill.low      { background: rgba(22, 163, 74, 0.2);  color: #4ade80; border: 1px solid rgba(22,163,74,0.5); }
-			.pill.info     { background: rgba(37, 99, 235, 0.2);  color: #60a5fa; border: 1px solid rgba(37,99,235,0.5); }
-
 	/* --- Footer ------------------------------------------------------------- */
 	.proj-footer {
 		text-align: center;
@@ -310,7 +189,6 @@
 	}
 
 	@media screen and (max-width: 600px) {
-		.proj-content section { padding: 1.5rem; }
 		.topbar { padding: 0.85rem 1rem; }
 	}
 

@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v5';
+var CACHE_VERSION = 'saadbaig-v7';
 
 var CORE_ASSETS = [
 	'./',
@@ -21,7 +21,33 @@ var CORE_ASSETS = [
 	'./images/banner3.webp',
 	'./images/banner4.webp',
 	'./images/banner5.webp',
-	'./images/banner6.webp'
+	'./images/banner6.webp',
+	'./images/quantum.webp',
+	// Project detail pages + their shared shell (render markdown client-side).
+	'./projects/project.css',
+	'./projects/render.js',
+	'./projects/marked.min.js',
+	'./projects/pqcscan.html',
+	'./projects/ddos-defcon-2026.html',
+	'./projects/pentesting-methodology.html',
+	'./projects/tryhackme.html',
+	// Project card thumbnails shown on the home grid.
+	'./images/pqcscan.jpg',
+	'./images/pqcscan.webp',
+	'./images/ddos.jpg',
+	'./images/ddos.webp',
+	'./images/pentesting.jpg',
+	'./images/pentesting.webp',
+	'./images/tryhackme.jpg',
+	'./images/tryhackme.webp',
+	'./images/pythondev.jpg',
+	'./images/pythondev.webp',
+	'./images/RE.jpg',
+	'./images/RE.webp',
+	'./images/exploitdev.jpg',
+	'./images/exploitdev.webp',
+	'./images/ML.jpg',
+	'./images/ML.webp'
 ];
 
 self.addEventListener('install', function (event) {

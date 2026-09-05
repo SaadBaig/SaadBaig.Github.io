@@ -8,15 +8,12 @@
 @font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/poppins/poppins-600.woff2') format('woff2'); }
 @font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/poppins/poppins-700.woff2') format('woff2'); }
 
-/*
-	Hielo by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
-*/
+/* ==========================================================================
+   Reset + box model
+   ========================================================================== */
 
-/* Reset */
-
-	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, em, img, strong, b, i,
+	ul, li, article, figure, footer, header, nav, section {
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -25,334 +22,66 @@
 		vertical-align: baseline;
 	}
 
-	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-		display: block;
-	}
+	article, figure, footer, header, nav, section { display: block; }
 
-	body {
-		line-height: 1;
-	}
-
-	ol, ul {
-		list-style: none;
-	}
-
-	blockquote, q {
-		quotes: none;
-	}
-
-	blockquote:before, blockquote:after, q:before, q:after {
-		content: '';
-		content: none;
-	}
-
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
-
-	body {
-		-webkit-text-size-adjust: none;
-	}
-
-/* Box Model */
+	ul { list-style: none; }
 
 	*, *:before, *:after {
-		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
-/* Containers */
+	body { -webkit-text-size-adjust: none; }
 
-	.container {
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.container.\31 25\25 {
-		width: 100%;
-		max-width: 100rem;
-		min-width: 80rem;
-	}
-
-	.container.\37 5\25 {
-		width: 60rem;
-	}
-
-	.container.\35 0\25 {
-		width: 40rem;
-	}
-
-	.container.\32 5\25 {
-		width: 20rem;
-	}
-
-	.container {
-		width: 80rem;
-	}
-
-	@media screen and (max-width: 1680px) {
-
-		.container.\31 25\25 {
-			width: 100%;
-			max-width: 100rem;
-			min-width: 80rem;
-		}
-
-		.container.\37 5\25 {
-			width: 60rem;
-		}
-
-		.container.\35 0\25 {
-			width: 40rem;
-		}
-
-		.container.\32 5\25 {
-			width: 20rem;
-		}
-
-		.container {
-			width: 80rem;
-		}
-
-	}
-
-	@media screen and (max-width: 1280px) {
-
-		.container.\31 25\25 {
-			width: 100%;
-			max-width: 81.25rem;
-			min-width: 65rem;
-		}
-
-		.container.\37 5\25 {
-			width: 48.75rem;
-		}
-
-		.container.\35 0\25 {
-			width: 32.5rem;
-		}
-
-		.container.\32 5\25 {
-			width: 16.25rem;
-		}
-
-		.container {
-			width: 65rem;
-		}
-
-	}
-
-	@media screen and (max-width: 980px) {
-
-		.container.\31 25\25 {
-			width: 100%;
-			max-width: 112.5%;
-			min-width: 90%;
-		}
-
-		.container.\37 5\25 {
-			width: 67.5%;
-		}
-
-		.container.\35 0\25 {
-			width: 45%;
-		}
-
-		.container.\32 5\25 {
-			width: 22.5%;
-		}
-
-		.container {
-			width: 90%;
-		}
-
-	}
-
-	@media screen and (max-width: 736px) {
-
-		.container.\31 25\25 {
-			width: 100%;
-			max-width: 112.5%;
-			min-width: 90%;
-		}
-
-		.container.\37 5\25 {
-			width: 67.5%;
-		}
-
-		.container.\35 0\25 {
-			width: 45%;
-		}
-
-		.container.\32 5\25 {
-			width: 22.5%;
-		}
-
-		.container {
-			width: 90% !important;
-		}
-
-	}
-
-	@media screen and (max-width: 480px) {
-
-		.container.\31 25\25 {
-			width: 100%;
-			max-width: 112.5%;
-			min-width: 90%;
-		}
-
-		.container.\37 5\25 {
-			width: 67.5%;
-		}
-
-		.container.\35 0\25 {
-			width: 45%;
-		}
-
-		.container.\32 5\25 {
-			width: 22.5%;
-		}
-
-		.container {
-			width: 90% !important;
-		}
-
-	}
-
-/* Basic */
-
-	@-ms-viewport {
-		width: device-width;
-	}
-
-	body {
-		-ms-overflow-style: scrollbar;
-	}
-
-	@media screen and (max-width: 480px) {
-
-		html, body {
-			min-width: 320px;
-		}
-
-	}
-
-	body {
-		background: #fff;
-	}
-
-		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
-			-moz-animation: none !important;
-			-webkit-animation: none !important;
-			-ms-animation: none !important;
-			animation: none !important;
-			-moz-transition: none !important;
-			-webkit-transition: none !important;
-			-ms-transition: none !important;
-			transition: none !important;
-		}
-
-/* Type */
+/* ==========================================================================
+   Base type + layout
+   ========================================================================== */
 
 	html {
 		font-size: 13pt;
 	}
 
-		@media screen and (max-width: 1680px) {
+		@media screen and (max-width: 1680px) { html { font-size: 11pt; } }
+		@media screen and (max-width: 1280px) { html { font-size: 11pt; } }
+		@media screen and (max-width: 980px)  { html { font-size: 12pt; } }
+		@media screen and (max-width: 736px)  { html { font-size: 12pt; } }
+		@media screen and (max-width: 480px)  { html { font-size: 12pt; } }
 
-			html {
-				font-size: 11pt;
-			}
-
-		}
-
-		@media screen and (max-width: 1280px) {
-
-			html {
-				font-size: 11pt;
-			}
-
-		}
-
-		@media screen and (max-width: 980px) {
-
-			html {
-				font-size: 12pt;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			html {
-				font-size: 12pt;
-			}
-
-		}
-
-		@media screen and (max-width: 480px) {
-
-			html {
-				font-size: 12pt;
-			}
-
-		}
-
-	body {
-		background-color: #fff;
-		color: #444;
+	@media screen and (max-width: 480px) {
+		html, body { min-width: 320px; }
 	}
 
-	body, input, select, textarea {
+	/* Transparent so the fixed rotating #bg shows through the whole page. */
+	body {
+		background: transparent;
+		color: #cccccc;
+	}
+
+	body {
 		font-family: "Poppins", sans-serif;
 		font-weight: 300;
 		font-size: 1rem;
 		line-height: 1.65;
 	}
 
+		/* Freeze animations/transitions during initial load. */
+		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+			-webkit-animation: none !important;
+			animation: none !important;
+			-webkit-transition: none !important;
+			transition: none !important;
+		}
+
 	a {
 		text-decoration: underline;
 	}
 
-		a:hover {
-			text-decoration: none;
-		}
+		a:hover { text-decoration: none; }
 
-	strong, b {
-		font-weight: 600;
-	}
+	strong, b { font-weight: 600; }
+	em, i { font-style: italic; }
 
-	em, i {
-		font-style: italic;
-	}
-
-	p {
-		margin: 0 0 2rem 0;
-	}
-
-		p.special {
-			text-transform: uppercase;
-			font-size: .75rem;
-			font-weight: 300;
-			margin: 0 0 .5rem 0;
-			padding: 0 0 1rem 0;
-			letter-spacing: .25rem;
-		}
-
-			p.special:after {
-				content: '';
-				position: absolute;
-				margin: auto;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				width: 50%;
-				height: 1px;
-				background-color: rgba(0, 0, 0, 0.125);
-			}
+	p { margin: 0 0 2rem 0; }
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
@@ -365,162 +94,128 @@
 			text-decoration: none;
 		}
 
-	h2 {
-		font-size: 1.75rem;
+	h2 { font-size: 1.75rem; }
+	h3 { font-size: 1.35rem; }
+	h4 { font-size: 1.1rem; }
+
+	.align-center { text-align: center; }
+
+/* ==========================================================================
+   Shared panel surface tokens (used by .glass-panel, .box .content, .cert-card)
+   ========================================================================== */
+
+	:root {
+		--panel-surface: rgba(20, 18, 26, 0.8);
+		--panel-border: rgba(255, 255, 255, 0.22);
+		--panel-radius: 10px;
+		--panel-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.25rem -0.25rem rgba(124, 58, 237, 0.25);
 	}
 
-	h3 {
-		font-size: 1.35rem;
-	}
+/* ==========================================================================
+   Wrapper / sections
+   ========================================================================== */
 
-	h4 {
-		font-size: 1.1rem;
-	}
-
-	h5 {
-		font-size: 0.9rem;
-	}
-
-	h6 {
-		font-size: 0.7rem;
-	}
-
-	sub {
-		font-size: 0.8rem;
+	.wrapper {
+		padding: 6rem 0 4rem 0;
 		position: relative;
-		top: 0.5rem;
+		margin: 0;
 	}
 
-	sup {
-		font-size: 0.8rem;
-		position: relative;
-		top: -0.5rem;
-	}
-
-	blockquote {
-		border-left: solid 4px;
-		font-style: italic;
-		margin: 0 0 2rem 0;
-		padding: 0.5rem 0 0.5rem 2rem;
-	}
-
-	code {
-		border-radius: 2px;
-		border: solid 1px;
-		font-family: "Courier New", monospace;
-		font-size: 0.9rem;
-		margin: 0 0.25rem;
-		padding: 0.25rem 0.65rem;
-	}
-
-	pre {
-		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
-		font-size: 0.9rem;
-		margin: 0 0 2rem 0;
-	}
-
-		pre code {
-			display: block;
-			line-height: 1.75;
-			padding: 1rem 1.5rem;
-			overflow-x: auto;
+		.wrapper > .inner {
+			margin: 0 auto;
+			width: 80rem;
 		}
 
-	hr {
-		border: 0;
-		border-bottom: solid 1px;
-		margin: 2rem 0;
+		@media screen and (max-width: 1280px) { .wrapper > .inner { width: 75rem; } }
+		@media screen and (max-width: 980px)  { .wrapper > .inner { width: 90%; } }
+		@media screen and (max-width: 736px)  { .wrapper { padding: 3rem 0 1rem 0; } }
+
+	/* Content sections stay transparent; each text block sits on a
+	   translucent panel. */
+	.wrapper.style2 {
+		background-color: transparent;
+		background-image: none;
+		color: #b0b0b0;
 	}
 
-		hr.major {
-			margin: 3rem 0;
+		.wrapper.style2 h1,
+		.wrapper.style2 h2,
+		.wrapper.style2 h3,
+		.wrapper.style2 h4,
+		.wrapper.style2 h5,
+		.wrapper.style2 h6 { color: #ffffff; }
+
+		.wrapper.style2 strong,
+		.wrapper.style2 b { color: #ffffff; }
+
+		.wrapper.style2 a { color: #c98fc0; }
+
+	/* Footer (style3): fully transparent so the rotating #bg shows through. */
+	.wrapper.style3 {
+		padding-top: 2rem;
+		background-color: transparent;
+		background-image: none;
+		position: relative;
+		color: #bfbfbf;
+	}
+
+		.wrapper.style3 .inner {
+			position: relative;
+			z-index: 2;
 		}
 
-	.align-left {
-		text-align: left;
+	/* Footer quote is white to match the banner text. */
+	.wrapper.style3 .copyright {
+		color: #ffffff;
 	}
 
-	.align-center {
-		text-align: center;
+	/* Tighten the gap between the last cards and the footer. */
+	#projects.wrapper.style2 {
+		padding-bottom: 1rem;
 	}
 
-	.align-right {
-		text-align: right;
+	/* About / section panel — uses the shared translucent surface. */
+	.glass-panel {
+		background: var(--panel-surface);
+		border: 1px solid var(--panel-border);
+		border-radius: var(--panel-radius);
+		box-shadow: var(--panel-shadow);
+		padding: 3rem;
 	}
 
-	input, select, textarea {
-		color: #555;
-	}
+		@media screen and (max-width: 736px) {
+			.glass-panel { padding: 2rem; }
+		}
 
-	a {
-		color: #8a4680;
-	}
-
-	strong, b {
-		color: #555;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		color: #555;
-	}
-
-	blockquote {
-		border-left-color: rgba(144, 144, 144, 0.25);
-	}
-
-	code {
-		background: rgba(144, 144, 144, 0.075);
-		border-color: rgba(144, 144, 144, 0.25);
-	}
-
-	hr {
-		border-bottom-color: rgba(144, 144, 144, 0.25);
-	}
-
-/* Box */
+/* ==========================================================================
+   Project cards (.box) + card grid
+   ========================================================================== */
 
 	.box {
 		margin-bottom: 2rem;
-		background: #FFF;
+		background: transparent;
+		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.22);
+		border-radius: var(--panel-radius);
+		overflow: hidden;
+		box-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.25rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.25);
+		transition: box-shadow 0.25s ease, border-color 0.25s ease;
 	}
 
 		.box .image.fit {
 			margin: 0;
 			border-radius: 0;
+			position: relative;
 		}
 
-			.box .image.fit img {
-				border-radius: 0;
-			}
-
-		.box header h2 {
-			margin-bottom: 2rem;
-		}
-
-		.box header p {
-			text-transform: uppercase;
-			font-size: .75rem;
-			font-weight: 300;
-			margin: 0 0 .25rem 0;
-			padding: 0 0 .75rem 0;
-			letter-spacing: .25rem;
-		}
-
-			.box header p:after {
-				content: '';
-				position: absolute;
-				margin: auto;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				width: 50%;
-				height: 1px;
-				background-color: rgba(0, 0, 0, 0.125);
-			}
+			.box .image.fit img { border-radius: 0; }
 
 		.box .content {
 			padding: 3rem;
+			background: var(--panel-surface);
 		}
 
 		.box > :last-child,
@@ -529,44 +224,32 @@
 			margin-bottom: 0;
 		}
 
-		.box.alt {
-			border: 0;
-			border-radius: 0;
-			padding: 0;
-		}
-
 		@media screen and (max-width: 736px) {
-
-			.box .content {
-				padding: 2rem;
-			}
-
+			.box .content { padding: 2rem; }
 		}
 
-	.box {
-		border-color: rgba(144, 144, 144, 0.25);
-	}
-
-	/* Clickable card (whole box is a link) */
+	/* Clickable card (whole box is a link). Hover changes only the border +
+	   glow — no transform, so the translucency looks identical hovered or not. */
 	a.box {
 		display: block;
 		color: inherit;
 		text-decoration: none;
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		border-radius: var(--panel-radius);
 	}
 
-		a.box:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
-		}
-
 		a.box .content p {
-			color: #a6a6a6;
+			color: #c7c2cf;
 			text-align: center;
 		}
 
-/* Image */
+		a.box:hover {
+			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
+			box-shadow:
+				0 0.9rem 2.25rem rgba(0, 0, 0, 0.5),
+				0 0 2rem rgba(var(--glow, 124, 58, 237), 0.55);
+		}
 
+	/* Image wrapper */
 	.image {
 		border-radius: 2px;
 		border: 0;
@@ -579,1146 +262,120 @@
 			display: block;
 		}
 
-		.image.left, .image.right {
-			max-width: 40%;
-		}
-
-			.image.left img, .image.right img {
-				width: 100%;
-			}
-
-		.image.left {
-			float: left;
-			margin: 0 1.5rem 1rem 0;
-			top: 0.25rem;
-		}
-
-		.image.right {
-			float: right;
-			margin: 0 0 1rem 1.5rem;
-			top: 0.25rem;
-		}
-
 		.image.fit {
 			display: block;
 			margin: 0 0 2rem 0;
 			width: 100%;
 		}
 
-			.image.fit img {
-				width: 100%;
-			}
+			.image.fit img { width: 100%; }
 
-		.image.main {
-			display: block;
-			margin: 0 0 3rem 0;
-			width: 100%;
-		}
-
-			.image.main img {
-				width: 100%;
-			}
-
-/* List */
-
-	ol {
-		list-style: decimal;
-		margin: 0 0 2rem 0;
-		padding-left: 1.25rem;
+	/* Project card tag chips */
+	.box .content .tags {
+		list-style: none;
+		margin: 1.25rem 0 0 0;
+		padding: 0;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		gap: 0.4rem;
 	}
 
-		ol li {
-			padding-left: 0.25rem;
+		.box .content .tags li {
+			padding: 0.25rem 0.65rem;
+			border-radius: 1rem;
+			font-size: 0.68rem;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			color: rgba(var(--glow, 255, 255, 255), 0.95);
+			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.35);
+			background: rgba(var(--glow, 255, 255, 255), 0.08);
 		}
 
-	ul {
-		list-style: disc;
-		margin: 0 0 2rem 0;
-		padding-left: 1rem;
-	}
-
-		ul li {
-			padding-left: 0.5rem;
-		}
-
-		ul.alt {
-			list-style: none;
-			padding-left: 0;
-		}
-
-			ul.alt li {
-				border-top: solid 1px;
-				padding: 0.5rem 0;
-			}
-
-				ul.alt li:first-child {
-					border-top: 0;
-					padding-top: 0;
-				}
-
-		ul.icons {
-			cursor: default;
-			list-style: none;
-			padding-left: 0;
-		}
-
-			ul.icons li {
-				display: inline-block;
-				padding: 0 1rem 0 0;
-			}
-
-				ul.icons li:last-child {
-					padding-right: 0;
-				}
-
-				ul.icons li .icon:before {
-					font-size: 2rem;
-				}
-
-		ul.actions {
-			cursor: default;
-			list-style: none;
-			padding-left: 0;
-		}
-
-			ul.actions li {
-				display: inline-block;
-				padding: 0 1rem 0 0;
-				vertical-align: middle;
-			}
-
-				ul.actions li:last-child {
-					padding-right: 0;
-				}
-
-			ul.actions.small li {
-				padding: 0 0.5rem 0 0;
-			}
-
-			ul.actions.vertical li {
-				display: block;
-				padding: 1rem 0 0 0;
-			}
-
-				ul.actions.vertical li:first-child {
-					padding-top: 0;
-				}
-
-				ul.actions.vertical li > * {
-					margin-bottom: 0;
-				}
-
-			ul.actions.vertical.small li {
-				padding: 0.5rem 0 0 0;
-			}
-
-				ul.actions.vertical.small li:first-child {
-					padding-top: 0;
-				}
-
-			ul.actions.fit {
-				display: table;
-				margin-left: -1rem;
-				padding: 0;
-				table-layout: fixed;
-				width: calc(100% + 1rem);
-			}
-
-				ul.actions.fit li {
-					display: table-cell;
-					padding: 0 0 0 1rem;
-				}
-
-					ul.actions.fit li > * {
-						margin-bottom: 0;
-					}
-
-				ul.actions.fit.small {
-					margin-left: -0.5rem;
-					width: calc(100% + 0.5rem);
-				}
-
-					ul.actions.fit.small li {
-						padding: 0 0 0 0.5rem;
-					}
-
-			@media screen and (max-width: 480px) {
-
-				ul.actions {
-					margin: 0 0 2rem 0;
-				}
-
-					ul.actions li {
-						padding: 1rem 0 0 0;
-						display: block;
-						text-align: center;
-						width: 100%;
-					}
-
-						ul.actions li:first-child {
-							padding-top: 0;
-						}
-
-						ul.actions li > * {
-							width: 100%;
-							margin: 0 !important;
-						}
-
-							ul.actions li > *.icon:before {
-								margin-left: -2rem;
-							}
-
-					ul.actions.small li {
-						padding: 0.5rem 0 0 0;
-					}
-
-						ul.actions.small li:first-child {
-							padding-top: 0;
-						}
-
-			}
-
-	dl {
-		margin: 0 0 2rem 0;
-	}
-
-		dl dt {
-			display: block;
-			font-weight: 700;
-			margin: 0 0 1rem 0;
-		}
-
-		dl dd {
-			margin-left: 2rem;
-		}
-
-	ul.alt li {
-		border-top-color: rgba(144, 144, 144, 0.25);
-	}
-
-/* Section/Article */
-
-	section.special, article.special {
-		text-align: center;
-	}
-
-	header p {
-		position: relative;
-		margin: 0 0 1.5rem 0;
-	}
-
-	header h2 + p {
-		font-size: 1.25rem;
-		margin-top: -1rem;
-	}
-
-	header h3 + p {
-		font-size: 1.1rem;
-		margin-top: -0.8rem;
-	}
-
-	header h4 + p,
-	header h5 + p,
-	header h6 + p {
-		font-size: 0.9rem;
-		margin-top: -0.6rem;
-	}
-
-	header p {
-		color: #bbb;
-	}
-
-/* Wrapper */
-
-	.wrapper {
-		padding: 6rem 0 4rem 0 ;
-		position: relative;
-		margin: 0;
-	}
-
-		.wrapper > .inner {
-			margin: 0 auto;
-			width: 80rem;
-		}
-
-		.wrapper.style2 {
-			background-color: #f2f2f2;
-			color: #a6a6a6;
-		}
-
-			.wrapper.style2 input, .wrapper.style2 select, .wrapper.style2 textarea {
-				color: #000;
-			}
-
-			.wrapper.style2 a {
-				color: #8a4680;
-			}
-
-			.wrapper.style2 strong, .wrapper.style2 b {
-				color: #000;
-			}
-
-			.wrapper.style2 h1, .wrapper.style2 h2, .wrapper.style2 h3, .wrapper.style2 h4, .wrapper.style2 h5, .wrapper.style2 h6 {
-				color: #000;
-			}
-
-			.wrapper.style2 blockquote {
-				border-left-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 code {
-				background: rgba(0, 0, 0, 0.075);
-				border-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 hr {
-				border-bottom-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 .box {
-				border-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 input[type="submit"],
-			.wrapper.style2 input[type="reset"],
-			.wrapper.style2 input[type="button"],
-			.wrapper.style2 button,
-			.wrapper.style2 .button {
-				background-color: #000;
-				color: #f2f2f2 !important;
-			}
-
-				.wrapper.style2 input[type="submit"].alt,
-				.wrapper.style2 input[type="reset"].alt,
-				.wrapper.style2 input[type="button"].alt,
-				.wrapper.style2 button.alt,
-				.wrapper.style2 .button.alt {
-					background-color: transparent;
-					box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.15);
-					color: #000 !important;
-				}
-
-					.wrapper.style2 input[type="submit"].alt:hover,
-					.wrapper.style2 input[type="reset"].alt:hover,
-					.wrapper.style2 input[type="button"].alt:hover,
-					.wrapper.style2 button.alt:hover,
-					.wrapper.style2 .button.alt:hover {
-						background-color: rgba(0, 0, 0, 0.075);
-					}
-
-					.wrapper.style2 input[type="submit"].alt:active,
-					.wrapper.style2 input[type="reset"].alt:active,
-					.wrapper.style2 input[type="button"].alt:active,
-					.wrapper.style2 button.alt:active,
-					.wrapper.style2 .button.alt:active {
-						background-color: rgba(0, 0, 0, 0.2);
-					}
-
-					.wrapper.style2 input[type="submit"].alt.icon:before,
-					.wrapper.style2 input[type="reset"].alt.icon:before,
-					.wrapper.style2 input[type="button"].alt.icon:before,
-					.wrapper.style2 button.alt.icon:before,
-					.wrapper.style2 .button.alt.icon:before {
-						color: #999999;
-					}
-
-				.wrapper.style2 input[type="submit"].special,
-				.wrapper.style2 input[type="reset"].special,
-				.wrapper.style2 input[type="button"].special,
-				.wrapper.style2 button.special,
-				.wrapper.style2 .button.special {
-					background-color: #8a4680;
-					color: #ffffff !important;
-				}
-
-					.wrapper.style2 input[type="submit"].special:hover,
-					.wrapper.style2 input[type="reset"].special:hover,
-					.wrapper.style2 input[type="button"].special:hover,
-					.wrapper.style2 button.special:hover,
-					.wrapper.style2 .button.special:hover {
-						background-color: #9b4f90;
-					}
-
-					.wrapper.style2 input[type="submit"].special:active,
-					.wrapper.style2 input[type="reset"].special:active,
-					.wrapper.style2 input[type="button"].special:active,
-					.wrapper.style2 button.special:active,
-					.wrapper.style2 .button.special:active {
-						background-color: #793d70;
-					}
-
-			.wrapper.style2 label {
-				color: #000;
-			}
-
-			.wrapper.style2 input[type="text"],
-			.wrapper.style2 input[type="password"],
-			.wrapper.style2 input[type="email"],
-			.wrapper.style2 select,
-			.wrapper.style2 textarea {
-				background: rgba(0, 0, 0, 0.075);
-				border-color: rgba(0, 0, 0, 0.15);
-			}
-
-				.wrapper.style2 input[type="text"]:focus,
-				.wrapper.style2 input[type="password"]:focus,
-				.wrapper.style2 input[type="email"]:focus,
-				.wrapper.style2 select:focus,
-				.wrapper.style2 textarea:focus {
-					border-color: #8a4680;
-					box-shadow: 0 0 0 1px #8a4680;
-				}
-
-			.wrapper.style2 .select-wrapper:before {
-				color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 input[type="checkbox"] + label,
-			.wrapper.style2 input[type="radio"] + label {
-				color: #a6a6a6;
-			}
-
-				.wrapper.style2 input[type="checkbox"] + label:before,
-				.wrapper.style2 input[type="radio"] + label:before {
-					background: rgba(0, 0, 0, 0.075);
-					border-color: rgba(0, 0, 0, 0.15);
-				}
-
-			.wrapper.style2 input[type="checkbox"]:checked + label:before,
-			.wrapper.style2 input[type="radio"]:checked + label:before {
-				background-color: #8a4680;
-				border-color: #8a4680;
-				color: #ffffff;
-			}
-
-			.wrapper.style2 input[type="checkbox"]:focus + label:before,
-			.wrapper.style2 input[type="radio"]:focus + label:before {
-				border-color: #8a4680;
-				box-shadow: 0 0 0 1px #8a4680;
-			}
-
-			.wrapper.style2 ::-webkit-input-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style2 :-moz-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style2 ::-moz-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style2 :-ms-input-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style2 .formerize-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style2 ul.alt li {
-				border-top-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 header p {
-				color: #999999;
-			}
-
-			.wrapper.style2 table tbody tr {
-				border-color: rgba(0, 0, 0, 0.15);
-			}
-
-				.wrapper.style2 table tbody tr:nth-child(2n + 1) {
-					background-color: rgba(0, 0, 0, 0.075);
-				}
-
-			.wrapper.style2 table th {
-				color: #000;
-			}
-
-			.wrapper.style2 table thead {
-				border-bottom-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 table tfoot {
-				border-top-color: rgba(0, 0, 0, 0.15);
-			}
-
-			.wrapper.style2 table.alt tbody tr td {
-				border-color: rgba(0, 0, 0, 0.15);
-			}
-
-		.wrapper.style3 {
-			background-color: #000;
-			color: #bfbfbf;
-			position: relative;
-		}
-
-			.wrapper.style3 input, .wrapper.style3 select, .wrapper.style3 textarea {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 a {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 strong, .wrapper.style3 b {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 h1, .wrapper.style3 h2, .wrapper.style3 h3, .wrapper.style3 h4, .wrapper.style3 h5, .wrapper.style3 h6 {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 blockquote {
-				border-left-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 code {
-				background: rgba(255, 255, 255, 0.075);
-				border-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 hr {
-				border-bottom-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 .box {
-				border-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 input[type="submit"],
-			.wrapper.style3 input[type="reset"],
-			.wrapper.style3 input[type="button"],
-			.wrapper.style3 button,
-			.wrapper.style3 .button {
-				background-color: #f2f2f2;
-				color: #000 !important;
-			}
-
-				.wrapper.style3 input[type="submit"]:hover,
-				.wrapper.style3 input[type="reset"]:hover,
-				.wrapper.style3 input[type="button"]:hover,
-				.wrapper.style3 button:hover,
-				.wrapper.style3 .button:hover {
-					background-color: white;
-				}
-
-				.wrapper.style3 input[type="submit"]:active,
-				.wrapper.style3 input[type="reset"]:active,
-				.wrapper.style3 input[type="button"]:active,
-				.wrapper.style3 button:active,
-				.wrapper.style3 .button:active {
-					background-color: #e5e5e5;
-				}
-
-				.wrapper.style3 input[type="submit"].alt,
-				.wrapper.style3 input[type="reset"].alt,
-				.wrapper.style3 input[type="button"].alt,
-				.wrapper.style3 button.alt,
-				.wrapper.style3 .button.alt {
-					background-color: transparent;
-					box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
-					color: #ffffff !important;
-				}
-
-					.wrapper.style3 input[type="submit"].alt:hover,
-					.wrapper.style3 input[type="reset"].alt:hover,
-					.wrapper.style3 input[type="button"].alt:hover,
-					.wrapper.style3 button.alt:hover,
-					.wrapper.style3 .button.alt:hover {
-						background-color: rgba(255, 255, 255, 0.075);
-					}
-
-					.wrapper.style3 input[type="submit"].alt:active,
-					.wrapper.style3 input[type="reset"].alt:active,
-					.wrapper.style3 input[type="button"].alt:active,
-					.wrapper.style3 button.alt:active,
-					.wrapper.style3 .button.alt:active {
-						background-color: rgba(255, 255, 255, 0.2);
-					}
-
-					.wrapper.style3 input[type="submit"].alt.icon:before,
-					.wrapper.style3 input[type="reset"].alt.icon:before,
-					.wrapper.style3 input[type="button"].alt.icon:before,
-					.wrapper.style3 button.alt.icon:before,
-					.wrapper.style3 .button.alt.icon:before {
-						color: #999999;
-					}
-
-				.wrapper.style3 input[type="submit"].special,
-				.wrapper.style3 input[type="reset"].special,
-				.wrapper.style3 input[type="button"].special,
-				.wrapper.style3 button.special,
-				.wrapper.style3 .button.special {
-					background-color: #8a4680;
-					color: #ffffff !important;
-				}
-
-					.wrapper.style3 input[type="submit"].special:hover,
-					.wrapper.style3 input[type="reset"].special:hover,
-					.wrapper.style3 input[type="button"].special:hover,
-					.wrapper.style3 button.special:hover,
-					.wrapper.style3 .button.special:hover {
-						background-color: #9b4f90;
-					}
-
-					.wrapper.style3 input[type="submit"].special:active,
-					.wrapper.style3 input[type="reset"].special:active,
-					.wrapper.style3 input[type="button"].special:active,
-					.wrapper.style3 button.special:active,
-					.wrapper.style3 .button.special:active {
-						background-color: #793d70;
-					}
-
-			.wrapper.style3 label {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 input[type="text"],
-			.wrapper.style3 input[type="password"],
-			.wrapper.style3 input[type="email"],
-			.wrapper.style3 select,
-			.wrapper.style3 textarea {
-				background: rgba(255, 255, 255, 0.075);
-				border-color: rgba(255, 255, 255, 0.25);
-			}
-
-				.wrapper.style3 input[type="text"]:focus,
-				.wrapper.style3 input[type="password"]:focus,
-				.wrapper.style3 input[type="email"]:focus,
-				.wrapper.style3 select:focus,
-				.wrapper.style3 textarea:focus {
-					border-color: #8a4680;
-					box-shadow: 0 0 0 1px #8a4680;
-				}
-
-			.wrapper.style3 .select-wrapper:before {
-				color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 input[type="checkbox"] + label,
-			.wrapper.style3 input[type="radio"] + label {
-				color: #bfbfbf;
-			}
-
-				.wrapper.style3 input[type="checkbox"] + label:before,
-				.wrapper.style3 input[type="radio"] + label:before {
-					background: rgba(255, 255, 255, 0.075);
-					border-color: rgba(255, 255, 255, 0.25);
-				}
-
-			.wrapper.style3 input[type="checkbox"]:checked + label:before,
-			.wrapper.style3 input[type="radio"]:checked + label:before {
-				background-color: #8a4680;
-				border-color: #8a4680;
-				color: #ffffff;
-			}
-
-			.wrapper.style3 input[type="checkbox"]:focus + label:before,
-			.wrapper.style3 input[type="radio"]:focus + label:before {
-				border-color: #8a4680;
-				box-shadow: 0 0 0 1px #8a4680;
-			}
-
-			.wrapper.style3 ::-webkit-input-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style3 :-moz-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style3 ::-moz-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style3 :-ms-input-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style3 .formerize-placeholder {
-				color: #999999 !important;
-			}
-
-			.wrapper.style3 ul.alt li {
-				border-top-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 header p {
-				color: #999999;
-			}
-
-			.wrapper.style3 table tbody tr {
-				border-color: rgba(255, 255, 255, 0.25);
-			}
-
-				.wrapper.style3 table tbody tr:nth-child(2n + 1) {
-					background-color: rgba(255, 255, 255, 0.075);
-				}
-
-			.wrapper.style3 table th {
-				color: #ffffff;
-			}
-
-			.wrapper.style3 table thead {
-				border-bottom-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 table tfoot {
-				border-top-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 table.alt tbody tr td {
-				border-color: rgba(255, 255, 255, 0.25);
-			}
-
-			.wrapper.style3 .inner {
-				position: relative;
-				z-index: 2;
-			}
-
-			.wrapper.style3 p {
-				text-transform: uppercase;
-				font-size: .75rem;
-				font-weight: 300;
-				margin: 0 0 .5rem 0;
-				padding: 0 0 1rem 0;
-				letter-spacing: .25rem;
-			}
-
-				.wrapper.style3 p:after {
-					content: '';
-					position: absolute;
-					margin: auto;
-					right: 0;
-					bottom: 0;
-					left: 0;
-					width: 50%;
-					height: 1px;
-					background-color: rgba(255, 255, 255, 0.5);
-				}
-
-			.wrapper.style3:before {
-				-moz-transition: opacity 3s ease;
-				-webkit-transition: opacity 3s ease;
-				-ms-transition: opacity 3s ease;
-				transition: opacity 3s ease;
-				-moz-transition-delay: 1.25s;
-				-webkit-transition-delay: 1.25s;
-				-ms-transition-delay: 1.25s;
-				transition-delay: 1.25s;
-				content: '';
-				display: block;
-				background-color: rgba(0, 0, 0, 0.95);
-				height: 100%;
-				left: 0;
-				opacity: 0.75;
-				position: absolute;
-				top: 0;
-				width: 100%;
-				z-index: 1;
-			}
-
-		@media screen and (max-width: 1280px) {
-
-			.wrapper > .inner {
-				width: 75rem;
-			}
-
-		}
-
-		@media screen and (max-width: 980px) {
-
-			.wrapper > .inner {
-				width: 90%;
-			}
-
-			.wrapper.style3 {
-				background-attachment: scroll;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			.wrapper {
-				padding: 3rem 0 1rem 0 ;
-			}
-
-		}
-
-/* Flexgrid */
+/* ==========================================================================
+   Flexgrid (project card layout)
+   ========================================================================== */
 
 	.grid-style {
 		width: 100%;
 		margin: 0 0 2.5rem 0;
-		display: -moz-flex;
 		display: -webkit-flex;
-		display: -ms-flex;
+		display: -ms-flexbox;
 		display: flex;
-		-moz-flex-wrap: wrap;
 		-webkit-flex-wrap: wrap;
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
-		-moz-align-items: stretch;
 		-webkit-align-items: stretch;
-		-ms-align-items: stretch;
+		-ms-flex-align: stretch;
 		align-items: stretch;
 	}
 
 		.grid-style > * {
-			-moz-flex-shrink: 1;
 			-webkit-flex-shrink: 1;
-			-ms-flex-shrink: 1;
+			-ms-flex-negative: 1;
 			flex-shrink: 1;
-			-moz-flex-grow: 0;
 			-webkit-flex-grow: 0;
-			-ms-flex-grow: 0;
+			-ms-flex-positive: 0;
 			flex-grow: 0;
-		}
-
-		.grid-style > * {
-			width: 50%;
-		}
-
-		.grid-style > * {
 			padding: 2rem;
 			width: calc(50% + 2rem);
 		}
 
-		.grid-style > :nth-child(-n + 2) {
-			padding-top: 0;
-		}
-
-		.grid-style > :nth-last-child(-n + 2) {
-			padding-bottom: 0;
-		}
-
-		.grid-style > :nth-child(2n + 1) {
-			padding-left: 0;
-		}
-
-		.grid-style > :nth-child(2n) {
-			padding-right: 0;
-		}
+		.grid-style > :nth-child(-n + 2) { padding-top: 0; }
+		.grid-style > :nth-last-child(-n + 2) { padding-bottom: 0; }
+		.grid-style > :nth-child(2n + 1) { padding-left: 0; }
+		.grid-style > :nth-child(2n) { padding-right: 0; }
 
 		.grid-style > :nth-child(2n + 1),
-		.grid-style > :nth-child(2n) {
-			width: calc(50% + 0rem);
-		}
+		.grid-style > :nth-child(2n) { width: calc(50% + 0rem); }
 
-		.grid-style .box {
-			margin: 0;
-		}
+		.grid-style .box { margin: 0; }
 
 		@media screen and (max-width: 980px) {
 
 			.grid-style > * {
-				width: 100%;
-			}
-
-			.grid-style > * {
-				padding: 1rem;
-				width: calc(50% + 1rem);
-			}
-
-			.grid-style > :nth-child(-n + 2) {
-				padding-top: 1rem;
-			}
-
-			.grid-style > :nth-last-child(-n + 2) {
-				padding-bottom: 1rem;
-			}
-
-			.grid-style > :nth-child(2n + 1) {
-				padding-left: 1rem;
-			}
-
-			.grid-style > :nth-child(2n) {
-				padding-right: 1rem;
-			}
-
-			.grid-style > :nth-child(2n + 1),
-			.grid-style > :nth-child(2n) {
 				padding: 1rem;
 				width: calc(100% + 2rem);
 			}
 
-			.grid-style > * {
-				padding: 1rem;
-				width: calc(100% + 2rem);
-			}
-
-			.grid-style > :nth-child(-n + 1) {
-				padding-top: 0;
-			}
-
-			.grid-style > :nth-last-child(-n + 1) {
-				padding-bottom: 0;
-			}
-
-			.grid-style > :nth-child(1n + 1) {
-				padding-left: 0;
-			}
-
-			.grid-style > :nth-child(1n) {
-				padding-right: 0;
-			}
+			.grid-style > :nth-child(-n + 1) { padding-top: 0; }
+			.grid-style > :nth-last-child(-n + 1) { padding-bottom: 0; }
+			.grid-style > :nth-child(1n + 1) { padding-left: 0; }
+			.grid-style > :nth-child(1n) { padding-right: 0; }
 
 			.grid-style > :nth-child(1n + 1),
-			.grid-style > :nth-child(1n) {
-				width: calc(100% + 1rem);
-			}
+			.grid-style > :nth-child(1n) { width: calc(100% + 1rem); }
 
 		}
 
-	.gallery {
+/* ==========================================================================
+   Rotating background (#bg) + hero
+   ========================================================================== */
+
+	/* Fixed full-viewport layer behind all content. The slider (main.js)
+	   toggles .visible/.top on the child <article> elements. */
+	#bg {
+		position: fixed;
+		top: 0;
+		left: 0;
 		width: 100%;
-		margin: 2.5rem 0 2.5rem 0;
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		-moz-flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-		-moz-align-items: stretch;
-		-webkit-align-items: stretch;
-		-ms-align-items: stretch;
-		align-items: stretch;
+		/* Use the *large* viewport height so the fixed background doesn't
+		   resize when mobile browsers hide/show the URL bar on scroll. */
+		height: 100vh;
+		height: 100lvh;
+		z-index: -1;
+		background-color: #121212;
+		padding: 0;
 	}
 
-		.gallery > * {
-			-moz-flex-shrink: 1;
-			-webkit-flex-shrink: 1;
-			-ms-flex-shrink: 1;
-			flex-shrink: 1;
-			-moz-flex-grow: 0;
-			-webkit-flex-grow: 0;
-			-ms-flex-grow: 0;
-			flex-grow: 0;
-		}
-
-		.gallery > * {
-			width: 50%;
-		}
-
-		.gallery > * {
-			padding: 2rem;
-			width: calc(50% + 2rem);
-		}
-
-		.gallery > :nth-child(-n + 2) {
-			padding-top: 0;
-		}
-
-		.gallery > :nth-last-child(-n + 2) {
-			padding-bottom: 0;
-		}
-
-		.gallery > :nth-child(2n + 1) {
-			padding-left: 0;
-		}
-
-		.gallery > :nth-child(2n) {
-			padding-right: 0;
-		}
-
-		.gallery > :nth-child(2n + 1),
-		.gallery > :nth-child(2n) {
-			width: calc(50% + 0rem);
-		}
-
-		.gallery .image {
-			background: #FFF;
-			padding: 1rem;
-		}
-
-			.gallery .image.fit {
-				margin: 0;
-			}
-
-		@media screen and (max-width: 980px) {
-
-			.gallery > * {
-				width: 100%;
-			}
-
-			.gallery > * {
-				padding: 1rem;
-				width: calc(50% + 1rem);
-			}
-
-			.gallery > :nth-child(-n + 2) {
-				padding-top: 1rem;
-			}
-
-			.gallery > :nth-last-child(-n + 2) {
-				padding-bottom: 1rem;
-			}
-
-			.gallery > :nth-child(2n + 1) {
-				padding-left: 1rem;
-			}
-
-			.gallery > :nth-child(2n) {
-				padding-right: 1rem;
-			}
-
-			.gallery > :nth-child(2n + 1),
-			.gallery > :nth-child(2n) {
-				padding: 1rem;
-				width: calc(100% + 2rem);
-			}
-
-			.gallery > * {
-				padding: 1rem;
-				width: calc(100% + 2rem);
-			}
-
-			.gallery > :nth-child(-n + 1) {
-				padding-top: 0;
-			}
-
-			.gallery > :nth-last-child(-n + 1) {
-				padding-bottom: 0;
-			}
-
-			.gallery > :nth-child(1n + 1) {
-				padding-left: 0;
-			}
-
-			.gallery > :nth-child(1n) {
-				padding-right: 0;
-			}
-
-			.gallery > :nth-child(1n + 1),
-			.gallery > :nth-child(1n) {
-				width: calc(100% + 1rem);
-			}
-
-		}
-
-/* Banner */
-
-	.banner {
-		background-color: #8a4680;
-		color: #e2d1df;
-		padding: 8em 0;
-		position: relative;
-	}
-
-		.banner input, .banner select, .banner textarea {
-			color: #ffffff;
-		}
-
-		.banner a {
-			color: #ffffff;
-		}
-
-		.banner strong, .banner b {
-			color: #ffffff;
-		}
-
-		.banner h1, .banner h2, .banner h3, .banner h4, .banner h5, .banner h6 {
-			color: #ffffff;
-		}
-
-		.banner blockquote {
-			border-left-color: rgba(255, 255, 255, 0.25);
-		}
-
-		.banner code {
-			background: rgba(255, 255, 255, 0.075);
-			border-color: rgba(255, 255, 255, 0.25);
-		}
-
-		.banner hr {
-			border-bottom-color: rgba(255, 255, 255, 0.25);
-		}
-
-		.banner.full {
-			padding: 0;
-			min-height: 100vh;
-			height: 100vh !important;
-		}
-
-		.banner.half {
-			padding: 0;
-			min-height: 50vh;
-			height: 50vh !important;
-		}
-
-		.banner:after {
-			-moz-pointer-events: none;
-			-webkit-pointer-events: none;
-			-ms-pointer-events: none;
-			pointer-events: none;
-			-moz-transition: opacity 1.5s ease-in-out, visibility 1.5s;
-			-webkit-transition: opacity 1.5s ease-in-out, visibility 1.5s;
-			-ms-transition: opacity 1.5s ease-in-out, visibility 1.5s;
-			transition: opacity 1.5s ease-in-out, visibility 1.5s;
-			background: #000000;
-			content: '';
-			display: block;
-			height: 100%;
-			left: 0;
-			opacity: 0;
-			position: absolute;
-			top: 0;
-			visibility: hidden;
-			width: 100%;
-			z-index: 2;
-		}
-
-		.banner .indicators {
-			bottom: 1.5em;
-			left: 0;
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			position: absolute;
-			text-align: center;
-			width: 100%;
-			z-index: 2;
-		}
-
-			.banner .indicators li {
-				cursor: pointer;
-				display: inline-block;
-				height: 2em;
-				overflow: hidden;
-				padding: 0;
-				position: relative;
-				text-indent: 2em;
-				width: 2em;
-			}
-
-				.banner .indicators li:before {
-					background: rgba(255, 255, 255, 0.35);
-					border-radius: 100%;
-					content: '';
-					display: inline-block;
-					height: 0.8em;
-					left: 50%;
-					margin: -0.4em 0 0 -0.4em;
-					position: absolute;
-					text-indent: 0;
-					top: 50%;
-					width: 0.8em;
-				}
-
-				.banner .indicators li.visible:before {
-					background: #fff;
-				}
-
-		.banner > article {
-			-moz-transition: opacity 1.5s ease, visibility 1.5s;
+		#bg > article {
 			-webkit-transition: opacity 1.5s ease, visibility 1.5s;
-			-ms-transition: opacity 1.5s ease, visibility 1.5s;
 			transition: opacity 1.5s ease, visibility 1.5s;
 			background-attachment: fixed;
 			background-position: center;
@@ -1735,289 +392,57 @@
 			z-index: 0;
 		}
 
-			.banner > article:before {
-				content: '';
-				display: inline-block;
-				height: 100%;
-				vertical-align: middle;
-			}
+			/* The <img> only drives the CSS background src; it is never shown. */
+			#bg > article img { display: none; }
 
-			.banner > article:after {
+			/* Gradient scrim: darkest behind the centered caption, fading to
+			   clear at the edges so the photo stays vivid around the frame.
+			   Sits above the background image (z 1) but below the caption (z 2),
+			   and cross-fades with the slide since it lives inside the article. */
+			#bg > article:after {
 				content: '';
-				display: block;
-				width: 100%;
-				height: 100%;
 				position: absolute;
 				top: 0;
 				left: 0;
-				background: #000;
-				opacity: 0.35;
-			}
-
-			.banner > article .inner {
-				position: relative;
-				display: inline-block;
-				vertical-align: middle;
+				width: 100%;
+				height: 100%;
 				z-index: 1;
+				pointer-events: none;
+				background:
+					radial-gradient(
+						ellipse 60% 55% at 50% 50%,
+						rgba(0, 0, 0, 0.62) 0%,
+						rgba(0, 0, 0, 0.45) 40%,
+						rgba(0, 0, 0, 0.12) 72%,
+						rgba(0, 0, 0, 0) 100%
+					),
+					linear-gradient(
+						to bottom,
+						rgba(0, 0, 0, 0.15) 0%,
+						rgba(0, 0, 0, 0) 30%,
+						rgba(0, 0, 0, 0) 70%,
+						rgba(0, 0, 0, 0.22) 100%
+					);
 			}
 
-				.banner > article .inner > :last-child {
-					margin-bottom: 0;
-				}
-
-			.banner > article h2 {
-				font-size: 7rem;
-				margin-bottom: 0;
-				color: #FFF;
-				font-weight: 300;
-			}
-
-				.banner > article h2:after {
-					display: none;
-				}
-
-			.banner > article p {
-				color: rgba(255, 255, 255, 0.65);
-				text-transform: uppercase;
-				font-size: 1rem;
-				font-weight: 300;
-				margin: 0;
-				padding-bottom: 1.75rem;
-				letter-spacing: .25rem;
-			}
-
-				.banner > article p:after {
-					content: '';
-					position: absolute;
-					margin: auto;
-					right: 0;
-					bottom: 0;
-					left: 0;
-					width: 50%;
-					height: 1px;
-					background-color: rgba(255, 255, 255, 0.65);
-				}
-
-			.banner > article a {
-				color: #FFF;
-				text-decoration: none;
-			}
-
-			.banner > article img {
-				display: none;
-			}
-
-			.banner > article.visible {
+			#bg > article.visible {
 				opacity: 1;
 				visibility: visible;
 			}
 
-			.banner > article.top {
-				z-index: 1;
-			}
+			#bg > article.top { z-index: 1; }
 
-			.banner > article.instant {
-				-moz-transition: none !important;
+			#bg > article.instant {
 				-webkit-transition: none !important;
-				-ms-transition: none !important;
 				transition: none !important;
 			}
 
-		body.is-loading .banner:after {
-			opacity: 1.0;
-			visibility: visible;
-		}
-
-		@media screen and (max-width: 1280px) {
-
-			.banner.full {
-				padding: 0;
-				min-height: 75vh;
-				height: 75vh !important;
-			}
-
-		}
-
 		@media screen and (max-width: 980px) {
-
-			.banner.full {
-				padding: 0;
-				min-height: 50vh;
-				height: 50vh !important;
-			}
-
-			.banner > article {
-				background-attachment: scroll;
-			}
-
+			#bg > article { background-attachment: scroll; }
 		}
 
-		@media screen and (max-width: 736px) {
-
-			.banner > article .inner {
-				width: 90%;
-			}
-
-			.banner > article p {
-				margin-bottom: 1rem;
-			}
-
-			.banner > article h2 {
-				font-size: 4em;
-			}
-
-		}
-
-		body.is-mobile .banner > article {
-			background-attachment: scroll;
-		}
-
-/* ==========================================================================
-   Dark mode overrides
-   ========================================================================== */
-
-	/* Transparent so the fixed rotating #bg shows through the whole page. */
-	body {
-		background: transparent;
-		color: #cccccc;
-	}
-
-	/* Shared panel surface tokens used by every text block (.glass-panel,
-	   .box .content, .cert-card). A simple semi-transparent dark fill (80%
-	   opaque) with NO backdrop-filter: the 20% transparency lets the background
-	   show through, and with no backdrop-filter the surface never samples the
-	   live background, so it stays static (no shift as the slideshow cycles or
-	   on hover). Keeping it in one place keeps every section consistent. */
-	:root {
-		--panel-surface: rgba(20, 18, 26, 0.8);
-		--panel-border: rgba(255, 255, 255, 0.22);
-		--panel-radius: 10px;
-		--panel-shadow:
-			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
-			0 0 1.25rem -0.25rem rgba(124, 58, 237, 0.25);
-	}
-
-	/* Content sections themselves stay transparent; each text block sits on a
-	   translucent panel. */
-	.wrapper.style2 {
-		background-color: transparent;
-		background-image: none;
-		color: #b0b0b0;
-	}
-
-	/* About / section panel — uses the shared translucent surface. */
-	.glass-panel {
-		background: var(--panel-surface);
-		border: 1px solid var(--panel-border);
-		border-radius: var(--panel-radius);
-		box-shadow: var(--panel-shadow);
-		padding: 3rem;
-	}
-
-		@media screen and (max-width: 736px) {
-			.glass-panel { padding: 2rem; }
-		}
-
-		.wrapper.style2 h1,
-		.wrapper.style2 h2,
-		.wrapper.style2 h3,
-		.wrapper.style2 h4,
-		.wrapper.style2 h5,
-		.wrapper.style2 h6 {
-			color: #ffffff;
-		}
-
-		.wrapper.style2 strong,
-		.wrapper.style2 b {
-			color: #ffffff;
-		}
-
-		.wrapper.style2 a {
-			color: #c98fc0;
-		}
-
-	/* Project cards — the frame holds the glow-tinted border + shadow; the
-	   .content area is the shared translucent surface. Hover changes ONLY the
-	   border + glow (no transform, no background change), so the translucency
-	   looks identical hovered or not. */
-	.box {
-		background: transparent;
-		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.22);
-		border-radius: var(--panel-radius);
-		overflow: hidden;
-		box-shadow:
-			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
-			0 0 1.25rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.25);
-		transition: box-shadow 0.25s ease, border-color 0.25s ease;
-	}
-
-		.wrapper.style2 .box {
-			border-color: rgba(var(--glow, 255, 255, 255), 0.22);
-		}
-
-		.box .image.fit {
-			position: relative;
-		}
-
-		/* Translucent content area — the background shows through the 20% gap. */
-		.box .content {
-			background: var(--panel-surface);
-		}
-
-		.box header p:after {
-			background-color: rgba(255, 255, 255, 0.15);
-		}
-
-	/* Clickable card */
-	a.box {
-		border-radius: var(--panel-radius);
-	}
-
-		a.box .content p {
-			color: #c7c2cf;
-		}
-
-		/* Hover: surface/opacity never changes. Only the border + glow respond.
-		   No transform (moving the element is unnecessary and was the source of
-		   perceived opacity shifts). */
-		a.box:hover {
-			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
-			box-shadow:
-				0 0.9rem 2.25rem rgba(0, 0, 0, 0.5),
-				0 0 2rem rgba(var(--glow, 124, 58, 237), 0.55);
-		}
-
-/* ==========================================================================
-   Continuous rotating background (spans the whole page)
-   ========================================================================== */
-
-	/* Fixed full-viewport layer that sits behind all content. The slider
-	   (main.js) toggles .visible/.top on the child <article> elements, and
-	   the existing ".banner > article" rules handle the cover-fit cross-fade. */
-	#bg {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		/* Use the *large* viewport height (toolbar retracted) so the fixed
-		   background doesn't resize — and rescale its cover image (zoom) — when
-		   mobile browsers hide/show the URL bar on scroll. Falls back to vh. */
-		height: 100vh;
-		height: 100lvh;
-		z-index: -1;
-		background-color: #121212;
-		padding: 0;
-	}
-
-		/* Disable the template's per-slide dark overlay; readability comes from
-		   each text block's own translucent panel instead. */
-		#bg > article:after {
-			display: none;
-		}
-
-	/* Hero: empty spacer occupying the first screen. The caption lives inside
-	   the fixed #bg slides so it cross-fades together with the image. Flex is
-	   used to anchor the scroll-down cue at the bottom-center. */
+	/* Hero: spacer occupying the first screen. Flex anchors the scroll-down
+	   cue at the bottom-center. */
 	.hero {
 		position: relative;
 		min-height: 100vh;
@@ -2032,9 +457,8 @@
 		justify-content: center;
 	}
 
-	/* Per-slide caption: centered over the first viewport. Because it sits
-	   inside .banner > article, it inherits the article's 1.5s opacity
-	   transition and cross-fades in step with the background image. */
+	/* Per-slide caption: centered over the first viewport, cross-fades with
+	   the background image. */
 	#bg > article .caption {
 		position: absolute;
 		top: 0;
@@ -2057,8 +481,12 @@
 		padding: 2rem;
 		z-index: 2;
 		color: #ffffff;
-		/* Fade the caption out as the page scrolls past the hero. */
+		/* Caption scrolls up and away as the page scrolls past the hero
+		   (translate driven by --caption-shift), with a light fade near the end
+		   so it doesn't clip abruptly. Both vars are set by main.js on scroll. */
+		transform: translateY(var(--caption-shift, 0));
 		opacity: var(--caption-opacity, 1);
+		will-change: transform, opacity;
 	}
 
 		#bg > article .caption h2 {
@@ -2069,10 +497,6 @@
 			color: #ffffff;
 			text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.6);
 		}
-
-			#bg > article .caption h2:after {
-				display: none;
-			}
 
 		#bg > article .caption .hero-subtitle {
 			margin: 1rem 0 0 0;
@@ -2090,70 +514,24 @@
 			text-decoration: none;
 		}
 
-		/* Tablet: the base 7rem title is too large for ~740-980px widths. */
 		@media screen and (max-width: 980px) {
-
-			#bg > article .caption h2 {
-				font-size: 5rem;
-			}
-
+			#bg > article .caption h2 { font-size: 5rem; }
 		}
 
 		@media screen and (max-width: 736px) {
-
-			#bg > article .caption h2 {
-				font-size: 4rem;
-			}
-
+			#bg > article .caption h2 { font-size: 4rem; }
 		}
 
-		/* Small phones: prevent long titles (e.g. "Open Source Development")
-		   from overflowing the viewport. Placed after the 736px rule so it
-		   wins at narrow widths (equal specificity → later rule applies). */
 		@media screen and (max-width: 480px) {
-
-			#bg > article .caption h2 {
-				font-size: 2.6rem;
-			}
-
+			#bg > article .caption h2 { font-size: 2.6rem; }
 			#bg > article .caption .hero-subtitle {
 				font-size: 0.8rem;
 				letter-spacing: 0.25em;
 			}
-
 		}
 
-	/* Footer (style3): fully transparent so the rotating #bg shows through
-	   untinted. The template adds a .wrapper.style3:before overlay
-	   (rgba(0,0,0,0.95) at 0.75 opacity) to darken its static image; disable it
-	   since our footer sits over the live rotating background. */
-	.wrapper.style3:before {
-		display: none;
-	}
-
-	/* The footer element is #four (not #footer), so the template's
-	   "#footer .copyright" rule never applies; the quote otherwise inherits the
-	   grey .wrapper.style3 color. Force it white to match the banner text. */
-	.wrapper.style3 .copyright {
-		color: #ffffff;
-	}
-
-	/* Tighten the large gap between the last cards and the footer: the footer
-	   inherits .wrapper's 6rem top padding on top of the projects section's
-	   4rem bottom padding. Pull both in. (Scoped to #projects so the About
-	   section keeps its normal spacing.) */
-	#projects.wrapper.style2 {
-		padding-bottom: 1rem;
-	}
-
-	.wrapper.style3 {
-		padding-top: 2rem;
-		background-color: transparent;
-		background-image: none;
-	}
-
 /* ==========================================================================
-   Enhancements: skip link, scroll cue, About, tags, scroll-reveal
+   Skip link, focus states
    ========================================================================== */
 
 	/* Skip link — visually hidden until focused (keyboard/AT users). */
@@ -2178,14 +556,17 @@
 			outline: 2px solid #fff;
 		}
 
-	/* Visible focus outline for keyboard navigation on interactive elements. */
+	/* Visible focus outline for keyboard navigation. */
 	a:focus-visible,
 	.box:focus-visible {
 		outline: 2px solid #c98fc0;
 		outline-offset: 3px;
 	}
 
-	/* --- Scroll-spy dot navigation ----------------------------------------- */
+/* ==========================================================================
+   Scroll-spy dot navigation
+   ========================================================================== */
+
 	.dot-nav {
 		position: fixed;
 		top: 50%;
@@ -2210,9 +591,6 @@
 			visibility: visible;
 		}
 
-		/* Each link is a fixed-width column so the dot always sits on the same
-		   vertical line; the label is absolutely positioned to its left and
-		   never displaces the dot. */
 		.dot-nav a {
 			position: relative;
 			display: block;
@@ -2231,8 +609,6 @@
 			border-radius: 50%;
 			border: 1px solid rgba(255, 255, 255, 0.5);
 			background: transparent;
-			/* translate(-50%,-50%) keeps the dot centered in its column even when
-			   scaled, so scaling the active dot doesn't shift it. */
 			transform: translate(-50%, -50%);
 			transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 		}
@@ -2252,15 +628,12 @@
 			white-space: nowrap;
 		}
 
-		/* Reveal the label on hover/focus of a dot. */
 		.dot-nav a:hover .dot-label,
 		.dot-nav a:focus-visible .dot-label {
 			opacity: 1;
 			transform: translateY(-50%) translateX(0);
 		}
 
-		/* Active section: filled purple dot + persistent label. Scale is added
-		   to the centering translate so the dot stays put. */
 		.dot-nav a.is-active .dot {
 			background: #c98fc0;
 			border-color: #c98fc0;
@@ -2278,7 +651,10 @@
 			.dot-nav { display: none; }
 		}
 
-	/* --- Scroll-down cue in the hero --------------------------------------- */
+/* ==========================================================================
+   Scroll-down cue
+   ========================================================================== */
+
 	.scroll-cue {
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -2294,8 +670,7 @@
 		color: rgba(255, 255, 255, 0.85);
 		text-decoration: none;
 		z-index: 3;
-		/* Fade the cue out as the page scrolls, and back in near the top.
-		   Driven by --caption-opacity (set on :root by main.js). */
+		/* Fade out on scroll; driven by --caption-opacity (set by main.js). */
 		opacity: var(--caption-opacity, 1);
 		transition: opacity 0.4s ease;
 		-webkit-animation: cue-bob 2s ease-in-out infinite;
@@ -2327,14 +702,13 @@
 		50%      { transform: translateY(0.4rem); }
 	}
 
-	/* --- About section ----------------------------------------------------- */
-	.about .inner {
-		max-width: 52rem;
-	}
+/* ==========================================================================
+   About section
+   ========================================================================== */
 
-		.about h2 {
-			margin-bottom: 1.5rem;
-		}
+	.about .inner { max-width: 52rem; }
+
+		.about h2 { margin-bottom: 1.5rem; }
 
 		.about .about-lead {
 			text-align: center;
@@ -2346,94 +720,17 @@
 		.about .about-cta {
 			text-align: center;
 			color: #ffffff;
-			/* CTA closes out the section, so drop the bottom margin to keep the
-			   gap below About consistent with the other sections. */
 			margin-bottom: 0;
 		}
-
-	/* --- Project card tag chips -------------------------------------------- */
-	.box .content .tags {
-		list-style: none;
-		margin: 1.25rem 0 0 0;
-		padding: 0;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-		-webkit-justify-content: center;
-		-ms-flex-pack: center;
-		justify-content: center;
-		gap: 0.4rem;
-	}
-
-		.box .content .tags li {
-			padding: 0.25rem 0.65rem;
-			border-radius: 1rem;
-			font-size: 0.68rem;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			color: rgba(var(--glow, 255, 255, 255), 0.95);
-			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.35);
-			background: rgba(var(--glow, 255, 255, 255), 0.08);
-		}
-
-	/* --- Scroll-reveal ----------------------------------------------------- */
-	[data-reveal] {
-		opacity: 0;
-		transform: translateY(24px);
-		transition: opacity 0.7s ease, transform 0.7s ease;
-		will-change: opacity, transform;
-	}
-
-		[data-reveal].is-visible {
-			opacity: 1;
-			transform: none;
-		}
-
-	/* --- Respect reduced-motion preferences -------------------------------- */
-	@media (prefers-reduced-motion: reduce) {
-
-		*,
-		*:before,
-		*:after {
-			-webkit-animation-duration: 0.001ms !important;
-			animation-duration: 0.001ms !important;
-			-webkit-animation-iteration-count: 1 !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.001ms !important;
-			scroll-behavior: auto !important;
-		}
-
-		.scroll-cue {
-			-webkit-animation: none !important;
-			animation: none !important;
-		}
-
-		[data-reveal] {
-			opacity: 1 !important;
-			transform: none !important;
-		}
-
-	}
 
 /* ==========================================================================
-   Certifications, terminal hero, GitHub stamps, easter eggs
+   Certifications + Speaking
    ========================================================================== */
 
-	/* --- Certifications ---------------------------------------------------- */
-	.certs .inner {
-		max-width: 60rem;
-	}
+	.certs .inner { max-width: 60rem; }
 
-		.certs header {
-			margin-bottom: 2.5rem;
-		}
-
-		.certs h2 {
-			margin-bottom: 0;
-		}
+		.certs header { margin-bottom: 2.5rem; }
+		.certs h2 { margin-bottom: 0; }
 
 		.certs .section-lead {
 			text-align: center;
@@ -2465,10 +762,7 @@
 			max-width: 18rem;
 		}
 
-	/* Cert / speaking cards sit inside the section's single translucent
-	   .glass-panel (matching the About panel). They have NO surface of their
-	   own — just a glow border — so the section keeps one consistent translucent
-	   layer. Hover changes only the border. */
+	/* Cert / speaking cards: no surface of their own, just a glow border. */
 	.cert-card {
 		height: 100%;
 		padding: 2rem 1.5rem;
@@ -2498,8 +792,7 @@
 		}
 
 		/* In Certifications and Speaking the pill carries the full name (no
-		   separate heading), so it reads as a title: mixed case, easier
-		   tracking, and a touch larger. */
+		   separate heading), so it reads as a title. */
 		#certifications .cert-badge,
 		#speaking .cert-badge {
 			margin-bottom: 0;
@@ -2515,14 +808,15 @@
 			color: #b8b2c2;
 		}
 
-		/* No heading between the pill and the blurb, so give the description a
-		   little breathing room below the title pill. */
 		#certifications .cert-card p,
 		#speaking .cert-card p {
 			margin-top: 0.85rem;
 		}
 
-	/* --- Terminal hero: blinking cursor ------------------------------------ */
+/* ==========================================================================
+   Terminal hero cursor + easter egg
+   ========================================================================== */
+
 	.caption-terminal .type-cursor {
 		display: inline-block;
 		width: 0.06em;
@@ -2538,7 +832,7 @@
 	@-webkit-keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 	@keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
-	/* --- Easter egg: "ACCESS GRANTED" flash before redirecting to /root ---- */
+	/* Easter egg: "ACCESS GRANTED" flash before redirecting to /root. */
 	.egg-flash {
 		position: fixed;
 		top: 50%;
@@ -2555,20 +849,50 @@
 		border-radius: 6px;
 		box-shadow: 0 0 2rem rgba(51, 255, 102, 0.5);
 		text-shadow: 0 0 8px rgba(51, 255, 102, 0.8);
-		transition: opacity 0.6s ease;
 	}
 
-		.egg-flash.is-gone {
-			opacity: 0;
-		}
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
 
-	/* --- Reduced motion: stop cursor blink and egg animations -------------- */
 	@media (prefers-reduced-motion: reduce) {
 
+		*, *:before, *:after {
+			-webkit-animation-duration: 0.001ms !important;
+			animation-duration: 0.001ms !important;
+			-webkit-animation-iteration-count: 1 !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.001ms !important;
+			scroll-behavior: auto !important;
+		}
+
+		.scroll-cue,
 		.caption-terminal .type-cursor {
 			-webkit-animation: none !important;
 			animation: none !important;
-			opacity: 1;
+		}
+
+		.caption-terminal .type-cursor { opacity: 1; }
+
+		[data-reveal] {
+			opacity: 1 !important;
+			transform: none !important;
 		}
 
 	}
+
+/* ==========================================================================
+   Scroll-reveal
+   ========================================================================== */
+
+	[data-reveal] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition: opacity 0.7s ease, transform 0.7s ease;
+		will-change: opacity, transform;
+	}
+
+		[data-reveal].is-visible {
+			opacity: 1;
+			transform: none;
+		}
