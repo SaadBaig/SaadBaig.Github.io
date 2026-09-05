@@ -14,7 +14,7 @@
 	   ---------------------------------------------------------------------- */
 	// Type a single element's data-text into it, character by character.
 	// Cancels any in-progress typing on that element first.
-	function typeInto(el, startDelay) {
+	function typeInto(el, startDelay, onDone) {
 		var text = el.getAttribute('data-text') || '';
 
 		// Cancel a previous run on this element.
@@ -22,6 +22,7 @@
 
 		if (reduceMotion) {
 			el.textContent = text;
+			if (onDone) onDone();
 			return;
 		}
 
@@ -33,6 +34,7 @@
 				el._typeTimer = window.setTimeout(tick, 70 + Math.random() * 45);
 			} else {
 				el._typeTimer = null;
+				if (onDone) onDone();
 			}
 		}
 		el.textContent = '';
@@ -43,16 +45,50 @@
 		var slides = document.querySelectorAll('#bg > article');
 		if (!slides.length) return;
 
-		// Reduced motion: fill every caption in immediately and stop.
+		// Reduced motion: fill every caption in immediately and stop. Where a
+		// slide has a subtitle, hand the single caret to it (hide the title's,
+		// show the subtitle's) so exactly one cursor sits after the last line.
 		if (reduceMotion) {
 			document.querySelectorAll('.caption-terminal .type-target').forEach(function (el) {
 				el.textContent = el.getAttribute('data-text');
 			});
+			document.querySelectorAll('#bg > article').forEach(function (slide) {
+				var sub = slide.querySelector('.caption-terminal .type-subtitle');
+				if (!sub) return;
+				var titleCursor = slide.querySelector('.caption-terminal .type-cursor:not(.type-subtitle-cursor)');
+				var subCursor = slide.querySelector('.type-subtitle-cursor');
+				if (titleCursor) titleCursor.classList.add('is-done');
+				if (subCursor) subCursor.classList.add('is-typing');
+			});
 			return;
 		}
 
+		// The primary (name/title) target — excludes the optional subtitle.
 		function targetIn(slide) {
-			return slide.querySelector('.caption-terminal .type-target');
+			return slide.querySelector('.caption-terminal .type-target:not(.type-subtitle)');
+		}
+		// Optional second line (only the first slide has one).
+		function subtitleIn(slide) {
+			return slide.querySelector('.caption-terminal .type-subtitle');
+		}
+
+		// The title's own caret (the one that should retire once the subtitle
+		// takes over). It's the .type-cursor that is NOT the subtitle cursor.
+		function titleCursorIn(slide) {
+			return slide.querySelector('.caption-terminal .type-cursor:not(.type-subtitle-cursor)');
+		}
+
+		// Type the subtitle after the title finishes: hand the blinking caret
+		// over to the subtitle (hide the title's, reveal the subtitle's) so
+		// only one cursor blinks at a time.
+		function typeSubtitle(slide) {
+			var sub = subtitleIn(slide);
+			if (!sub) return;
+			var titleCursor = titleCursorIn(slide);
+			if (titleCursor) titleCursor.classList.add('is-done');
+			var cursor = slide.querySelector('.type-subtitle-cursor');
+			if (cursor) cursor.classList.add('is-typing');
+			typeInto(sub, 250);
 		}
 
 		// Clear every caption up front, then type the initially-visible slide
@@ -61,9 +97,13 @@
 		slides.forEach(function (slide) {
 			var t = targetIn(slide);
 			if (t && slide !== first) t.textContent = '';
+			var s = subtitleIn(slide);
+			if (s) s.textContent = '';
 		});
 		var firstTarget = targetIn(first);
-		if (firstTarget) typeInto(firstTarget, 450);
+		if (firstTarget) {
+			typeInto(firstTarget, 450, function () { typeSubtitle(first); });
+		}
 
 		// Track which slide we last typed so the observer only fires on a real
 		// change to a newly-visible slide (avoids re-typing on unrelated
@@ -74,13 +114,30 @@
 			var observer = new MutationObserver(function () {
 				var target = targetIn(slide);
 				if (!target) return;
+				var sub = subtitleIn(slide);
+				var subCursor = slide.querySelector('.type-subtitle-cursor');
 				var isVisible = slide.classList.contains('visible');
+				var titleCursor = titleCursorIn(slide);
 				if (isVisible && slide !== lastVisible) {
 					lastVisible = slide;
-					typeInto(target, 250);
+					// Restore the title caret; reset the subtitle so the sequence
+					// (title -> subtitle) replays cleanly on re-visit.
+					if (titleCursor) titleCursor.classList.remove('is-done');
+					if (sub) {
+						if (sub._typeTimer) { window.clearTimeout(sub._typeTimer); sub._typeTimer = null; }
+						sub.textContent = '';
+						if (subCursor) subCursor.classList.remove('is-typing');
+					}
+					typeInto(target, 250, function () { typeSubtitle(slide); });
 				} else if (!isVisible) {
 					if (target._typeTimer) { window.clearTimeout(target._typeTimer); target._typeTimer = null; }
 					target.textContent = '';
+					if (titleCursor) titleCursor.classList.remove('is-done');
+					if (sub) {
+						if (sub._typeTimer) { window.clearTimeout(sub._typeTimer); sub._typeTimer = null; }
+						sub.textContent = '';
+						if (subCursor) subCursor.classList.remove('is-typing');
+					}
 				}
 			});
 			observer.observe(slide, { attributes: true, attributeFilter: ['class'] });

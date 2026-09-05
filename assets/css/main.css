@@ -829,6 +829,23 @@
 		animation: term-blink 1.05s steps(1) infinite;
 	}
 
+		/* The subtitle cursor stays hidden until the name finishes typing and
+		   the subtitle begins (JS adds .is-typing). Keeps a single blinking
+		   caret at a time so the two lines type in sequence, not together. */
+		.caption-terminal .type-subtitle-cursor {
+			display: none;
+		}
+
+			.caption-terminal .type-subtitle-cursor.is-typing {
+				display: inline-block;
+			}
+
+		/* Once the title hands off to the subtitle, hide the title's caret so
+		   only one cursor blinks (the subtitle's) after "Engineer". */
+		.caption-terminal .type-cursor.is-done {
+			display: none;
+		}
+
 	@-webkit-keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 	@keyframes term-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
