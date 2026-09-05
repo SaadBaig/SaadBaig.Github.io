@@ -2343,42 +2343,11 @@
 			color: #d7d2df;
 		}
 
-		.about .about-focus {
-			list-style: none;
-			padding: 0;
-			margin: 2rem 0;
-			display: -webkit-flex;
-			display: -ms-flexbox;
-			display: flex;
-			-webkit-flex-wrap: wrap;
-			-ms-flex-wrap: wrap;
-			flex-wrap: wrap;
-			-webkit-justify-content: center;
-			-ms-flex-pack: center;
-			justify-content: center;
-			gap: 0.6rem;
-		}
-
-			.about .about-focus li {
-				padding: 0;
-			}
-
-			.about .about-focus span {
-				display: inline-block;
-				padding: 0.45rem 1rem;
-				border: 1px solid rgba(201, 143, 192, 0.4);
-				border-radius: 2rem;
-				background: rgba(138, 70, 128, 0.12);
-				font-size: 0.8rem;
-				letter-spacing: 0.05em;
-				color: #e6def0;
-			}
-
 		.about .about-cta {
 			text-align: center;
 			color: #ffffff;
-			/* Remove the default paragraph bottom margin so the gap below About
-			   matches the gap below the Certifications section. */
+			/* CTA closes out the section, so drop the bottom margin to keep the
+			   gap below About consistent with the other sections. */
 			margin-bottom: 0;
 		}
 
@@ -2528,16 +2497,29 @@
 			background: rgba(var(--glow, 255, 255, 255), 0.1);
 		}
 
-		.cert-card h3 {
-			margin: 0 0 0.5rem 0;
-			font-size: 1.1rem;
-			color: #ffffff;
+		/* In Certifications and Speaking the pill carries the full name (no
+		   separate heading), so it reads as a title: mixed case, easier
+		   tracking, and a touch larger. */
+		#certifications .cert-badge,
+		#speaking .cert-badge {
+			margin-bottom: 0;
+			padding: 0.4rem 1.1rem;
+			font-size: 0.9rem;
+			letter-spacing: 0.04em;
+			text-transform: none;
 		}
 
 		.cert-card p {
 			margin: 0;
 			font-size: 0.85rem;
 			color: #b8b2c2;
+		}
+
+		/* No heading between the pill and the blurb, so give the description a
+		   little breathing room below the title pill. */
+		#certifications .cert-card p,
+		#speaking .cert-card p {
+			margin-top: 0.85rem;
 		}
 
 	/* --- Terminal hero: blinking cursor ------------------------------------ */

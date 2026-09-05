@@ -53,6 +53,17 @@
 			h.id = id;
 		});
 
+		// Drop a leading banner image (e.g. a centered <p><img></p> at the very
+		// top of the README). The page already shows this artwork in its
+		// .proj-hero-image block, so rendering it again here is redundant.
+		var first = tmp.firstElementChild;
+		if (first) {
+			var onlyImg = first.tagName === 'IMG' ||
+				(first.querySelector && first.querySelector('img') &&
+				 (first.textContent || '').trim() === '');
+			if (onlyImg) first.remove();
+		}
+
 		// Images -> raw content URL.
 		tmp.querySelectorAll('img[src]').forEach(function (img) {
 			var src = img.getAttribute('src');

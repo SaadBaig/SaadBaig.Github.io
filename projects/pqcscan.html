@@ -30,7 +30,7 @@
 		</header>
 
 		<div class="proj-hero-image">
-			<img src="../images/pqcscan.webp" alt="PQCScan — a stylized quantum computer" />
+			<img src="../images/pqcscan.webp" alt="PQCScan — post-quantum cryptography scanner" />
 		</div>
 
 		<main class="readme">
@@ -45,11 +45,6 @@
 
 		<!-- Full README embedded verbatim; rendered client-side by render.js. -->
 		<script id="readme" type="text/markdown" data-repo="SaadBaig/pqcscan" data-branch="main">
-<p align="center">
-  <img src="images/pqcscan.jpg" alt="...">
-</p>
-
-
 *Scan SSH/TLS servers for PQC support, validate real handshake behavior, and assess quantum risk*
 
 > **Fork note:** This fork extends [pqcscan](https://github.com/anvilsecure/pqcscan) by Anvil Secure with full TLS handshake validation, downgrade attack detection, quantum risk assessment, and X.509 certificate analysis. It goes beyond checking what servers advertise to validating what they actually negotiate — and flags whether captured traffic is decryptable by a future quantum computer.
