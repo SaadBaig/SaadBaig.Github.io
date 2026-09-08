@@ -489,6 +489,14 @@
 		will-change: transform, opacity;
 	}
 
+		/* Title block: its height is just the title line (the subtitle inside is
+		   absolutely positioned, so it adds no height). This makes the title
+		   center on the same viewport line as the single-line titles on the
+		   other slides, and stay there while the subtitle types in below. */
+		#bg > article .caption .title-block {
+			position: relative;
+		}
+
 		#bg > article .caption h2 {
 			font-size: 7rem;
 			font-weight: 300;
@@ -498,8 +506,18 @@
 			text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.6);
 		}
 
+		/* Subtitle hangs directly below the title, absolutely positioned within
+		   the title so it never adds to the caption's height. This keeps the
+		   title on the same vertical line as the single-line titles on the
+		   other slides — the name stays put while "Security Engineer" types in
+		   beneath it. */
 		#bg > article .caption .hero-subtitle {
-			margin: 1rem 0 0 0;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			margin: 0.5rem 0 0 0;
+			white-space: nowrap;
 			font-size: 0.95rem;
 			font-weight: 500;
 			text-transform: uppercase;
