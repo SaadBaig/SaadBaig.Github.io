@@ -101,7 +101,7 @@
 	.align-center { text-align: center; }
 
 /* ==========================================================================
-   Shared panel surface tokens (used by .glass-panel, .box .content, .cert-card)
+   Shared panel surface tokens (used by .glass-panel and .box .content)
    ========================================================================== */
 
 	:root {
@@ -745,7 +745,8 @@
    Certifications + Speaking
    ========================================================================== */
 
-	.certs .inner { max-width: 60rem; }
+	/* Match the About section's width so all three panels align. */
+	.certs .inner { max-width: 52rem; }
 
 		.certs header { margin-bottom: 2.5rem; }
 		.certs h2 { margin-bottom: 0; }
@@ -756,80 +757,136 @@
 			margin: 0.75rem 0 0 0;
 		}
 
-	.cert-grid {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-		-webkit-justify-content: center;
-		-ms-flex-pack: center;
-		justify-content: center;
-		gap: 1.5rem;
+	/* --- Auto-scrolling logo marquee (Certifications + Speaking) ----------- */
+	.logo-marquee {
+		position: relative;
+		width: 100%;
+		margin-top: 2.5rem;
+		overflow: hidden;
+		/* Fade the logos in/out at the edges instead of hard-cutting. */
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+		mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
 	}
 
-		.cert-grid > li {
-			padding: 0;
-			-webkit-flex: 1 1 15rem;
-			-ms-flex: 1 1 15rem;
-			flex: 1 1 15rem;
-			max-width: 18rem;
+		.logo-track {
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			width: max-content;
+			-webkit-animation: logo-scroll 32s linear infinite;
+			animation: logo-scroll 32s linear infinite;
 		}
 
-	/* Cert / speaking cards: no surface of their own, just a glow border. */
-	.cert-card {
-		height: 100%;
-		padding: 2rem 1.5rem;
-		text-align: center;
-		border-radius: var(--panel-radius);
-		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.28);
-		background: transparent;
-		transition: border-color 0.25s ease;
+			/* Speaking scrolls the opposite way (left-to-right). Playing the same
+			   keyframes in reverse still loops seamlessly since both logo sets
+			   are identical. */
+			#speaking .logo-track {
+				-webkit-animation-direction: reverse;
+				animation-direction: reverse;
+			}
+
+		.logo-item {
+			-webkit-flex: 0 0 auto;
+			-ms-flex: 0 0 auto;
+			flex: 0 0 auto;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			padding: 0 2.5rem;
+		}
+
+			/* Base logo size — shared so every logo renders at one consistent
+			   height (this uniformity is what keeps the scroll smooth: both
+			   halves of the track are identical in width). */
+			.logo-item img {
+				height: 4.5rem;
+				width: auto;
+				max-width: 18rem;
+				object-fit: contain;
+				/* Logos shown in full color. Slight lift on hover for feedback. */
+				opacity: 0.92;
+				transition: opacity 0.25s ease;
+			}
+
+				.logo-item img:hover {
+					opacity: 1;
+				}
+
+			/* Certification logos read small in their artwork, so the whole cert
+			   row is rendered larger — PenTest+, Security+, CCNA (and the rest)
+			   all share this single height so they match each other. */
+			#certifications .logo-item img {
+				height: 9rem;
+				max-width: 24rem;
+			}
+
+			/* A couple of speaking logos (denhac, RMISC) read small at the base
+			   size, so bump them ~50% larger. */
+			.logo-item img.logo-lg {
+				height: 6.75rem;
+				max-width: 24rem;
+			}
+
+			/* ISSA and MSU Denver read especially small, so render them at 2x
+			   the base size. */
+			.logo-item img.logo-xl {
+				height: 9rem;
+				max-width: 28rem;
+			}
+
+	/* Track is two identical sets; sliding by -50% loops seamlessly. */
+	@-webkit-keyframes logo-scroll {
+		from { -webkit-transform: translateX(0); transform: translateX(0); }
+		to   { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+	}
+	@keyframes logo-scroll {
+		from { transform: translateX(0); }
+		to   { transform: translateX(-50%); }
 	}
 
-		.cert-card:hover {
-			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
+	@media screen and (max-width: 736px) {
+		.logo-item { padding: 0 1.5rem; }
+		.logo-item img { height: 3.25rem; }
+		#certifications .logo-item img { height: 6.5rem; }
+		.logo-item img.logo-lg { height: 4.9rem; }
+		.logo-item img.logo-xl { height: 6.5rem; }
+	}
+
+	/* Reduced motion: stop the scroll and show a static, centered, wrapping
+	   row of the first logo set (the duplicate set is hidden). */
+	@media (prefers-reduced-motion: reduce) {
+
+		.logo-track {
+			-webkit-animation: none !important;
+			animation: none !important;
+			width: 100%;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			gap: 1rem 0;
 		}
 
-		.cert-badge {
-			display: inline-block;
-			margin-bottom: 1rem;
-			padding: 0.35rem 0.9rem;
-			border-radius: 2rem;
-			font-size: 0.72rem;
-			font-weight: 600;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-			color: rgba(var(--glow, 255, 255, 255), 0.95);
-			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.5);
-			background: rgba(var(--glow, 255, 255, 255), 0.1);
-		}
+			.logo-track .logo-item[aria-hidden="true"] {
+				display: none;
+			}
 
-		/* In Certifications and Speaking the pill carries the full name (no
-		   separate heading), so it reads as a title. */
-		#certifications .cert-badge,
-		#speaking .cert-badge {
-			margin-bottom: 0;
-			padding: 0.4rem 1.1rem;
-			font-size: 0.9rem;
-			letter-spacing: 0.04em;
-			text-transform: none;
+		.logo-marquee {
+			-webkit-mask-image: none;
+			mask-image: none;
 		}
-
-		.cert-card p {
-			margin: 0;
-			font-size: 0.85rem;
-			color: #b8b2c2;
-		}
-
-		#certifications .cert-card p,
-		#speaking .cert-card p {
-			margin-top: 0.85rem;
-		}
+	}
 
 /* ==========================================================================
    Terminal hero cursor + easter egg

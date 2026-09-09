@@ -10,7 +10,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="Saad Baig — Security Engineer" />
 		<meta property="og:description" content="Penetration testing, reverse engineering, and open-source security tooling." />
-		<meta property="og:image" content="https://saadbaig.dev/images/banner1.webp" />
+		<meta property="og:image" content="https://saadbaig.dev/images/banner/banner1.webp" />
 		<meta property="og:url" content="https://saadbaig.dev" />
 		<meta name="twitter:card" content="summary_large_image" />
 
@@ -22,7 +22,7 @@
 
 		<!-- Preload first-paint assets: the first banner + the two most-used
 		     font weights (300 body text, 700 hero title). -->
-		<link rel="preload" as="image" href="images/banner1.webp" />
+		<link rel="preload" as="image" href="images/banner/banner1.webp" />
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-300.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -46,7 +46,7 @@
 		     points at the optimized WebP directly. -->
 			<div id="bg" class="banner" aria-hidden="true">
 				<article>
-					<img src="images/banner1.webp" alt="" />
+					<img src="images/banner/banner1.webp" alt="" />
 					<div class="caption caption-terminal">
 						<div class="title-block">
 							<h2>
@@ -58,37 +58,37 @@
 				</article>
 				<!-- Quantum slide background sourced from futurecdn.net (Future plc). -->
 				<article>
-					<img src="images/quantum.webp" alt="" />
+					<img src="images/banner/quantum.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><a href="projects/pqcscan.html"><span class="type-target" data-text="Quantum Computing"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner2.webp" alt="" />
+					<img src="images/banner/banner2.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><a href="https://github.com/saadbaig/Pentesting-Methodology"><span class="type-target" data-text="Penetration Testing"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner3.webp" alt="" />
+					<img src="images/banner/banner3.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><a href="https://github.com/saadbaig/Reverse-Engineering"><span class="type-target" data-text="Reverse Engineering"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner4.webp" alt="" />
+					<img src="images/banner/banner4.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><span class="type-target" data-text="Incident Response"></span><span class="type-cursor" aria-hidden="true"></span></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner5.webp" alt="" />
+					<img src="images/banner/banner5.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><span class="type-target" data-text="Social Engineering"></span><span class="type-cursor" aria-hidden="true"></span></h2>
 					</div>
 				</article>
 				<article>
-					<img src="images/banner6.webp" alt="" />
+					<img src="images/banner/banner6.webp" alt="" />
 					<div class="caption caption-terminal">
 						<h2><a href="https://github.com/saadbaig/pqcscan"><span class="type-target" data-text="Open Source Development"></span><span class="type-cursor" aria-hidden="true"></span></a></h2>
 					</div>
@@ -136,26 +136,33 @@
 						<header class="align-center">
 							<h2>Certifications</h2>
 						</header>
-						<ul class="cert-grid">
-							<li>
-								<div class="cert-card" style="--glow: 46, 191, 145;">
-									<span class="cert-badge">CompTIA PenTest+</span>
-									<p>Penetration testing &amp; vulnerability management</p>
-								</div>
-							</li>
-							<li>
-								<div class="cert-card" style="--glow: 9, 174, 191;">
-									<span class="cert-badge">CompTIA Security+</span>
-									<p>Core security principles &amp; best practices</p>
-								</div>
-							</li>
-							<li>
-								<div class="cert-card" style="--glow: 0, 139, 191;">
-									<span class="cert-badge">Cisco CCNA</span>
-									<p>Networking fundamentals &amp; infrastructure</p>
-								</div>
-							</li>
-						</ul>
+						<!-- Auto-scrolling logo marquee (same mechanism as Speaking).
+						     Set 1 lists each cert once; the identical, aria-hidden Set 2
+						     lets the -50% slide loop seamlessly. -->
+						<div class="logo-marquee" aria-label="Certifications">
+							<div class="logo-track">
+								<!-- Set 1 -->
+								<div class="logo-item"><img src="images/certlogo/pentest.jpg" alt="CompTIA PenTest+" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/secplus.png" alt="CompTIA Security+" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/ccna.png" alt="Cisco CCNA" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/nse1.svg" alt="Fortinet NSE 1 — Information Security Awareness" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/nse2.svg" alt="Fortinet NSE 2 — The Threat Landscape" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/nse3.png" alt="Fortinet NSE 3 — Network Security Associate" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/nse4.svg" alt="Fortinet NSE 4 — Network Security Professional" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/splunkfun1.png" alt="Splunk Fundamentals 1" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/certlogo/splunkfun2.png" alt="Splunk Fundamentals 2" loading="lazy" /></div>
+								<!-- Set 2 (duplicate, hidden from assistive tech) -->
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/pentest.jpg" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/secplus.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/ccna.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse1.svg" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse2.svg" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse3.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse4.svg" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/splunkfun1.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/splunkfun2.png" alt="" loading="lazy" /></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -166,34 +173,32 @@
 					<div class="glass-panel" data-reveal>
 						<header class="align-center">
 							<h2>Speaking</h2>
-							<p class="section-lead">Conferences where I've presented my research and work.</p>
+							<p class="section-lead">Conferences and organizations where I've presented my research and work.</p>
 						</header>
-						<ul class="cert-grid">
-							<li>
-								<div class="cert-card" style="--glow: 240, 154, 58;">
-									<span class="cert-badge">RMISC</span>
-									<p>Rocky Mountain Information Security Conference</p>
-								</div>
-							</li>
-							<li>
-								<div class="cert-card" style="--glow: 0, 218, 234;">
-									<span class="cert-badge">IEEE</span>
-									<p>Institute of Electrical and Electronics Engineers</p>
-								</div>
-							</li>
-							<li>
-								<div class="cert-card" style="--glow: 191, 0, 107;">
-									<span class="cert-badge">Security BSides</span>
-									<p>Community-driven security conference</p>
-								</div>
-							</li>
-							<li>
-								<div class="cert-card" style="--glow: 46, 191, 145;">
-									<span class="cert-badge">OWASP</span>
-									<p>Open Worldwide Application Security Project</p>
-								</div>
-							</li>
-						</ul>
+						<!-- Auto-scrolling logo marquee. The track holds two identical
+						     sets of logos; it animates by -50% so the second set seamlessly
+						     continues the first, looping with no visible jump. Pauses on
+						     hover; falls back to a static wrapping row under reduced motion. -->
+						<div class="logo-marquee" aria-label="Speaking engagements">
+							<div class="logo-track">
+								<!-- Set 1 -->
+								<div class="logo-item"><img class="logo-lg" src="images/speaklogo/rmisc.png" alt="RMISC — Rocky Mountain Information Security Conference" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/speaklogo/IEEE.png" alt="IEEE — Institute of Electrical and Electronics Engineers" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/speaklogo/bsides.png" alt="BSides" loading="lazy" /></div>
+								<div class="logo-item"><img src="images/speaklogo/owasp.png" alt="OWASP — Open Worldwide Application Security Project" loading="lazy" /></div>
+								<div class="logo-item"><img class="logo-xl" src="images/speaklogo/ISSA.png" alt="ISSA — Information Systems Security Association" loading="lazy" /></div>
+								<div class="logo-item"><img class="logo-xl" src="images/speaklogo/MSU.png" alt="Metropolitan State University of Denver" loading="lazy" /></div>
+								<div class="logo-item"><img class="logo-lg" src="images/speaklogo/denhac.png" alt="denhac — Denver hackerspace" loading="lazy" /></div>
+								<!-- Set 2 (duplicate, hidden from assistive tech) -->
+								<div class="logo-item" aria-hidden="true"><img class="logo-lg" src="images/speaklogo/rmisc.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/IEEE.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/bsides.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/owasp.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img class="logo-xl" src="images/speaklogo/ISSA.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img class="logo-xl" src="images/speaklogo/MSU.png" alt="" loading="lazy" /></div>
+								<div class="logo-item" aria-hidden="true"><img class="logo-lg" src="images/speaklogo/denhac.png" alt="" loading="lazy" /></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -210,10 +215,7 @@
 						<div data-reveal>
 							<a href="projects/pqcscan.html" class="box" style="--glow: 240, 154, 58;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/pqcscan.webp" type="image/webp" />
-										<img src="images/pqcscan.jpg" alt="PQCScan project banner: a stylized quantum computer" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/pqcscan.webp" alt="PQCScan project banner: a stylized quantum computer" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -233,10 +235,7 @@
 						<div data-reveal>
 							<a href="projects/ddos-defcon-2026.html" class="box" style="--glow: 9, 174, 191;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/ddos.webp" type="image/webp" />
-										<img src="images/ddos.jpg" alt="DEFCON 2026 DDoS CTF banner with a circuit-board motif" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/ddos.webp" alt="DEFCON 2026 DDoS CTF banner with a circuit-board motif" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -256,10 +255,7 @@
 						<div data-reveal>
 							<a href="projects/pentesting-methodology.html" class="box" style="--glow: 46, 191, 145;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/pentesting.webp" type="image/webp" />
-										<img src="images/pentesting.jpg" alt="Penetration testing methodology banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/pentesting.webp" alt="Penetration testing methodology banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -279,10 +275,7 @@
 						<div data-reveal>
 							<a href="projects/tryhackme.html" class="box" style="--glow: 112, 157, 191;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/tryhackme.webp" type="image/webp" />
-										<img src="images/tryhackme.jpg" alt="TryHackMe walkthroughs banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/tryhackme.webp" alt="TryHackMe walkthroughs banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -302,10 +295,7 @@
 						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/pythondev.webp" type="image/webp" />
-										<img src="images/pythondev.jpg" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/pythondev.webp" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -325,10 +315,7 @@
 						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Reverse-Engineering" class="box" style="--glow: 0, 218, 234;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/RE.webp" type="image/webp" />
-										<img src="images/RE.jpg" alt="Reverse engineering banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/RE.webp" alt="Reverse engineering banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -348,10 +335,7 @@
 						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/exploitdev.webp" type="image/webp" />
-										<img src="images/exploitdev.jpg" alt="Exploit development banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/exploitdev.webp" alt="Exploit development banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">
@@ -371,10 +355,7 @@
 						<div data-reveal>
 							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
 								<div class="image fit">
-									<picture>
-										<source srcset="images/ML.webp" type="image/webp" />
-										<img src="images/ML.jpg" alt="Machine learning banner" loading="lazy" decoding="async" />
-									</picture>
+									<img src="images/projects/ML.webp" alt="Machine learning banner" loading="lazy" decoding="async" />
 								</div>
 								<div class="content">
 									<header class="align-center">

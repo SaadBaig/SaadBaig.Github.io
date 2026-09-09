@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v7';
+var CACHE_VERSION = 'saadbaig-v16';
 
 var CORE_ASSETS = [
 	'./',
@@ -16,13 +16,13 @@ var CORE_ASSETS = [
 	'./manifest.webmanifest',
 	'./favicon.svg',
 	'./root/index.html',
-	'./images/banner1.webp',
-	'./images/banner2.webp',
-	'./images/banner3.webp',
-	'./images/banner4.webp',
-	'./images/banner5.webp',
-	'./images/banner6.webp',
-	'./images/quantum.webp',
+	'./images/banner/banner1.webp',
+	'./images/banner/banner2.webp',
+	'./images/banner/banner3.webp',
+	'./images/banner/banner4.webp',
+	'./images/banner/banner5.webp',
+	'./images/banner/banner6.webp',
+	'./images/banner/quantum.webp',
 	// Project detail pages + their shared shell (render markdown client-side).
 	'./projects/project.css',
 	'./projects/render.js',
@@ -32,22 +32,32 @@ var CORE_ASSETS = [
 	'./projects/pentesting-methodology.html',
 	'./projects/tryhackme.html',
 	// Project card thumbnails shown on the home grid.
-	'./images/pqcscan.jpg',
-	'./images/pqcscan.webp',
-	'./images/ddos.jpg',
-	'./images/ddos.webp',
-	'./images/pentesting.jpg',
-	'./images/pentesting.webp',
-	'./images/tryhackme.jpg',
-	'./images/tryhackme.webp',
-	'./images/pythondev.jpg',
-	'./images/pythondev.webp',
-	'./images/RE.jpg',
-	'./images/RE.webp',
-	'./images/exploitdev.jpg',
-	'./images/exploitdev.webp',
-	'./images/ML.jpg',
-	'./images/ML.webp'
+	'./images/projects/pqcscan.webp',
+	'./images/projects/ddos.webp',
+	'./images/projects/pentesting.webp',
+	'./images/projects/tryhackme.webp',
+	'./images/projects/pythondev.webp',
+	'./images/projects/RE.webp',
+	'./images/projects/exploitdev.webp',
+	'./images/projects/ML.webp',
+	// Speaking-section logo marquee.
+	'./images/speaklogo/rmisc.png',
+	'./images/speaklogo/IEEE.png',
+	'./images/speaklogo/bsides.png',
+	'./images/speaklogo/owasp.png',
+	'./images/speaklogo/ISSA.png',
+	'./images/speaklogo/MSU.png',
+	'./images/speaklogo/denhac.png',
+	// Certifications-section logo marquee.
+	'./images/certlogo/pentest.jpg',
+	'./images/certlogo/secplus.png',
+	'./images/certlogo/ccna.png',
+	'./images/certlogo/nse1.svg',
+	'./images/certlogo/nse2.svg',
+	'./images/certlogo/nse3.png',
+	'./images/certlogo/nse4.svg',
+	'./images/certlogo/splunkfun1.png',
+	'./images/certlogo/splunkfun2.png'
 ];
 
 self.addEventListener('install', function (event) {
