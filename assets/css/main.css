@@ -788,10 +788,16 @@
 				animation-direction: reverse;
 			}
 
+		/* Fixed-width slot per logo (instead of per-side padding). This keeps
+		   the GAP between logos constant no matter each logo's aspect ratio —
+		   wide marks (e.g. the ~2:1 Splunk logos) just fill more of their slot
+		   rather than pushing their neighbours apart. Both track halves scale
+		   equally, so the -50% loop stays seamless. */
 		.logo-item {
 			-webkit-flex: 0 0 auto;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
+			width: 13rem;
 			display: -webkit-flex;
 			display: -ms-flexbox;
 			display: flex;
@@ -801,16 +807,16 @@
 			-webkit-justify-content: center;
 			-ms-flex-pack: center;
 			justify-content: center;
-			padding: 0 2.5rem;
 		}
 
 			/* Base logo size — shared so every logo renders at one consistent
-			   height (this uniformity is what keeps the scroll smooth: both
-			   halves of the track are identical in width). */
+			   height. max-width is capped to the slot so an unusually wide mark
+			   (e.g. Splunk) scales down to fit its slot rather than overflowing
+			   into its neighbours. */
 			.logo-item img {
 				height: 4.5rem;
 				width: auto;
-				max-width: 18rem;
+				max-width: 11rem;
 				object-fit: contain;
 				/* Logos shown in full color. Slight lift on hover for feedback. */
 				opacity: 0.92;
@@ -821,26 +827,29 @@
 					opacity: 1;
 				}
 
-			/* Certification logos read small in their artwork, so the whole cert
-			   row is rendered larger — PenTest+, Security+, CCNA (and the rest)
-			   all share this single height so they match each other. */
+			/* Certifications render larger, so give that row wider slots and let
+			   its logos use the extra width. */
+			#certifications .logo-item {
+				width: 17rem;
+			}
+
 			#certifications .logo-item img {
 				height: 9rem;
-				max-width: 24rem;
+				max-width: 15rem;
 			}
 
 			/* A couple of speaking logos (denhac, RMISC) read small at the base
-			   size, so bump them ~50% larger. */
+			   size, so bump them ~50% larger (capped to the slot width). */
 			.logo-item img.logo-lg {
 				height: 6.75rem;
-				max-width: 24rem;
+				max-width: 12rem;
 			}
 
-			/* ISSA and MSU Denver read especially small, so render them at 2x
-			   the base size. */
+			/* ISSA and MSU Denver read especially small, so render them larger
+			   (capped to the slot width). */
 			.logo-item img.logo-xl {
 				height: 9rem;
-				max-width: 28rem;
+				max-width: 12rem;
 			}
 
 	/* Track is two identical sets; sliding by -50% loops seamlessly. */
@@ -854,11 +863,12 @@
 	}
 
 	@media screen and (max-width: 736px) {
-		.logo-item { padding: 0 1.5rem; }
-		.logo-item img { height: 3.25rem; }
-		#certifications .logo-item img { height: 6.5rem; }
-		.logo-item img.logo-lg { height: 4.9rem; }
-		.logo-item img.logo-xl { height: 6.5rem; }
+		.logo-item { width: 9rem; }
+		.logo-item img { height: 3.25rem; max-width: 8rem; }
+		#certifications .logo-item { width: 12rem; }
+		#certifications .logo-item img { height: 6.5rem; max-width: 10.5rem; }
+		.logo-item img.logo-lg { height: 4.9rem; max-width: 8rem; }
+		.logo-item img.logo-xl { height: 6.5rem; max-width: 8rem; }
 	}
 
 	/* Reduced motion: stop the scroll and show a static, centered, wrapping
