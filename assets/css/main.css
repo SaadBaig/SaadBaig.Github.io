@@ -202,16 +202,44 @@
 		box-shadow:
 			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
 			0 0 1.25rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.25);
-		transition: box-shadow 0.25s ease, border-color 0.25s ease;
+		/* Cinematic hover: smooth eased lift/zoom over a longer duration. */
+		transition:
+			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
 		.box .image.fit {
 			margin: 0;
 			border-radius: 0;
 			position: relative;
+			overflow: hidden;
 		}
 
-			.box .image.fit img { border-radius: 0; }
+			.box .image.fit img {
+				border-radius: 0;
+				display: block;
+				/* Zooms in on hover; the .image.fit clip keeps it inside the card. */
+				transform: scale(1);
+				transform-origin: center;
+				transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+				            filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			/* Gradient sheen that fades in over the image on hover for depth. */
+			.box .image.fit:after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					160deg,
+					rgba(var(--glow, 124, 58, 237), 0.28) 0%,
+					transparent 45%
+				);
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			}
 
 		.box .content {
 			padding: 3rem;
@@ -228,8 +256,7 @@
 			.box .content { padding: 2rem; }
 		}
 
-	/* Clickable card (whole box is a link). Hover changes only the border +
-	   glow — no transform, so the translucency looks identical hovered or not. */
+	/* Clickable card (whole box is a link). */
 	a.box {
 		display: block;
 		color: inherit;
@@ -242,12 +269,32 @@
 			text-align: center;
 		}
 
-		a.box:hover {
-			border-color: rgba(var(--glow, 124, 58, 237), 0.7);
-			box-shadow:
-				0 0.9rem 2.25rem rgba(0, 0, 0, 0.5),
-				0 0 2rem rgba(var(--glow, 124, 58, 237), 0.55);
+		a.box .content h2 {
+			transition: color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 		}
+
+		/* Cinematic hover: the card lifts, its image zooms behind the fixed
+		   frame, a glow sheen washes over the artwork, the border/shadow glow
+		   intensifies, and the title picks up the accent colour. */
+		a.box:hover {
+			transform: translateY(-8px);
+			border-color: rgba(var(--glow, 124, 58, 237), 0.85);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(var(--glow, 124, 58, 237), 0.7);
+		}
+
+			a.box:hover .image.fit img {
+				transform: scale(1.08);
+			}
+
+			a.box:hover .image.fit:after {
+				opacity: 1;
+			}
+
+			a.box:hover .content h2 {
+				color: rgb(var(--glow, 255, 255, 255));
+			}
 
 	/* Image wrapper */
 	.image {
@@ -724,7 +771,7 @@
    About section
    ========================================================================== */
 
-	.about .inner { max-width: 52rem; }
+	.about .inner { max-width: 66rem; }
 
 		.about h2 { margin-bottom: 1.5rem; }
 
@@ -741,12 +788,41 @@
 			margin-bottom: 0;
 		}
 
+		/* Social icons (GitHub / LinkedIn) — the only content of the CTA now,
+		   so they're centered as a standalone icon row. They inherit the link
+		   colour via currentColor. */
+		.about-cta {
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			gap: 1.5rem;
+		}
+
+		.about-cta .social-link {
+			display: inline-flex;
+			align-items: center;
+		}
+
+			.about-cta .social-icon {
+				width: 1.75rem;
+				height: 1.75rem;
+				transition: transform 0.2s ease, color 0.2s ease;
+			}
+
+			.about-cta .social-link:hover .social-icon,
+			.about-cta .social-link:focus-visible .social-icon {
+				transform: translateY(-2px);
+			}
+
 /* ==========================================================================
    Certifications + Speaking
    ========================================================================== */
 
-	/* Match the About section's width so all three panels align. */
-	.certs .inner { max-width: 52rem; }
+	/* Certifications + Speaking share the wider section width. */
+	.certs .inner { max-width: 66rem; }
 
 		.certs header { margin-bottom: 2.5rem; }
 		.certs h2 { margin-bottom: 0; }
@@ -797,7 +873,7 @@
 			-webkit-flex: 0 0 auto;
 			-ms-flex: 0 0 auto;
 			flex: 0 0 auto;
-			width: 13rem;
+			width: 22.75rem;
 			display: -webkit-flex;
 			display: -ms-flexbox;
 			display: flex;
@@ -814,42 +890,40 @@
 			   (e.g. Splunk) scales down to fit its slot rather than overflowing
 			   into its neighbours. */
 			.logo-item img {
-				height: 4.5rem;
+				height: 7.875rem;
 				width: auto;
-				max-width: 11rem;
+				max-width: 19.25rem;
 				object-fit: contain;
-				/* Logos shown in full color. Slight lift on hover for feedback. */
 				opacity: 0.92;
-				transition: opacity 0.25s ease;
+				/* Cinematic hover (same feel as the project cards): lift + subtle
+				   scale + glow, on the same eased curve/duration. */
+				transform: translateY(0) scale(1);
+				transition:
+					opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
 				.logo-item img:hover {
 					opacity: 1;
+					transform: translateY(-6px) scale(1.08);
+					filter:
+						drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.45))
+						drop-shadow(0 0 0.75rem rgba(201, 143, 192, 0.65));
 				}
-
-			/* Certifications render larger, so give that row wider slots and let
-			   its logos use the extra width. */
-			#certifications .logo-item {
-				width: 17rem;
-			}
-
-			#certifications .logo-item img {
-				height: 9rem;
-				max-width: 15rem;
-			}
 
 			/* A couple of speaking logos (denhac, RMISC) read small at the base
 			   size, so bump them ~50% larger (capped to the slot width). */
 			.logo-item img.logo-lg {
-				height: 6.75rem;
-				max-width: 12rem;
+				height: 11.8rem;
+				max-width: 21rem;
 			}
 
 			/* ISSA and MSU Denver read especially small, so render them larger
 			   (capped to the slot width). */
 			.logo-item img.logo-xl {
-				height: 9rem;
-				max-width: 12rem;
+				height: 15.75rem;
+				max-width: 21rem;
 			}
 
 	/* Track is two identical sets; sliding by -50% loops seamlessly. */
@@ -863,12 +937,10 @@
 	}
 
 	@media screen and (max-width: 736px) {
-		.logo-item { width: 9rem; }
-		.logo-item img { height: 3.25rem; max-width: 8rem; }
-		#certifications .logo-item { width: 12rem; }
-		#certifications .logo-item img { height: 6.5rem; max-width: 10.5rem; }
-		.logo-item img.logo-lg { height: 4.9rem; max-width: 8rem; }
-		.logo-item img.logo-xl { height: 6.5rem; max-width: 8rem; }
+		.logo-item { width: 15.75rem; }
+		.logo-item img { height: 5.7rem; max-width: 14rem; }
+		.logo-item img.logo-lg { height: 8.6rem; max-width: 14rem; }
+		.logo-item img.logo-xl { height: 11.4rem; max-width: 14rem; }
 	}
 
 	/* Reduced motion: stop the scroll and show a static, centered, wrapping
@@ -979,6 +1051,8 @@
 		[data-reveal] {
 			opacity: 1 !important;
 			transform: none !important;
+			filter: none !important;
+			transition-delay: 0ms !important;
 		}
 
 	}
@@ -989,12 +1063,22 @@
 
 	[data-reveal] {
 		opacity: 0;
-		transform: translateY(24px);
-		transition: opacity 0.7s ease, transform 0.7s ease;
-		will-change: opacity, transform;
+		/* Rise further and start slightly scaled-down/blurred for a more
+		   cinematic entrance; the custom easing gives a smooth "settle". */
+		transform: translateY(48px) scale(0.96);
+		filter: blur(6px);
+		transition:
+			opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+			filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+		/* Per-item delay set by main.js so grouped items (project cards)
+		   cascade in one after another instead of all at once. */
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform, filter;
 	}
 
 		[data-reveal].is-visible {
 			opacity: 1;
 			transform: none;
+			filter: none;
 		}

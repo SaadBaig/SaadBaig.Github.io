@@ -105,14 +105,32 @@
 			return;
 		}
 
+		// Reversible reveal: toggle .is-visible on enter/leave so elements
+		// animate OUT the same way they came in when scrolled back past. The
+		// observer keeps watching (no unobserve) so it works in both directions.
 		var observer = new IntersectionObserver(function (entries) {
 			entries.forEach(function (entry) {
 				if (entry.isIntersecting) {
+					// Stagger items that enter together (e.g. a row of project
+					// cards) so they cascade in rather than popping at once.
+					// The delay resets shortly after each batch settles and is
+					// stored on the element so the exit animation reuses it.
+					var delay = staggerIndex * 90;
+					entry.target.style.setProperty('--reveal-delay', delay + 'ms');
+					staggerIndex++;
+					window.clearTimeout(staggerReset);
+					staggerReset = window.setTimeout(function () { staggerIndex = 0; }, 220);
+
 					entry.target.classList.add('is-visible');
-					observer.unobserve(entry.target);
+				} else {
+					// Scrolled out of view — animate back to the hidden state.
+					entry.target.classList.remove('is-visible');
 				}
 			});
 		}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+		var staggerIndex = 0;
+		var staggerReset;
 
 		for (var j = 0; j < items.length; j++) observer.observe(items[j]);
 	}

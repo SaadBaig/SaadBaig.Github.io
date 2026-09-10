@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v16';
+var CACHE_VERSION = 'saadbaig-v20';
 
 var CORE_ASSETS = [
 	'./',
@@ -49,7 +49,7 @@ var CORE_ASSETS = [
 	'./images/speaklogo/MSU.png',
 	'./images/speaklogo/denhac.png',
 	// Certifications-section logo marquee.
-	'./images/certlogo/pentest.jpg',
+	'./images/certlogo/pentest.png',
 	'./images/certlogo/secplus.png',
 	'./images/certlogo/ccna.png',
 	'./images/certlogo/nse1.svg',
