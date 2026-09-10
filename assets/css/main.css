@@ -838,6 +838,9 @@
 		position: relative;
 		width: 100%;
 		margin-top: 2.5rem;
+		/* Vertical padding gives the hover lift + zoom room to grow without the
+		   top/bottom of a logo being clipped by the horizontal-scroll clip. */
+		padding: 1.5rem 0;
 		overflow: hidden;
 		/* Fade the logos in/out at the edges instead of hard-cutting. */
 		-webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
@@ -896,20 +899,16 @@
 				object-fit: contain;
 				opacity: 0.92;
 				/* Cinematic hover (same feel as the project cards): lift + subtle
-				   scale + glow, on the same eased curve/duration. */
+				   scale, on the same eased curve/duration. */
 				transform: translateY(0) scale(1);
 				transition:
 					opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-					filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
 				.logo-item img:hover {
 					opacity: 1;
 					transform: translateY(-6px) scale(1.08);
-					filter:
-						drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.45))
-						drop-shadow(0 0 0.75rem rgba(201, 143, 192, 0.65));
 				}
 
 			/* A couple of speaking logos (denhac, RMISC) read small at the base
