@@ -1127,6 +1127,20 @@
 
 		@media screen and (max-width: 980px) {
 			#bg > article { background-attachment: scroll; }
+
+			/* On mobile a `position: fixed` banner stays pinned to the viewport,
+			   so as you scroll the whole page keeps the same background behind
+			   the transparent sections — it looks like the background never
+			   moves. Anchor the banner to the top of the document instead
+			   (absolute) so it scrolls away with the hero, and paint a solid
+			   dark backdrop on the page so the content below sits on it. */
+			html, body { background-color: #101014; }
+
+			#bg {
+				position: absolute;
+				height: 100vh;
+				height: 100dvh;
+			}
 		}
 
 	/* Hero: spacer occupying the first screen. Flex anchors the scroll-down
