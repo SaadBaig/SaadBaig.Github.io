@@ -522,14 +522,14 @@
 		}
 
 	@media screen and (max-width: 736px) {
-		/* Stack the stat label above its band on small screens. */
+		/* Stack the stat label centered above its band on small screens. */
 		.proof-band {
 			-webkit-flex-direction: column;
 			-ms-flex-direction: column;
 			flex-direction: column;
-			-webkit-align-items: flex-start;
-			-ms-flex-align: start;
-			align-items: flex-start;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
 			gap: 0.5rem;
 		}
 		/* Cancel the desktop overlap: when stacked, the -6rem pull-up would drag
@@ -543,10 +543,16 @@
 			-webkit-align-items: baseline;
 			-ms-flex-align: baseline;
 			align-items: baseline;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
 			gap: 0.6rem;
 			padding-right: 0;
 			border-right: 0;
+			text-align: center;
 		}
+		/* Marquee stays full width beneath the centered label. */
+		.proof-marquee { width: 100%; -webkit-align-self: stretch; -ms-flex-item-align: stretch; align-self: stretch; }
 		.proof-num { font-size: 2.5rem; }
 		.proof-word { margin-top: 0; }
 		.proof-tile { width: 8.5rem; height: 5.5rem; padding: 1rem; }
@@ -1151,8 +1157,16 @@
 			   the transparent sections — it looks like the background never
 			   moves. Anchor the banner to the top of the document instead
 			   (absolute) so it scrolls away with the hero, and paint a solid
-			   dark backdrop on the page so the content below sits on it. */
-			html, body { background-color: #101014; }
+			   dark backdrop below it.
+
+			   IMPORTANT: the dark fill goes on <html> only — NOT <body>. #bg is
+			   a child of <body> at z-index:-1, so a solid background on <body>
+			   would paint OVER the banner and hide it entirely (the reported
+			   "background not showing on mobile" bug). Painting <html> instead
+			   sits behind the negative-z-index banner, so the banner shows at
+			   the top and the dark backdrop covers everything below it. */
+			html { background-color: #101014; }
+			body { background-color: transparent; }
 
 			#bg {
 				position: absolute;
