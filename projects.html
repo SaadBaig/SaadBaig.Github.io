@@ -11,6 +11,17 @@
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-300.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			/* Page-specific backdrop image (only projects.html). A dark overlay
+			   keeps the glass cards and text readable over the photo. */
+			.page-backdrop {
+				background:
+					linear-gradient(rgba(16, 16, 20, 0.82), rgba(16, 16, 20, 0.88)),
+					url("images/backgrounds/blueline.jpg") center / cover no-repeat fixed,
+					#101014;
+			}
+
+		</style>
 	</head>
 	<body>
 
@@ -25,18 +36,18 @@
 			</div>
 		</nav>
 
-		<header class="page-hero">
-			<h1>Projects</h1>
-			<p class="lead">Tools, research, and write-ups spanning offensive security, reverse engineering, and beyond.</p>
-		</header>
-
 		<main>
+			<header class="page-hero" data-reveal>
+				<h1>Projects</h1>
+				<p class="lead">Tools, research, and write-ups spanning offensive security, reverse engineering, and beyond.</p>
+			</header>
+
 			<section id="projects" class="wrapper style2">
 				<div class="inner">
 					<div class="grid-style">
 
 		<!-- pqcscan -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="projects/pqcscan.html" class="box" style="--glow: 240, 154, 58;">
 								<div class="image fit">
 									<img src="images/projects/pqcscan.webp" alt="PQCScan project banner: a stylized quantum computer" loading="lazy" decoding="async" />
@@ -56,7 +67,7 @@
 						</div>
 
 		<!-- DEFCON DDoS 2026 -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="projects/ddos-defcon-2026.html" class="box" style="--glow: 9, 174, 191;">
 								<div class="image fit">
 									<img src="images/projects/ddos.webp" alt="DEFCON 2026 DDoS CTF banner with a circuit-board motif" loading="lazy" decoding="async" />
@@ -74,9 +85,18 @@
 								</div>
 							</a>
 						</div>
+					</div>
+
+		<!-- Scroll cue inviting the visitor to keep going past the first row. -->
+					<a class="scroll-cue proj-scroll-cue" href="#more" aria-label="Scroll for more projects">
+						<span class="scroll-cue-text">Moar</span>
+						<span class="scroll-cue-chevron"></span>
+					</a>
+
+					<div class="grid-style" id="more">
 
 		<!-- Pentesting Methodology -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="projects/pentesting-methodology.html" class="box" style="--glow: 46, 191, 145;">
 								<div class="image fit">
 									<img src="images/projects/pentesting.webp" alt="Penetration testing methodology banner" loading="lazy" decoding="async" />
@@ -96,7 +116,7 @@
 						</div>
 
 		<!-- TryHackMe -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="projects/writeups.html" class="box" style="--glow: 112, 157, 191;">
 								<div class="image fit">
 									<img src="images/projects/tryhackme.webp" alt="TryHackMe walkthroughs banner" loading="lazy" decoding="async" />
@@ -116,7 +136,7 @@
 						</div>
 
 		<!-- Python Pentesting -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
 								<div class="image fit">
 									<img src="images/projects/pythondev.webp" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
@@ -136,7 +156,7 @@
 						</div>
 
 		<!-- Reverse Engineering -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="projects/reverse-engineering.html" class="box" style="--glow: 0, 218, 234;">
 								<div class="image fit">
 									<img src="images/projects/RE.webp" alt="Reverse engineering banner" loading="lazy" decoding="async" />
@@ -156,7 +176,7 @@
 						</div>
 
 		<!-- Exploit dev -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
 								<div class="image fit">
 									<img src="images/projects/exploitdev.webp" alt="Exploit development banner" loading="lazy" decoding="async" />
@@ -176,7 +196,7 @@
 						</div>
 
 		<!-- Machine Learning -->
-						<div data-reveal>
+						<div class="proj-card" data-reveal>
 							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
 								<div class="image fit">
 									<img src="images/projects/ML.webp" alt="Machine learning banner" loading="lazy" decoding="async" />

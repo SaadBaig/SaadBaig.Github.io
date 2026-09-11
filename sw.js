@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v86';
+var CACHE_VERSION = 'saadbaig-v100';
 
 var CORE_ASSETS = [
 	'./',
@@ -24,6 +24,8 @@ var CORE_ASSETS = [
 	'./images/banner/banner5.webp',
 	'./images/banner/banner6.webp',
 	'./images/banner/quantum.webp',
+	'./images/backgrounds/blueline.jpg',
+	'./images/backgrounds/soizjju3lzm51.jpg',
 	// Project detail pages + their shared shell (render markdown client-side).
 	'./projects/project.css',
 	'./projects/render.js',
@@ -35,6 +37,7 @@ var CORE_ASSETS = [
 	'./projects/tryhackme.html',
 	'./projects/reverse-engineering.html',
 	'./projects/wannacry.html',
+	'./images/backgrounds/ethernet.jpg',
 	'./projects/writeups.html',
 	'./projects/writeup-blog.html',
 	'./projects/writeup-lazyadmin.html',

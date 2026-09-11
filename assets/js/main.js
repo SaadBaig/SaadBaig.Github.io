@@ -156,6 +156,20 @@
 	}
 
 	/* ----------------------------------------------------------------------
+	   Projects page: fade the "Scroll" cue out once the visitor scrolls down.
+	   ---------------------------------------------------------------------- */
+	function initProjScrollCue() {
+		var cue = document.querySelector('.proj-scroll-cue');
+		if (!cue) return;
+
+		function onScroll() {
+			cue.classList.toggle('is-hidden', window.pageYOffset > 40);
+		}
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+	}
+
+	/* ----------------------------------------------------------------------
 	   Scroll-spy dot navigation: reveal past the hero + mark the active section.
 	   ---------------------------------------------------------------------- */
 	function initDotNav() {
@@ -278,13 +292,24 @@
 		// auto-scroll and no takeover of the track layout.
 		if (reduceMotion) return;
 
+		// The JS scrollLeft driver (drag / wheel / hover-pause) is a
+		// desktop enhancement. On touch devices and narrow viewports it's
+		// unreliable — and taking over the track (animation:none) there left
+		// the band as a static row. So on touch / small screens we DON'T take
+		// over: the pure-CSS keyframe transform animation runs instead, which
+		// scrolls smoothly and reliably everywhere.
+		var finePointer = !window.matchMedia ||
+			window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+		var wideEnough = window.innerWidth > 736;
+		if (!finePointer || !wideEnough) return;
+
 		var SPEED = 0.4; // px per frame (~24px/s at 60fps)
 
 		marquees.forEach(function (marquee) {
 			var track = marquee.querySelector('.proof-track');
 			if (!track) return;
 
-			// Take over from the CSS keyframe animation.
+			// Take over from the CSS keyframe animation (desktop only).
 			track.style.animation = 'none';
 			track.style.webkitAnimation = 'none';
 
@@ -407,6 +432,7 @@
 		initCaptionFade();
 		initReveal();
 		initDotNav();
+		initProjScrollCue();
 		initCardTilt();
 		initProofMarquee();
 	}

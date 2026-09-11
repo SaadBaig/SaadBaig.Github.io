@@ -11,6 +11,15 @@
 		<style>
 			:root { --glow: 0, 218, 234; }
 
+			/* Page background: ethernet photo with a dark overlay so the
+			   light-on-dark content stays readable. Overrides the shared
+			   project.css body:before backdrop, scoped to this page only. */
+			body:before {
+				background:
+					linear-gradient(rgba(16, 16, 20, 0.82), rgba(16, 16, 20, 0.9)),
+					url('../images/backgrounds/ethernet.jpg') center / cover no-repeat fixed;
+			}
+
 			/* Featured project card (WannaCry) — self-contained so this page
 			   doesn't need the homepage grid styles. Matches the glass/glow
 			   aesthetic of the project cards elsewhere on the site. */
@@ -182,7 +191,7 @@
 						<li>EternalBlue</li>
 						<li>Windows PE</li>
 					</ul>
-					<span class="re-card-cta">Read the full write-up <span aria-hidden="true">→</span></span>
+					<span class="re-card-cta">Moar <span aria-hidden="true">→</span></span>
 				</div>
 			</a>
 		</div>

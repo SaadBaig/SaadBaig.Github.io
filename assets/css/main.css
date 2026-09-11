@@ -547,6 +547,21 @@
 		.proof-num { font-size: 2.5rem; }
 		.proof-word { margin-top: 0; }
 		.proof-tile { width: 8.5rem; height: 5.5rem; padding: 1rem; }
+
+		/* On mobile the pure-CSS keyframe animation drives the marquee (the JS
+		   scrollLeft driver is desktop-only). Clip with hidden overflow so the
+		   sliding track loops cleanly, and trim the desktop hover padding. */
+		.proof-marquee {
+			width: 100%;
+			overflow: hidden;
+			padding: 1.5rem 0;
+			cursor: auto;
+		}
+		/* A touch faster so the shorter mobile viewport still feels lively. */
+		.proof-track {
+			-webkit-animation-duration: 32s;
+			animation-duration: 32s;
+		}
 	}
 
 	/* Reduced motion: freeze the scroll and show a static, centered, wrapping
@@ -1381,6 +1396,23 @@
 /* ==========================================================================
    Scroll-down cue
    ========================================================================== */
+
+	/* Scroll cue between the two projects grids (projects.html). */
+	.proj-scroll-cue {
+		margin: 0.5rem 0 2.5rem;
+		/* Fades out once the visitor scrolls down (main.js toggles is-hidden). */
+		transition:
+			opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			-webkit-transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+		.proj-scroll-cue.is-hidden {
+			opacity: 0;
+			-webkit-transform: translateY(0.5rem);
+			transform: translateY(0.5rem);
+			pointer-events: none;
+		}
 
 	.scroll-cue {
 		display: -webkit-flex;
