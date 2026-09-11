@@ -532,6 +532,9 @@
 			align-items: flex-start;
 			gap: 0.5rem;
 		}
+		/* Cancel the desktop overlap: when stacked, the -6rem pull-up would drag
+		   the second band's label on top of the first band's logos. */
+		.proof-band + .proof-band { margin-top: 1.5rem; }
 		.proof-band-label {
 			width: auto;
 			-webkit-flex-direction: row;

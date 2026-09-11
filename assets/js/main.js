@@ -420,12 +420,24 @@
 	/* ---------------------------------------------------------------------- */
 	function init() {
 		// Disable animations until loaded (matches the template's .is-loading).
+		// While `is-loading` is set, `body.is-loading * { transition: none }`
+		// disables ALL transitions — including the #bg slide cross-fade.
 		document.body.classList.add('is-loading');
+		var loaded = false;
+		function clearLoading() {
+			if (loaded) return;
+			loaded = true;
+			document.body.classList.remove('is-loading');
+		}
+		// Normally clear shortly after full load. But on mobile the 7 large
+		// banner WebPs can make `window.load` fire very late (or after several
+		// slide-cycle ticks), which would keep transitions disabled so the
+		// background appears not to cross-fade / cycle. So also clear on a hard
+		// timeout after DOMContentLoaded, whichever comes first.
 		window.addEventListener('load', function () {
-			window.setTimeout(function () {
-				document.body.classList.remove('is-loading');
-			}, 100);
+			window.setTimeout(clearLoading, 100);
 		});
+		window.setTimeout(clearLoading, 1200);
 
 		var bg = document.getElementById('bg');
 		if (bg) initSlider(bg);
