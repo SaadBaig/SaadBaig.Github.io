@@ -11,6 +11,16 @@
 		<style>
 			:root { --glow: 240, 154, 58; }
 
+			/* Brighter page backdrop for this project (overrides project.css).
+			   ~100% brighter base than #1b1a22 (27,26,34 -> 54,52,68). */
+			body { background: #363444; }
+			body:before {
+				background:
+					radial-gradient(120vw 80vh at 80% -10%, rgba(var(--glow), 0.26), transparent 60%),
+					radial-gradient(90vw 70vh at -10% 110%, rgba(var(--glow), 0.2), transparent 55%),
+					#363444;
+			}
+
 			/* "Source on GitHub" link beneath the hero image. */
 			.hero-source {
 				max-width: 60rem;
@@ -31,6 +41,24 @@
 
 			/* Footer name: no link, but keep the accent (orange) colour. */
 			.built-name { color: rgb(var(--glow)); }
+
+			/* Page background: the quantum banner, fixed and cover-fit, sat
+			   behind a heavy dark scrim + the accent glows so page text and the
+			   frosted-glass panels stay fully readable. Overrides the shared
+			   body:before backdrop from project.css. */
+			body:before {
+				background:
+					/* accent glows (top of the stack) */
+					radial-gradient(120vw 80vh at 80% -10%, rgba(var(--glow), 0.16), transparent 60%),
+					radial-gradient(90vw 70vh at -10% 110%, rgba(var(--glow), 0.12), transparent 55%),
+					/* dark scrim to keep contents readable */
+					linear-gradient(180deg, rgba(10, 10, 14, 0.82), rgba(10, 10, 14, 0.9)),
+					/* the image itself (bottom of the stack) */
+					url('../images/banner/quantum.webp');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
 		</style>
 	</head>
 	<body>

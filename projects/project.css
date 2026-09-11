@@ -36,10 +36,7 @@
 		position: fixed;
 		inset: 0;
 		z-index: -1;
-		background:
-			radial-gradient(120vw 80vh at 80% -10%, rgba(var(--glow), 0.18), transparent 60%),
-			radial-gradient(90vw 70vh at -10% 110%, rgba(var(--glow), 0.12), transparent 55%),
-			#101014;
+		background: #101014;
 	}
 
 	a { color: rgb(var(--glow)); text-decoration: none; }

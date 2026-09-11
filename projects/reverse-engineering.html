@@ -15,6 +15,9 @@
 			   doesn't need the homepage grid styles. Matches the glass/glow
 			   aesthetic of the project cards elsewhere on the site. */
 			.re-card-wrap {
+				/* WannaCry = red accent, scoped to just this card (the rest of
+				   the page keeps the cyan --glow set on :root). */
+				--glow: 220, 45, 45;
 				max-width: 60rem;
 				margin: 2rem auto 0;
 				padding: 0 1.5rem;
@@ -167,7 +170,7 @@
 		<div class="re-card-wrap">
 			<a class="re-card" href="wannacry.html">
 				<div class="re-card-image">
-					<img src="../images/projects/RE.webp" alt="Reverse engineering WannaCry — Ghidra disassembly" loading="lazy" decoding="async" />
+					<img src="../images/writeups/wannacry.jpeg" alt="Reverse engineering WannaCry — Ghidra disassembly" loading="lazy" decoding="async" />
 				</div>
 				<div class="re-card-body">
 					<span class="re-card-eyebrow">Featured write-up</span>
@@ -185,7 +188,7 @@
 		</div>
 
 		<footer class="proj-footer">
-			<p>Built by Saad Baig</p>
+			<p>Built by <span style="color: #e23c3c;">Saad Baig</span></p>
 		</footer>
 
 		<!-- Pointer-tracking 3D tilt for the WannaCry card (same effect as the

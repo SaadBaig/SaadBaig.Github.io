@@ -742,6 +742,11 @@
 		color: #ffffff;
 	}
 
+		/* "Saad Baig" credited in red. */
+		.wrapper.style3 .copyright .copyright-name {
+			color: #ff4d4d;
+		}
+
 	/* Tighten the gap between the last cards and the footer. */
 	#projects.wrapper.style2 {
 		padding-bottom: 1rem;
@@ -1475,6 +1480,41 @@
 			.about-cta .social-link:focus-visible .social-icon {
 				transform: translateY(-2px);
 			}
+
+		/* Lao Tzu quote inside the About panel. */
+		.about-quote {
+			margin: 2rem auto 0;
+			padding-top: 1.75rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			max-width: 36rem;
+			text-align: center;
+			font-size: 1.05rem;
+			font-style: italic;
+			line-height: 1.6;
+			color: #d8d3e0;
+			transition:
+				color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				text-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+			/* Turn red when the About panel is hovered (no glow — just the text). */
+			.about .glass-panel:hover .about-quote {
+				color: #ff4d4d;
+			}
+
+			.about-quote-cite {
+				display: block;
+				margin-top: 0.6rem;
+				font-style: normal;
+				font-size: 0.8rem;
+				font-weight: 600;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: rgba(201, 143, 192, 0.9);
+				transition: color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			.about .glass-panel:hover .about-quote-cite { color: #ff4d4d; }
 
 /* ==========================================================================
    Certifications + Speaking
