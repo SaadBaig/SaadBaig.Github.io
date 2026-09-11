@@ -1042,10 +1042,16 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		/* Use the *large* viewport height so the fixed background doesn't
-		   resize when mobile browsers hide/show the URL bar on scroll. */
+		/* Match the *visible* viewport. On mobile, `100lvh` (large viewport)
+		   made this fixed layer taller than the screen while the address bar
+		   was shown — pushing the vertically-centered caption below the fold
+		   (no visible banner text) and leaving the background not fully
+		   covering. `100dvh` (dynamic viewport height) tracks the visible area
+		   as the URL bar shows/hides, so the caption stays centered on-screen
+		   and the background always covers. `100vh` is the fallback for
+		   browsers without dvh support. */
 		height: 100vh;
-		height: 100lvh;
+		height: 100dvh;
 		z-index: -1;
 		background-color: #121212;
 		padding: 0;
@@ -1123,6 +1129,7 @@
 	.hero {
 		position: relative;
 		min-height: 100vh;
+		min-height: 100dvh;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;

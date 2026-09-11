@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v71';
+var CACHE_VERSION = 'saadbaig-v72';
 
 var CORE_ASSETS = [
 	'./',
