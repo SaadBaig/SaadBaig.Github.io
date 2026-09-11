@@ -23,11 +23,18 @@
 	// README are then resolved against the subfolder, matching GitHub.
 	var path = (holder.getAttribute('data-path') || '').replace(/^\/+|\/+$/g, '');
 	var file = holder.getAttribute('data-file') || 'README.md';
-	var dir = path ? path + '/' : '';
+
+	// URL-encode each path/file segment so folders or filenames containing
+	// spaces (e.g. "PS Empire", "Reversing ELF") resolve correctly on the raw
+	// and blob endpoints.
+	function encodePath(p) {
+		return p.split('/').map(encodeURIComponent).join('/');
+	}
+	var dir = path ? encodePath(path) + '/' : '';
 
 	var rawBase = 'https://raw.githubusercontent.com/' + repo + '/' + branch + '/' + dir;
 	var blobBase = 'https://github.com/' + repo + '/blob/' + branch + '/' + dir;
-	var readmeUrl = rawBase + file;
+	var readmeUrl = rawBase + encodeURIComponent(file);
 
 	var embedded = holder.textContent;
 

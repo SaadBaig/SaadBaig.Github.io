@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Write-ups — Saad Baig</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="TryHackMe box write-ups by Saad Baig — Blog, LazyAdmin, PS Empire, and Reversing ELF, documenting recon, exploitation, and privilege escalation." />
+		<meta name="theme-color" content="#709dbf" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="project.css" />
+		<style>
+			:root { --glow: 112, 157, 191; }
+
+			.wu-grid {
+				max-width: 80rem;
+				margin: 2.5rem auto 0;
+				padding: 0 1.5rem;
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 2.5rem;
+			}
+
+			@media screen and (max-width: 980px) {
+				.wu-grid { grid-template-columns: 1fr; }
+			}
+
+			/* Write-up card — self-contained glass/glow card with the same
+			   cinematic feel as the home page project cards. Each card sets its
+			   own --glow. */
+			.wu-card {
+				display: block;
+				overflow: hidden;
+				text-decoration: none;
+				color: inherit;
+				border-radius: 14px;
+				border: 1px solid rgba(var(--glow), 0.3);
+				background: rgba(20, 18, 26, 0.8);
+				box-shadow:
+					0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+					0 0 1.5rem -0.25rem rgba(var(--glow), 0.25);
+				transition:
+					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+				.wu-card:hover {
+					transform: translateY(-8px);
+					border-color: rgba(var(--glow), 0.85);
+					box-shadow:
+						0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+						0 0 2.75rem rgba(var(--glow), 0.6);
+				}
+
+				/* Pointer-tracking 3D tilt — same effect as the home page cards. */
+				.wu-card.is-tilting {
+					transform:
+						perspective(900px)
+						rotateX(var(--rx, 0deg))
+						rotateY(var(--ry, 0deg))
+						translateY(-8px)
+						scale(1.02);
+					transition:
+						box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+						border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+					border-color: rgba(var(--glow), 0.85);
+					box-shadow:
+						0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+						0 0 2.75rem rgba(var(--glow), 0.6);
+				}
+
+			.wu-card-image { position: relative; overflow: hidden; }
+
+				.wu-card-image img {
+					display: block;
+					width: 100%;
+					height: auto;
+					transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+				}
+
+				.wu-card:hover .wu-card-image img { transform: scale(1.05); }
+
+			.wu-card-body { padding: 3rem; }
+
+				.wu-card-eyebrow {
+					font-size: 0.7rem;
+					font-weight: 700;
+					letter-spacing: 0.14em;
+					text-transform: uppercase;
+					color: rgb(var(--glow));
+				}
+
+				.wu-card-body h2 {
+					margin: 0.5rem 0 0.5rem;
+					font-size: 1.5rem;
+					color: #fff;
+				}
+
+				.wu-card-body p {
+					margin: 0 0 1rem;
+					color: #c7c2cf;
+					line-height: 1.6;
+					font-size: 1rem;
+				}
+
+				.wu-card-cta {
+					display: inline-flex;
+					align-items: center;
+					gap: 0.4rem;
+					font-weight: 600;
+					font-size: 0.9rem;
+					color: rgb(var(--glow));
+				}
+
+					.wu-card-cta span { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+					.wu-card:hover .wu-card-cta span { transform: translateX(5px); }
+
+			@media (prefers-reduced-motion: reduce) {
+				.wu-card, .wu-card-image img, .wu-card-cta span { transition: none; }
+				.wu-card:hover, .wu-card.is-tilting { transform: none; }
+				.wu-card:hover .wu-card-image img { transform: none; }
+			}
+		</style>
+	</head>
+	<body>
+
+		<nav class="topbar">
+			<a class="back" href="../projects.html">Back to projects</a>
+			<a class="repo-link" href="https://github.com/SaadBaig/TryHackMe" target="_blank" rel="noopener">View on GitHub ↗</a>
+		</nav>
+
+		<header class="proj-hero">
+			<h1>Write-ups</h1>
+			<p class="tagline">Detailed TryHackMe box walkthroughs — documenting reconnaissance, exploitation, and privilege escalation, one step at a time.</p>
+		</header>
+
+		<div class="wu-grid">
+			<a class="wu-card" style="--glow: 112, 157, 191;" href="writeup-blog.html">
+				<div class="wu-card-image">
+					<img src="../images/projects/tryhackme.webp" alt="Blog TryHackMe write-up" loading="lazy" decoding="async" />
+				</div>
+				<div class="wu-card-body">
+					<span class="wu-card-eyebrow">TryHackMe</span>
+					<h2>Blog</h2>
+					<p>Recon, exploiting a vulnerable web app, and working up to root on the Blog box.</p>
+					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+
+			<a class="wu-card" style="--glow: 46, 202, 113;" href="writeup-lazyadmin.html">
+				<div class="wu-card-image">
+					<img src="../images/projects/tryhackme.webp" alt="LazyAdmin TryHackMe write-up" loading="lazy" decoding="async" />
+				</div>
+				<div class="wu-card-body">
+					<span class="wu-card-eyebrow">TryHackMe</span>
+					<h2>LazyAdmin</h2>
+					<p>Enumerating a vulnerable CMS, landing a shell, and escalating to root.</p>
+					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+
+			<a class="wu-card" style="--glow: 191, 0, 107;" href="writeup-ps-empire.html">
+				<div class="wu-card-image">
+					<img src="../images/projects/tryhackme.webp" alt="PS Empire TryHackMe write-up" loading="lazy" decoding="async" />
+				</div>
+				<div class="wu-card-body">
+					<span class="wu-card-eyebrow">TryHackMe</span>
+					<h2>PS Empire</h2>
+					<p>Windows enumeration, exploitation, and post-exploitation with PowerShell Empire.</p>
+					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+
+			<a class="wu-card" style="--glow: 0, 218, 234;" href="writeup-reversing-elf.html">
+				<div class="wu-card-image">
+					<img src="../images/projects/tryhackme.webp" alt="Reversing ELF TryHackMe write-up" loading="lazy" decoding="async" />
+				</div>
+				<div class="wu-card-body">
+					<span class="wu-card-eyebrow">TryHackMe</span>
+					<h2>Reversing ELF</h2>
+					<p>Cracking a series of Linux ELF binaries with file, strings, and dynamic analysis.</p>
+					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+		</div>
+
+		<footer class="proj-footer">
+			<p>Built by Saad Baig</p>
+		</footer>
+
+		<!-- Pointer-tracking 3D tilt for the write-up cards (same effect as the
+		     home page project cards). Skipped for reduced-motion + touch. -->
+		<script>
+		(function () {
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+			if (reduce || !fine) return;
+
+			var MAX_TILT = 7;
+
+			document.querySelectorAll('.wu-card').forEach(function (card) {
+				var frame = null;
+				card.addEventListener('mouseenter', function () { card.classList.add('is-tilting'); });
+				card.addEventListener('mousemove', function (e) {
+					var r = card.getBoundingClientRect();
+					var dx = (e.clientX - r.left) / r.width - 0.5;
+					var dy = (e.clientY - r.top) / r.height - 0.5;
+					if (frame) return;
+					frame = requestAnimationFrame(function () {
+						frame = null;
+						card.style.setProperty('--ry', (dx * MAX_TILT).toFixed(2) + 'deg');
+						card.style.setProperty('--rx', (-dy * MAX_TILT).toFixed(2) + 'deg');
+					});
+				});
+				card.addEventListener('mouseleave', function () {
+					if (frame) { cancelAnimationFrame(frame); frame = null; }
+					card.classList.remove('is-tilting');
+					card.style.removeProperty('--rx');
+					card.style.removeProperty('--ry');
+				});
+			});
+		})();
+		</script>
+
+	</body>
+</html>
