@@ -24,6 +24,7 @@
 				display: block;
 				overflow: hidden;
 				text-decoration: none;
+				will-change: transform;
 				color: inherit;
 				border-radius: 14px;
 				border: 1px solid rgba(var(--glow), 0.3);
@@ -43,6 +44,9 @@
 				.re-card:hover,
 				.re-card:focus,
 				.re-card:hover * { text-decoration: none; }
+
+				.re-card:hover,
+				.re-card:hover:hover { text-decoration: none; }
 
 				.re-card:hover {
 					transform: translateY(-8px);
@@ -157,12 +161,6 @@
 		<header class="proj-hero">
 			<h1>Reverse Engineering</h1>
 			<p class="tagline">Taking binaries apart to understand how they work — notes, tools, and challenges. First up: a full walkthrough of the WannaCry ransomware.</p>
-			<ul class="tags">
-				<li>Ghidra</li>
-				<li>Assembly</li>
-				<li>Binary</li>
-				<li>Malware</li>
-			</ul>
 		</header>
 
 		<!-- WannaCry project card -->
@@ -201,7 +199,7 @@
 			var card = document.querySelector('.re-card');
 			if (!card) return;
 
-			var MAX_TILT = 7, frame = null;
+			var MAX_TILT = 10, frame = null;
 
 			card.addEventListener('mouseenter', function () { card.classList.add('is-tilting'); });
 			card.addEventListener('mousemove', function (e) {

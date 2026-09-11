@@ -175,6 +175,47 @@
 			border-radius: 12px;
 			border: 1px solid rgba(var(--glow), 0.25);
 			box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+			transition:
+				transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+		/* Pointer-tracking 3D tilt — same cinematic effect as the project
+		   cards. JS (inline on the page) sets --rx/--ry and toggles .is-tilting;
+		   while tilting the transform transition is dropped so it tracks the
+		   cursor with no lag, then eases back to flat on leave. */
+		.proj-hero-image.is-tilting img {
+			transform:
+				perspective(1000px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				scale(1.02);
+			transition:
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(var(--glow), 0.7);
+			box-shadow:
+				0 1.5rem 3.5rem rgba(0, 0, 0, 0.6),
+				0 0 2.5rem rgba(var(--glow), 0.45);
+		}
+
+		/* Pointer-tracking 3D tilt (enabled per-page by a small script). The
+		   image leans toward the cursor; JS sets --rx/--ry and drops the
+		   transition while tilting so it tracks with no lag. */
+		.proj-hero-image.is-tilting img {
+			transform:
+				perspective(1100px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				scale(1.02);
+			transition:
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(var(--glow), 0.6);
+			box-shadow:
+				0 1.5rem 4rem rgba(0, 0, 0, 0.6),
+				0 0 3rem -0.5rem rgba(var(--glow), 0.45);
 		}
 
 	/* --- Footer ------------------------------------------------------------- */

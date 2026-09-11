@@ -8,7 +8,30 @@
 		<meta name="theme-color" content="#f09a3a" />
 		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 		<link rel="stylesheet" href="project.css" />
-		<style>:root { --glow: 240, 154, 58; }</style>
+		<style>
+			:root { --glow: 240, 154, 58; }
+
+			/* "Source on GitHub" link beneath the hero image. */
+			.hero-source {
+				max-width: 60rem;
+				margin: 0.85rem auto 0;
+				padding: 0 1.5rem;
+				text-align: center;
+			}
+
+				.hero-source a {
+					font-size: 0.9rem;
+					font-weight: 600;
+					letter-spacing: 0.03em;
+					color: rgb(var(--glow));
+					text-decoration: none;
+				}
+
+				.hero-source a:hover { text-decoration: underline; }
+
+			/* Footer name: no link, but keep the accent (orange) colour. */
+			.built-name { color: rgb(var(--glow)); }
+		</style>
 	</head>
 	<body>
 
@@ -24,6 +47,7 @@
 
 		<div class="proj-hero-image">
 			<img src="../images/projects/pqcscan.webp" alt="PQCScan — post-quantum cryptography scanner" />
+			<p class="hero-source"><a href="https://github.com/SaadBaig/pqcscan" target="_blank" rel="noopener">Source on GitHub ↗</a></p>
 		</div>
 
 		<main class="readme">
@@ -33,7 +57,7 @@
 		</main>
 
 		<footer class="proj-footer">
-			<p>Built by <a href="../index.html">Saad Baig</a> · <a href="https://github.com/SaadBaig/pqcscan" target="_blank" rel="noopener">Source on GitHub</a></p>
+			<p>Built by <span class="built-name">Saad Baig</span></p>
 		</footer>
 
 		<!-- Full README embedded verbatim; rendered client-side by render.js. -->
@@ -270,6 +294,7 @@ The original pqcscan was created by Vincent Berg at [Anvil Secure](https://anvil
 </script>
 		<script src="marked.min.js"></script>
 		<script src="render.js"></script>
+		<script src="hero-tilt.js"></script>
 
 	</body>
 </html>

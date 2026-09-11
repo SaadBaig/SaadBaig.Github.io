@@ -263,45 +263,6 @@
 	}
 
 	/* ----------------------------------------------------------------------
-	   Hero title tilt-shift: the banner title leans toward the cursor on hover
-	   (a subtle 3D parallax). Text colour is unchanged — only the transform.
-	   Skipped for reduced motion and coarse (touch) pointers.
-	   ---------------------------------------------------------------------- */
-	function initHeroTilt() {
-		if (reduceMotion) return;
-		if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-		var blocks = document.querySelectorAll('#bg .caption .title-block');
-		if (!blocks.length) return;
-
-		var MAX_TILT = 12; // degrees — a touch stronger than the cards for drama
-
-		function bind(block) {
-			var frame = null;
-			block.addEventListener('mouseenter', function () { block.classList.add('is-tilting'); });
-			block.addEventListener('mousemove', function (e) {
-				var r = block.getBoundingClientRect();
-				var dx = (e.clientX - r.left) / r.width - 0.5;
-				var dy = (e.clientY - r.top) / r.height - 0.5;
-				if (frame) return;
-				frame = window.requestAnimationFrame(function () {
-					frame = null;
-					block.style.setProperty('--tilt-ry', (dx * MAX_TILT).toFixed(2) + 'deg');
-					block.style.setProperty('--tilt-rx', (-dy * MAX_TILT).toFixed(2) + 'deg');
-				});
-			});
-			block.addEventListener('mouseleave', function () {
-				if (frame) { window.cancelAnimationFrame(frame); frame = null; }
-				block.classList.remove('is-tilting');
-				block.style.removeProperty('--tilt-rx');
-				block.style.removeProperty('--tilt-ry');
-			});
-		}
-
-		for (var i = 0; i < blocks.length; i++) bind(blocks[i]);
-	}
-
-	/* ----------------------------------------------------------------------
 	   Proof marquees: auto-scroll that also supports manual scrolling. The
 	   band is natively scrollable (overflow-x), so drag / swipe / wheel /
 	   trackpad all work. We drive the auto-scroll by nudging scrollLeft each
@@ -354,13 +315,31 @@
 				window.clearTimeout(idle);
 				idle = window.setTimeout(function () { paused = false; }, 1200);
 			}
+			function resumeNow() {
+				window.clearTimeout(idle);
+				paused = false;
+			}
 
-			// Pause on hover; resume shortly after leaving.
+			// Pause on hover; resume immediately when the pointer leaves.
 			marquee.addEventListener('mouseenter', pause);
-			marquee.addEventListener('mouseleave', resumeSoon);
+			marquee.addEventListener('mouseleave', resumeNow);
 
-			// Any manual scroll (wheel, trackpad, touch, drag) pauses briefly.
-			marquee.addEventListener('wheel', function () { pause(); resumeSoon(); }, { passive: true });
+			// Mouse wheel over the band scrolls it horizontally. A mouse only
+			// emits vertical delta (deltaY), which the browser would apply to
+			// the PAGE (leaving the horizontal band untouched) — so we map the
+			// dominant delta onto the band's scrollLeft ourselves and stop the
+			// page from scrolling. Trackpads emit deltaX for horizontal swipes;
+			// we honor that too. Not passive, so preventDefault can take effect.
+			marquee.addEventListener('wheel', function (e) {
+				// Use whichever axis the user pushed harder on.
+				var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+				if (!delta) return;
+				marquee.scrollLeft += delta;
+				pos = marquee.scrollLeft;   // keep auto-scroll in sync
+				pause();
+				resumeSoon();
+				e.preventDefault();          // don't also scroll the page
+			}, { passive: false });
 			marquee.addEventListener('touchstart', pause, { passive: true });
 			marquee.addEventListener('touchend', resumeSoon, { passive: true });
 
@@ -429,7 +408,6 @@
 		initReveal();
 		initDotNav();
 		initCardTilt();
-		initHeroTilt();
 		initProofMarquee();
 	}
 

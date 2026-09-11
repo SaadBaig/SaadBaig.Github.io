@@ -1,12 +1,10 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v62';
+var CACHE_VERSION = 'saadbaig-v71';
 
 var CORE_ASSETS = [
 	'./',
 	'./index.html',
-	'./certifications.html',
-	'./speaking.html',
 	'./projects.html',
 	'./assets/css/main.css',
 	'./assets/js/main.js',
@@ -30,6 +28,7 @@ var CORE_ASSETS = [
 	'./projects/project.css',
 	'./projects/render.js',
 	'./projects/marked.min.js',
+	'./projects/hero-tilt.js',
 	'./projects/pqcscan.html',
 	'./projects/ddos-defcon-2026.html',
 	'./projects/pentesting-methodology.html',

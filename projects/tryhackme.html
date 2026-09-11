@@ -43,6 +43,36 @@
 Walkthroughs of various TryHackMe boxes
 
 </script>
+		<!-- Pointer-tracking 3D tilt for the hero image (same cinematic feel as
+		     the project cards). Skipped for reduced-motion + touch. -->
+		<script>
+		(function () {
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+			if (reduce || !fine) return;
+			var el = document.querySelector('.proj-hero-image');
+			if (!el) return;
+			var MAX = 6, frame = null;
+			el.addEventListener('mouseenter', function () { el.classList.add('is-tilting'); });
+			el.addEventListener('mousemove', function (e) {
+				var r = el.getBoundingClientRect();
+				var dx = (e.clientX - r.left) / r.width - 0.5;
+				var dy = (e.clientY - r.top) / r.height - 0.5;
+				if (frame) return;
+				frame = requestAnimationFrame(function () {
+					frame = null;
+					el.style.setProperty('--ry', (dx * MAX).toFixed(2) + 'deg');
+					el.style.setProperty('--rx', (-dy * MAX).toFixed(2) + 'deg');
+				});
+			});
+			el.addEventListener('mouseleave', function () {
+				if (frame) { cancelAnimationFrame(frame); frame = null; }
+				el.classList.remove('is-tilting');
+				el.style.removeProperty('--rx');
+				el.style.removeProperty('--ry');
+			});
+		})();
+		</script>
 		<script src="marked.min.js"></script>
 		<script src="render.js"></script>
 

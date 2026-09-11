@@ -20,12 +20,6 @@
 		<header class="proj-hero">
 			<h1>Reversing WannaCry</h1>
 			<p class="tagline">Using Ghidra to disassemble the WannaCry ransomware and hunt for the infamous killswitch URL — then tracing the entry point, service creation, and propagation path down to EternalBlue.</p>
-			<ul class="tags">
-				<li>Ransomware</li>
-				<li>Ghidra</li>
-				<li>EternalBlue</li>
-				<li>Windows PE</li>
-			</ul>
 		</header>
 
 		<div class="proj-hero-image">
@@ -39,7 +33,7 @@
 		</main>
 
 		<footer class="proj-footer">
-			<p>Built by Saad Baig</p>
+			<p>Built by <span style="color: rgb(var(--glow));">Saad Baig</span></p>
 		</footer>
 
 		<!-- Full README embedded verbatim as a fallback; render.js fetches the
@@ -73,6 +67,36 @@ Wannacry.exe is launched. First thing it checks for is the kill switch URL using
 
 _Loading the full write-up from GitHub&#8230;_
 </script>
+		<!-- Pointer-tracking 3D tilt for the hero image (same cinematic feel as
+		     the project cards). Skipped for reduced-motion + touch. -->
+		<script>
+		(function () {
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+			if (reduce || !fine) return;
+			var el = document.querySelector('.proj-hero-image');
+			if (!el) return;
+			var MAX = 6, frame = null;
+			el.addEventListener('mouseenter', function () { el.classList.add('is-tilting'); });
+			el.addEventListener('mousemove', function (e) {
+				var r = el.getBoundingClientRect();
+				var dx = (e.clientX - r.left) / r.width - 0.5;
+				var dy = (e.clientY - r.top) / r.height - 0.5;
+				if (frame) return;
+				frame = requestAnimationFrame(function () {
+					frame = null;
+					el.style.setProperty('--ry', (dx * MAX).toFixed(2) + 'deg');
+					el.style.setProperty('--rx', (-dy * MAX).toFixed(2) + 'deg');
+				});
+			});
+			el.addEventListener('mouseleave', function () {
+				if (frame) { cancelAnimationFrame(frame); frame = null; }
+				el.classList.remove('is-tilting');
+				el.style.removeProperty('--rx');
+				el.style.removeProperty('--ry');
+			});
+		})();
+		</script>
 		<script src="marked.min.js"></script>
 		<script src="render.js"></script>
 

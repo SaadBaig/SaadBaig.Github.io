@@ -303,8 +303,16 @@
 		-ms-flex-align: center;
 		align-items: center;
 		gap: 1.5rem;
-		margin-top: 1.25rem;
+		margin-top: 0.25rem;
 	}
+
+		/* Each marquee carries large vertical padding (glow room), so the two
+		   bands read as far apart. The padding is empty except on hover, so we
+		   overlap the second band up into the first band's lower padding to
+		   tighten the visual gap without ever clipping a hovered tile's glow. */
+		.proof-band + .proof-band {
+			margin-top: -6rem;
+		}
 
 	/* Stat caption anchored to its own band, tying the number to its logos. */
 	.proof-band-label {
@@ -355,22 +363,27 @@
 		-ms-flex: 1 1 auto;
 		flex: 1 1 auto;
 		min-width: 0;
-		/* Generous vertical padding gives the hover lift + forward pop room to
-		   grow without being clipped by overflow: hidden (needed horizontally
-		   for the seamless CSS scroll loop). */
-		padding: 3rem 0;
+		/* Generous vertical padding gives the hover lift + forward pop + glow
+		   room INSIDE the scroll box. Because overflow-x is auto (needed for the
+		   horizontal scroll loop), the browser also clips the vertical axis, so
+		   the padding — not overflow-y — is what keeps a lifted tile's glow from
+		   being cut off at the top/bottom. Must exceed the hover glow radius
+		   (box-shadow blur/spread ~4.5rem) so the glow never clips. */
+		padding: 6rem 0;
 		/* Horizontally scrollable so the marquee can be dragged / swiped /
 		   wheeled manually. main.js (initProofMarquee) nudges scrollLeft each
 		   frame for the auto-scroll and pauses it during manual interaction.
-		   The CSS animation fallback (no-JS) still runs via .no-js-scroll. */
+		   With no JS, the default CSS keyframe animation on .proof-track runs
+		   as the fallback. */
 		overflow-x: auto;
 		overflow-y: hidden;
 		-ms-overflow-style: none;      /* IE/Edge: hide scrollbar */
 		scrollbar-width: none;         /* Firefox: hide scrollbar */
 		cursor: grab;
-		/* Fade logos in/out at the edges for a premium, polished look. */
-		-webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-		mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+		/* Long, gradual edge fades so the logos + their glow dissolve smoothly
+		   into the page background instead of hard-cutting at the band edges. */
+		-webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%);
+		mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%);
 	}
 
 		/* WebKit: hide the scrollbar (keep it scrollable). */
@@ -538,8 +551,6 @@
 
 	/* Reduced motion: freeze the scroll and show a static, centered, wrapping
 	   set of tiles (the duplicate set is hidden). */
-	/* Reduced motion: freeze the scroll and show a static, centered, wrapping
-	   set of tiles (the duplicate set is hidden). */
 	@media (prefers-reduced-motion: reduce) {
 
 		.proof-track {
@@ -654,14 +665,6 @@
 			font-size: 0.9rem;
 			line-height: 1.6;
 			color: #b8b2c2;
-		}
-
-		.detail-verify {
-			display: inline-block;
-			margin-top: 0.5rem;
-			font-size: 0.82rem;
-			font-weight: 600;
-			color: rgb(var(--glow, 201, 143, 192));
 		}
 
 	/* Placeholder-style hint for the [bracketed] scaffolding text so it's
@@ -1129,7 +1132,13 @@
 		-webkit-justify-content: center;
 		-ms-flex-pack: center;
 		justify-content: center;
+		/* Let pointer events pass through the empty spacer to the banner
+		   caption behind it (so the hero title tilt-shift can be hovered).
+		   Interactive children re-enable pointer events explicitly. */
+		pointer-events: none;
 	}
+
+		.hero .scroll-cue { pointer-events: auto; }
 
 	/* Per-slide caption: centered over the first viewport, cross-fades with
 	   the background image. */
@@ -1169,19 +1178,7 @@
 		   other slides, and stay there while the subtitle types in below. */
 		#bg > article .caption .title-block {
 			position: relative;
-			/* Pointer tilt-shift on hover (text stays white). JS sets
-			   --tilt-rx/--tilt-ry; eases back to flat on leave. */
-			transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-			transform-origin: center;
 		}
-
-			#bg > article .caption .title-block.is-tilting {
-				transform:
-					perspective(700px)
-					rotateX(var(--tilt-rx, 0deg))
-					rotateY(var(--tilt-ry, 0deg));
-				transition: none;
-			}
 
 		#bg > article .caption h2 {
 			font-size: 7rem;
@@ -1478,15 +1475,6 @@
 
 	/* Certifications + Speaking share the wider section width. */
 	.certs .inner { max-width: 66rem; }
-
-		.certs header { margin-bottom: 2.5rem; }
-		.certs h2 { margin-bottom: 0; }
-
-		.certs .section-lead {
-			text-align: center;
-			color: #b8b2c2;
-			margin: 0.75rem 0 0 0;
-		}
 
 	/* --- Auto-scrolling logo marquee (Certifications + Speaking) ----------- */
 	.logo-marquee {
