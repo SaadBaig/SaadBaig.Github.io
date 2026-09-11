@@ -1,6 +1,6 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v84';
+var CACHE_VERSION = 'saadbaig-v85';
 
 var CORE_ASSETS = [
 	'./',
@@ -48,6 +48,8 @@ var CORE_ASSETS = [
 	'./images/projects/pythondev.webp',
 	'./images/projects/RE.webp',
 	'./images/writeups/wannacry.jpeg',
+	'./images/writeups/powershell.jpg',
+	'./images/writeups/elf.png',
 	'./images/projects/exploitdev.webp',
 	'./images/projects/ML.webp',
 	// Speaking-section logo marquee.
