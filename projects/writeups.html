@@ -69,12 +69,22 @@
 						0 0 2.75rem rgba(var(--glow), 0.6);
 				}
 
-			.wu-card-image { position: relative; overflow: hidden; }
+			/* Match the home/projects card image band: a 16:9 aspect ratio (the
+			   same proportion as the project thumbnails), so cards look uniform
+			   sitewide regardless of each source image's native aspect.
+			   object-fit: cover fills the band and crops the overflow. */
+			.wu-card-image {
+				position: relative;
+				overflow: hidden;
+				aspect-ratio: 16 / 9;
+			}
 
 				.wu-card-image img {
 					display: block;
 					width: 100%;
-					height: auto;
+					height: 100%;
+					-o-object-fit: cover;
+					object-fit: cover;
 					transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 				}
 
@@ -135,7 +145,7 @@
 		</header>
 
 		<div class="wu-grid">
-			<a class="wu-card" style="--glow: 112, 157, 191;" href="writeup-blog.html">
+			<a class="wu-card" style="--glow: 73, 136, 184;" href="writeup-blog.html">
 				<div class="wu-card-image">
 					<img src="../images/projects/tryhackme.webp" alt="Blog TryHackMe write-up" loading="lazy" decoding="async" />
 				</div>
@@ -143,11 +153,10 @@
 					<span class="wu-card-eyebrow">TryHackMe</span>
 					<h2>Blog</h2>
 					<p>Recon, exploiting a vulnerable web app, and working up to root on the Blog box.</p>
-					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
 				</div>
 			</a>
 
-			<a class="wu-card" style="--glow: 46, 202, 113;" href="writeup-lazyadmin.html">
+			<a class="wu-card" style="--glow: 73, 136, 184;" href="writeup-lazyadmin.html">
 				<div class="wu-card-image">
 					<img src="../images/projects/tryhackme.webp" alt="LazyAdmin TryHackMe write-up" loading="lazy" decoding="async" />
 				</div>
@@ -155,31 +164,39 @@
 					<span class="wu-card-eyebrow">TryHackMe</span>
 					<h2>LazyAdmin</h2>
 					<p>Enumerating a vulnerable CMS, landing a shell, and escalating to root.</p>
-					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
 				</div>
 			</a>
 
-			<a class="wu-card" style="--glow: 191, 0, 107;" href="writeup-ps-empire.html">
+			<a class="wu-card" style="--glow: 30, 184, 160;" href="writeup-ps-empire.html">
 				<div class="wu-card-image">
-					<img src="../images/writeups/powershell.jpg" alt="PS Empire TryHackMe write-up" loading="lazy" decoding="async" />
+					<img src="../images/writeups/powershell.webp" alt="PS Empire TryHackMe write-up" loading="lazy" decoding="async" />
 				</div>
 				<div class="wu-card-body">
 					<span class="wu-card-eyebrow">TryHackMe</span>
 					<h2>PS Empire</h2>
 					<p>Windows enumeration, exploitation, and post-exploitation with PowerShell Empire.</p>
-					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
 				</div>
 			</a>
 
-			<a class="wu-card" style="--glow: 0, 218, 234;" href="writeup-reversing-elf.html">
+			<a class="wu-card" style="--glow: 116, 0, 184;" href="writeup-reversing-elf.html">
 				<div class="wu-card-image">
-					<img src="../images/writeups/elf.png" alt="Reversing ELF TryHackMe write-up" loading="lazy" decoding="async" />
+					<img src="../images/writeups/elf.webp" alt="Reversing ELF TryHackMe write-up" loading="lazy" decoding="async" />
 				</div>
 				<div class="wu-card-body">
 					<span class="wu-card-eyebrow">TryHackMe</span>
 					<h2>Reversing ELF</h2>
 					<p>Cracking a series of Linux ELF binaries with file, strings, and dynamic analysis.</p>
-					<span class="wu-card-cta">Read the write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+
+			<a class="wu-card" style="--glow: 65, 106, 184;" href="writeup-blue.html">
+				<div class="wu-card-image">
+					<img src="../images/writeups/blue.webp" alt="Blue TryHackMe write-up" loading="lazy" decoding="async" />
+				</div>
+				<div class="wu-card-body">
+					<span class="wu-card-eyebrow">TryHackMe</span>
+					<h2>Blue</h2>
+					<p>Exploiting EternalBlue (MS17-010) on a Windows 7 host with Metasploit, then escalating to SYSTEM.</p>
 				</div>
 			</a>
 		</div>

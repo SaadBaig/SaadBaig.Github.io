@@ -204,17 +204,22 @@
 	}
 
 	/* ----------------------------------------------------------------------
-	   3. PWA service-worker registration
+	   3. Tear down any previously-installed service worker + its caches.
+	   The site no longer uses a service worker. This unregisters an old one
+	   (from a prior visit) and deletes its caches so returning visitors aren't
+	   served stale, cached content. Safe no-op once nothing is registered.
 	   ---------------------------------------------------------------------- */
-	function registerSW() {
-		if (!('serviceWorker' in navigator)) return;
-		// file:// can't host a service worker; only register over http(s).
-		if (location.protocol !== 'https:' && location.protocol !== 'http:') return;
-		window.addEventListener('load', function () {
-			navigator.serviceWorker.register('sw.js').catch(function () {
-				/* registration failed — site still works, just no offline cache */
-			});
-		});
+	function unregisterSW() {
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.getRegistrations().then(function (regs) {
+				regs.forEach(function (reg) { reg.unregister(); });
+			}).catch(function () {});
+		}
+		if (window.caches && caches.keys) {
+			caches.keys().then(function (keys) {
+				keys.forEach(function (key) { caches.delete(key); });
+			}).catch(function () {});
+		}
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -222,7 +227,7 @@
 		typeTerminal();
 		consoleGreeting();
 		easterEggs();
-		registerSW();
+		unregisterSW();
 	}
 
 	if (document.readyState === 'loading') {
