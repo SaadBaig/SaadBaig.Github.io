@@ -132,7 +132,27 @@
 		var staggerIndex = 0;
 		var staggerReset;
 
-		for (var j = 0; j < items.length; j++) observer.observe(items[j]);
+		// IMPORTANT: don't start observing until the body's `is-loading` class
+		// is gone. While `is-loading` is set, ALL transitions are disabled
+		// (`body.is-loading * { transition: none }`), so any element already in
+		// view at load (e.g. the top row of project cards) would get
+		// `.is-visible` added with transitions off and snap in without
+		// animating. startObserving() is invoked by init() after is-loading is
+		// removed, guaranteeing a clean animated reveal in both directions.
+		function startObserving() {
+			for (var j = 0; j < items.length; j++) observer.observe(items[j]);
+		}
+
+		if (document.body.classList.contains('is-loading')) {
+			var wait = setInterval(function () {
+				if (!document.body.classList.contains('is-loading')) {
+					clearInterval(wait);
+					startObserving();
+				}
+			}, 50);
+		} else {
+			startObserving();
+		}
 	}
 
 	/* ----------------------------------------------------------------------
@@ -173,6 +193,226 @@
 		}
 	}
 
+	/* ----------------------------------------------------------------------
+	   Pointer-tracking 3D tilt for project cards + proof-marquee logo tiles.
+	   As the mouse moves over one it rotates slightly toward the cursor, giving
+	   an interactive, cinematic feel. Skipped for reduced-motion users and
+	   coarse (touch) pointers.
+	   ---------------------------------------------------------------------- */
+	function initCardTilt() {
+		var cards = document.querySelectorAll('a.box, .proof-tile, .glass-panel');
+		if (!cards.length || reduceMotion) return;
+
+		// Only for devices with a fine pointer (mouse/trackpad), not touch.
+		if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+		var MAX_TILT = 3.5;  // degrees of rotation at the card edges (project cards)
+		var MAX_SHIFT = 5;   // px the card physically shifts toward the cursor
+
+		function bindCard(card) {
+			var frame = null; // rAF handle so we only update once per frame
+			// Marquee tiles get a stronger, more playful reaction than the
+			// larger project cards. The About panel uses the same feel as the
+			// project cards.
+			var isTile = card.classList.contains('proof-tile');
+			var tilt = isTile ? 11 : MAX_TILT;
+			var shift = isTile ? 11 : MAX_SHIFT;
+
+			function onMove(e) {
+				var rect = card.getBoundingClientRect();
+				// Pointer position within the card, 0..1 on each axis.
+				var px = (e.clientX - rect.left) / rect.width;
+				var py = (e.clientY - rect.top) / rect.height;
+				// Convert to a -1..1 offset from centre.
+				var dx = px - 0.5;
+				var dy = py - 0.5;
+
+				if (frame) return;
+				frame = window.requestAnimationFrame(function () {
+					frame = null;
+					// Rotate toward the cursor: moving right tilts the right
+					// edge back (negative rotateY), moving down tilts the
+					// bottom back (positive rotateX). Also physically shift the
+					// card toward the cursor for a more pronounced reaction.
+					card.style.setProperty('--ry', (dx * tilt).toFixed(2) + 'deg');
+					card.style.setProperty('--rx', (-dy * tilt).toFixed(2) + 'deg');
+					card.style.setProperty('--tx', (dx * shift).toFixed(1) + 'px');
+					card.style.setProperty('--ty', (dy * shift).toFixed(1) + 'px');
+				});
+			}
+
+			function onEnter() { card.classList.add('is-tilting'); }
+
+			function onLeave() {
+				if (frame) { window.cancelAnimationFrame(frame); frame = null; }
+				// Remove the class so the base transition eases the card back,
+				// then clear the vars once at rest.
+				card.classList.remove('is-tilting');
+				card.style.removeProperty('--rx');
+				card.style.removeProperty('--ry');
+				card.style.removeProperty('--tx');
+				card.style.removeProperty('--ty');
+			}
+
+			card.addEventListener('mouseenter', onEnter);
+			card.addEventListener('mousemove', onMove);
+			card.addEventListener('mouseleave', onLeave);
+		}
+
+		for (var i = 0; i < cards.length; i++) bindCard(cards[i]);
+	}
+
+	/* ----------------------------------------------------------------------
+	   Hero title tilt-shift: the banner title leans toward the cursor on hover
+	   (a subtle 3D parallax). Text colour is unchanged — only the transform.
+	   Skipped for reduced motion and coarse (touch) pointers.
+	   ---------------------------------------------------------------------- */
+	function initHeroTilt() {
+		if (reduceMotion) return;
+		if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+		var blocks = document.querySelectorAll('#bg .caption .title-block');
+		if (!blocks.length) return;
+
+		var MAX_TILT = 12; // degrees — a touch stronger than the cards for drama
+
+		function bind(block) {
+			var frame = null;
+			block.addEventListener('mouseenter', function () { block.classList.add('is-tilting'); });
+			block.addEventListener('mousemove', function (e) {
+				var r = block.getBoundingClientRect();
+				var dx = (e.clientX - r.left) / r.width - 0.5;
+				var dy = (e.clientY - r.top) / r.height - 0.5;
+				if (frame) return;
+				frame = window.requestAnimationFrame(function () {
+					frame = null;
+					block.style.setProperty('--tilt-ry', (dx * MAX_TILT).toFixed(2) + 'deg');
+					block.style.setProperty('--tilt-rx', (-dy * MAX_TILT).toFixed(2) + 'deg');
+				});
+			});
+			block.addEventListener('mouseleave', function () {
+				if (frame) { window.cancelAnimationFrame(frame); frame = null; }
+				block.classList.remove('is-tilting');
+				block.style.removeProperty('--tilt-rx');
+				block.style.removeProperty('--tilt-ry');
+			});
+		}
+
+		for (var i = 0; i < blocks.length; i++) bind(blocks[i]);
+	}
+
+	/* ----------------------------------------------------------------------
+	   Proof marquees: auto-scroll that also supports manual scrolling. The
+	   band is natively scrollable (overflow-x), so drag / swipe / wheel /
+	   trackpad all work. We drive the auto-scroll by nudging scrollLeft each
+	   frame, and pause it briefly whenever the user interacts. The track holds
+	   two identical logo sets, so we wrap scrollLeft at the halfway mark for a
+	   seamless loop in either direction.
+	   ---------------------------------------------------------------------- */
+	function initProofMarquee() {
+		var marquees = document.querySelectorAll('.proof-marquee');
+		if (!marquees.length) return;
+
+		// Reduced motion: leave the CSS static wrapped grid in place, no
+		// auto-scroll and no takeover of the track layout.
+		if (reduceMotion) return;
+
+		var SPEED = 0.4; // px per frame (~24px/s at 60fps)
+
+		marquees.forEach(function (marquee) {
+			var track = marquee.querySelector('.proof-track');
+			if (!track) return;
+
+			// Take over from the CSS keyframe animation.
+			track.style.animation = 'none';
+			track.style.webkitAnimation = 'none';
+
+			// track-b scrolls the opposite direction (right-to-left visually).
+			var dir = track.classList.contains('proof-track-b') ? -1 : 1;
+
+			// Half of the scrollable width = one full logo set.
+			function half() { return marquee.scrollWidth / 2; }
+
+			// For the reverse band, start in the middle so it has room to move
+			// left before wrapping.
+			if (dir < 0) marquee.scrollLeft = half();
+
+			// Keep a floating-point scroll position. scrollLeft is rounded to an
+			// integer by the browser, so adding a sub-pixel step (< 1px) each
+			// frame would round back to 0 and never advance. We accumulate the
+			// exact position here and assign the rounded value.
+			var pos = marquee.scrollLeft;
+
+			var paused = false;
+			var idle = null;
+
+			function pause() {
+				paused = true;
+				window.clearTimeout(idle);
+			}
+			function resumeSoon() {
+				window.clearTimeout(idle);
+				idle = window.setTimeout(function () { paused = false; }, 1200);
+			}
+
+			// Pause on hover; resume shortly after leaving.
+			marquee.addEventListener('mouseenter', pause);
+			marquee.addEventListener('mouseleave', resumeSoon);
+
+			// Any manual scroll (wheel, trackpad, touch, drag) pauses briefly.
+			marquee.addEventListener('wheel', function () { pause(); resumeSoon(); }, { passive: true });
+			marquee.addEventListener('touchstart', pause, { passive: true });
+			marquee.addEventListener('touchend', resumeSoon, { passive: true });
+
+			// Click-and-drag to scroll with a mouse.
+			var down = false, startX = 0, startScroll = 0, moved = false;
+			marquee.addEventListener('mousedown', function (e) {
+				down = true; moved = false;
+				startX = e.pageX;
+				startScroll = marquee.scrollLeft;
+				marquee.classList.add('is-dragging');
+				pause();
+				e.preventDefault();
+			});
+			window.addEventListener('mousemove', function (e) {
+				if (!down) return;
+				var dx = e.pageX - startX;
+				if (Math.abs(dx) > 3) moved = true;
+				marquee.scrollLeft = startScroll - dx;
+			});
+			window.addEventListener('mouseup', function () {
+				if (!down) return;
+				down = false;
+				marquee.classList.remove('is-dragging');
+				resumeSoon();
+			});
+			// Suppress the tile's click (navigation) if the user was dragging.
+			marquee.addEventListener('click', function (e) {
+				if (moved) { e.preventDefault(); e.stopPropagation(); }
+			}, true);
+
+			function step() {
+				if (!paused) {
+					var h = half();
+					if (h > 0) {
+						pos += SPEED * dir;
+						// Seamless wrap in both directions.
+						if (pos >= h) pos -= h;
+						else if (pos < 0) pos += h;
+						marquee.scrollLeft = pos;
+					}
+				} else {
+					// While paused (hover / manual scroll), keep the float
+					// position in sync with wherever the user left it so the
+					// auto-scroll resumes smoothly without a jump.
+					pos = marquee.scrollLeft;
+				}
+				window.requestAnimationFrame(step);
+			}
+			window.requestAnimationFrame(step);
+		});
+	}
+
 	/* ---------------------------------------------------------------------- */
 	function init() {
 		// Disable animations until loaded (matches the template's .is-loading).
@@ -188,6 +428,9 @@
 		initCaptionFade();
 		initReveal();
 		initDotNav();
+		initCardTilt();
+		initHeroTilt();
+		initProofMarquee();
 	}
 
 	if (document.readyState === 'loading') {

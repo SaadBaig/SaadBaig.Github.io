@@ -1,10 +1,13 @@
 /* Service worker: precache core assets, serve cache-first for instant repeat
    loads and offline support. Bump CACHE_VERSION to invalidate old caches. */
-var CACHE_VERSION = 'saadbaig-v22';
+var CACHE_VERSION = 'saadbaig-v62';
 
 var CORE_ASSETS = [
 	'./',
 	'./index.html',
+	'./certifications.html',
+	'./speaking.html',
+	'./projects.html',
 	'./assets/css/main.css',
 	'./assets/js/main.js',
 	'./assets/js/enhance.js',
@@ -31,6 +34,8 @@ var CORE_ASSETS = [
 	'./projects/ddos-defcon-2026.html',
 	'./projects/pentesting-methodology.html',
 	'./projects/tryhackme.html',
+	'./projects/reverse-engineering.html',
+	'./projects/wannacry.html',
 	// Project card thumbnails shown on the home grid.
 	'./images/projects/pqcscan.webp',
 	'./images/projects/ddos.webp',

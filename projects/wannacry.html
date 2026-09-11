@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Reversing WannaCry — Saad Baig</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="A full Ghidra reverse-engineering walkthrough of the WannaCry ransomware — hunting the killswitch URL, tracing the entry point, service creation, and the path to EternalBlue." />
+		<meta name="theme-color" content="#00daea" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="project.css" />
+		<style>:root { --glow: 0, 218, 234; }</style>
+	</head>
+	<body>
+
+		<nav class="topbar">
+			<a class="back" href="reverse-engineering.html">Back to Reverse Engineering</a>
+			<a class="repo-link" href="https://github.com/SaadBaig/Reverse-Engineering/tree/master/WannaCry" target="_blank" rel="noopener">View on GitHub ↗</a>
+		</nav>
+
+		<header class="proj-hero">
+			<h1>Reversing WannaCry</h1>
+			<p class="tagline">Using Ghidra to disassemble the WannaCry ransomware and hunt for the infamous killswitch URL — then tracing the entry point, service creation, and propagation path down to EternalBlue.</p>
+			<ul class="tags">
+				<li>Ransomware</li>
+				<li>Ghidra</li>
+				<li>EternalBlue</li>
+				<li>Windows PE</li>
+			</ul>
+		</header>
+
+		<div class="proj-hero-image">
+			<img src="../images/projects/RE.webp" alt="Reverse engineering WannaCry — Ghidra disassembly" />
+		</div>
+
+		<main class="readme">
+			<div id="readme-content" class="readme-body">
+				<p class="readme-loading">Loading full write-up…</p>
+			</div>
+		</main>
+
+		<footer class="proj-footer">
+			<p>Built by Saad Baig</p>
+		</footer>
+
+		<!-- Full README embedded verbatim as a fallback; render.js fetches the
+		     live copy from the WannaCry subfolder and rewrites relative paths. -->
+		<script id="readme" type="text/markdown" data-repo="SaadBaig/Reverse-Engineering" data-branch="master" data-path="WannaCry" data-file="readme.md">
+# Reversing WannaCry
+
+
+This piece of malware is really half of the story. The other half of the story involved Marcus Hutchkins, the malware analyst that stopped WannaCry&#8217;s onslaught in May of 2017. His revelation of registering a domain he found while reverse engineering the malware was the key in stopping the viral infection. The URL he had discovered within the code was a killswitch. My goal is to try to find that URL. I&#8217;ll be using Ghidra to reverse.
+
+## Threat:
+WannaCry was a ransomware that spread worldwide in May of 2017. Targeting Windows operating systems, it used the recently leaked NSA EternalBlue exploit as a propagation mechanism. Spreading to over 200,000 machines in 150 countries, it was a massive attack that was patched relatively quickly after it was discovered, but not after causing major disruptions. Sending requests on port 445 which SMB uses, it tried to spread like a worm to other systems. It would request crypto currency to gain access to the files it encrypted.
+
+## Behavior:
+Being a Windows based ransomware, we load it up into an outdated Windows 7 VM, set up with a couple documents and pictures on the desktop. Within a minute of running the exploitation vector preview windows for images and files start to go away, and additional files get added to the desktop. A program called Wana Decrypt0r loads up with a familiar looking image:
+
+![image](https://user-images.githubusercontent.com/38113471/88589653-b2739a80-d016-11ea-9ead-5bdb0f55383a.png)
+
+## Entry point:
+When we open the WannaCry.exe within Ghidra, we are greeted with a window showing us basic information about the binary. Once we have launched the .exe in Ghidra, we can start looking at its functions. Here&#8217;s an interesting function called &#8216;entry&#8217; which was found under the Functions folder in the Symbol Tree pane:
+
+![image](https://user-images.githubusercontent.com/38113471/88592611-7a228b00-d01b-11ea-8cd0-f59541f9feaa.png)
+
+## Killswitch
+
+Going through the Symbol Tree pane on the side, we can see all the different decompiled functions that were found. The function within `FUN_00408140` has some interesting calls, namely `InternetOpenA`, `InternetOpenUrlA`, and `InternetCloseHandle`. Anytime you can see a URL call from a piece of malware, you know you&#8217;re most likely onto something good, and in this case, it was the kill switch for the malware.
+
+## Summary
+
+Wannacry.exe is launched. First thing it checks for is the kill switch URL using the `OpenUrlA` function. If that succeeds it doesn&#8217;t do anything. If it fails, then it starts the actual entry function which creates a service called `mssecsvc`, gains a foothold, writes `tasksche.exe`, and ultimately drops another binary that exploits MS17-010, EternalBlue.
+
+_Loading the full write-up from GitHub&#8230;_
+</script>
+		<script src="marked.min.js"></script>
+		<script src="render.js"></script>
+
+	</body>
+</html>

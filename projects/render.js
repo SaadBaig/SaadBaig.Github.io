@@ -16,9 +16,18 @@
 
 	var repo = holder.getAttribute('data-repo');        // e.g. SaadBaig/pqcscan
 	var branch = holder.getAttribute('data-branch') || 'main';
-	var rawBase = 'https://raw.githubusercontent.com/' + repo + '/' + branch + '/';
-	var blobBase = 'https://github.com/' + repo + '/blob/' + branch + '/';
-	var readmeUrl = rawBase + 'README.md';
+
+	// Optional subfolder + filename so a page can render a README living in a
+	// subdirectory of the repo (e.g. data-path="WannaCry" data-file="readme.md"
+	// -> .../master/WannaCry/readme.md). Relative asset/link paths in that
+	// README are then resolved against the subfolder, matching GitHub.
+	var path = (holder.getAttribute('data-path') || '').replace(/^\/+|\/+$/g, '');
+	var file = holder.getAttribute('data-file') || 'README.md';
+	var dir = path ? path + '/' : '';
+
+	var rawBase = 'https://raw.githubusercontent.com/' + repo + '/' + branch + '/' + dir;
+	var blobBase = 'https://github.com/' + repo + '/blob/' + branch + '/' + dir;
+	var readmeUrl = rawBase + file;
 
 	var embedded = holder.textContent;
 

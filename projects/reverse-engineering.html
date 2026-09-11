@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Reverse Engineering — Saad Baig</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Taking binaries apart to understand how they work — starting with a full Ghidra reverse-engineering walkthrough of the WannaCry ransomware." />
+		<meta name="theme-color" content="#00daea" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="project.css" />
+		<style>
+			:root { --glow: 0, 218, 234; }
+
+			/* Featured project card (WannaCry) — self-contained so this page
+			   doesn't need the homepage grid styles. Matches the glass/glow
+			   aesthetic of the project cards elsewhere on the site. */
+			.re-card-wrap {
+				max-width: 60rem;
+				margin: 2rem auto 0;
+				padding: 0 1.5rem;
+			}
+
+			.re-card {
+				display: block;
+				overflow: hidden;
+				text-decoration: none;
+				color: inherit;
+				border-radius: 14px;
+				border: 1px solid rgba(var(--glow), 0.3);
+				background: rgba(20, 18, 26, 0.8);
+				box-shadow:
+					0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+					0 0 1.5rem -0.25rem rgba(var(--glow), 0.25);
+				transition:
+					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+				/* The card is an <a>; the shell's `a:hover { underline }` rule
+				   would otherwise underline the card's text (pills, body) on
+				   hover. Keep the whole card underline-free in every state. */
+				.re-card:hover,
+				.re-card:focus,
+				.re-card:hover * { text-decoration: none; }
+
+				.re-card:hover {
+					transform: translateY(-8px);
+					border-color: rgba(var(--glow), 0.85);
+					box-shadow:
+						0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+						0 0 2.75rem rgba(var(--glow), 0.6);
+				}
+
+				/* Pointer-tracking 3D tilt — same cinematic effect as the home
+				   page project cards. JS sets --rx/--ry; while tilting we drop
+				   the transform transition so it tracks the cursor with no lag. */
+				.re-card.is-tilting {
+					transform:
+						perspective(900px)
+						rotateX(var(--rx, 0deg))
+						rotateY(var(--ry, 0deg))
+						translateY(-8px)
+						scale(1.02);
+					transition:
+						box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+						border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+					border-color: rgba(var(--glow), 0.85);
+					box-shadow:
+						0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+						0 0 2.75rem rgba(var(--glow), 0.6);
+				}
+
+			.re-card-image {
+				position: relative;
+				overflow: hidden;
+			}
+
+				.re-card-image img {
+					display: block;
+					width: 100%;
+					height: auto;
+					transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+				}
+
+				.re-card:hover .re-card-image img { transform: scale(1.05); }
+
+			.re-card-body { padding: 1.75rem 2rem 2rem; }
+
+				.re-card-eyebrow {
+					font-size: 0.7rem;
+					font-weight: 700;
+					letter-spacing: 0.14em;
+					text-transform: uppercase;
+					color: rgb(var(--glow));
+				}
+
+				.re-card-body h2 {
+					margin: 0.5rem 0 0.5rem;
+					font-size: 1.6rem;
+					color: #fff;
+				}
+
+				.re-card-body p {
+					margin: 0 0 1rem;
+					color: #c7c2cf;
+					line-height: 1.6;
+				}
+
+				.re-card-tags {
+					list-style: none;
+					margin: 0 0 1.25rem;
+					padding: 0;
+					display: flex;
+					flex-wrap: wrap;
+					gap: 0.5rem;
+				}
+
+					.re-card-tags li {
+						padding: 0.3rem 0.8rem;
+						border-radius: 1rem;
+						font-size: 0.72rem;
+						text-transform: uppercase;
+						letter-spacing: 0.08em;
+						font-weight: 600;
+						border: 1px solid rgba(var(--glow), 0.5);
+						background: rgba(var(--glow), 0.08);
+						color: rgb(var(--glow));
+					}
+
+				.re-card-cta {
+					display: inline-flex;
+					align-items: center;
+					gap: 0.4rem;
+					font-weight: 600;
+					font-size: 0.9rem;
+					color: rgb(var(--glow));
+				}
+
+					.re-card-cta span { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+					.re-card:hover .re-card-cta span { transform: translateX(5px); }
+
+			@media (prefers-reduced-motion: reduce) {
+				.re-card, .re-card-image img, .re-card-cta span { transition: none; }
+				.re-card:hover { transform: none; }
+				.re-card:hover .re-card-image img { transform: none; }
+			}
+		</style>
+	</head>
+	<body>
+
+		<nav class="topbar">
+			<a class="back" href="../projects.html">Back to projects</a>
+			<a class="repo-link" href="https://github.com/SaadBaig/Reverse-Engineering" target="_blank" rel="noopener">View on GitHub ↗</a>
+		</nav>
+
+		<header class="proj-hero">
+			<h1>Reverse Engineering</h1>
+			<p class="tagline">Taking binaries apart to understand how they work — notes, tools, and challenges. First up: a full walkthrough of the WannaCry ransomware.</p>
+			<ul class="tags">
+				<li>Ghidra</li>
+				<li>Assembly</li>
+				<li>Binary</li>
+				<li>Malware</li>
+			</ul>
+		</header>
+
+		<!-- WannaCry project card -->
+		<div class="re-card-wrap">
+			<a class="re-card" href="wannacry.html">
+				<div class="re-card-image">
+					<img src="../images/projects/RE.webp" alt="Reverse engineering WannaCry — Ghidra disassembly" loading="lazy" decoding="async" />
+				</div>
+				<div class="re-card-body">
+					<span class="re-card-eyebrow">Featured write-up</span>
+					<h2>Reversing WannaCry</h2>
+					<p>Using Ghidra to disassemble the WannaCry ransomware and hunt for the infamous killswitch URL that halted its 2017 rampage — then tracing the entry point, service creation, and propagation path down to EternalBlue.</p>
+					<ul class="re-card-tags">
+						<li>Ransomware</li>
+						<li>Ghidra</li>
+						<li>EternalBlue</li>
+						<li>Windows PE</li>
+					</ul>
+					<span class="re-card-cta">Read the full write-up <span aria-hidden="true">→</span></span>
+				</div>
+			</a>
+		</div>
+
+		<footer class="proj-footer">
+			<p>Built by Saad Baig</p>
+		</footer>
+
+		<!-- Pointer-tracking 3D tilt for the WannaCry card (same effect as the
+		     home page project cards). Skipped for reduced-motion + touch. -->
+		<script>
+		(function () {
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+			if (reduce || !fine) return;
+
+			var card = document.querySelector('.re-card');
+			if (!card) return;
+
+			var MAX_TILT = 7, frame = null;
+
+			card.addEventListener('mouseenter', function () { card.classList.add('is-tilting'); });
+			card.addEventListener('mousemove', function (e) {
+				var r = card.getBoundingClientRect();
+				var dx = (e.clientX - r.left) / r.width - 0.5;
+				var dy = (e.clientY - r.top) / r.height - 0.5;
+				if (frame) return;
+				frame = requestAnimationFrame(function () {
+					frame = null;
+					card.style.setProperty('--ry', (dx * MAX_TILT).toFixed(2) + 'deg');
+					card.style.setProperty('--rx', (-dy * MAX_TILT).toFixed(2) + 'deg');
+				});
+			});
+			card.addEventListener('mouseleave', function () {
+				if (frame) { cancelAnimationFrame(frame); frame = null; }
+				card.classList.remove('is-tilting');
+				card.style.removeProperty('--rx');
+				card.style.removeProperty('--ry');
+			});
+		})();
+		</script>
+
+	</body>
+</html>

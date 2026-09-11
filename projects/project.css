@@ -154,8 +154,12 @@
 				font-size: 0.72rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
-				color: rgba(var(--glow), 0.95);
-				border: 1px solid rgba(var(--glow), 0.35);
+				/* Match the eyebrow's vibrancy exactly: full accent, stronger
+				   border, and the same bold weight (the missing weight was what
+				   made the pills read dimmer than the eyebrow). */
+				font-weight: 600;
+				color: rgb(var(--glow));
+				border: 1px solid rgba(var(--glow), 0.5);
 				background: rgba(var(--glow), 0.08);
 			}
 

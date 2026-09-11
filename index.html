@@ -35,9 +35,8 @@
 		<!-- Scroll-spy dot navigation (hidden on small screens). -->
 			<nav class="dot-nav" aria-label="Section navigation">
 				<a href="#about" data-section="about"><span class="dot"></span><span class="dot-label">About</span></a>
-				<a href="#certifications" data-section="certifications"><span class="dot"></span><span class="dot-label">Certs</span></a>
-				<a href="#speaking" data-section="speaking"><span class="dot"></span><span class="dot-label">Speaking</span></a>
-				<a href="#projects" data-section="projects"><span class="dot"></span><span class="dot-label">Projects</span></a>
+				<a href="#proof" data-section="proof"><span class="dot"></span><span class="dot-label">Proof</span></a>
+				<a href="#featured" data-section="featured"><span class="dot"></span><span class="dot-label">Work</span></a>
 			</nav>
 
 		<!-- Rotating background (spans the whole page). Each slide carries its
@@ -136,90 +135,81 @@
 				</div>
 			</section>
 
-		<!-- Certifications -->
-			<section id="certifications" class="wrapper style2 certs">
+		<!-- Proof: cinematic auto-scrolling logo bands for certs + speaking. -->
+			<section id="proof" class="wrapper style2 proof">
 				<div class="inner">
-					<div class="glass-panel" data-reveal>
-						<header class="align-center">
-							<h2>Certifications</h2>
-						</header>
-						<!-- Auto-scrolling logo marquee (same mechanism as Speaking).
-						     Two identical sets; it animates by -50% so the second set
-						     seamlessly continues the first. Pauses on hover; falls back to
-						     a static wrapping row under reduced motion. -->
-						<div class="logo-marquee" aria-label="Certifications">
-							<div class="logo-track">
+					<!-- Speaking band -->
+					<div class="proof-band" data-reveal>
+						<a class="proof-band-label" href="speaking.html">
+							<span class="proof-num">7</span>
+							<span class="proof-word">Stages spoken</span>
+						</a>
+						<div class="proof-marquee">
+							<div class="proof-track proof-track-a">
 								<!-- Set 1 -->
-								<div class="logo-item"><img src="images/certlogo/pentest.png" alt="CompTIA PenTest+" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/secplus.png" alt="CompTIA Security+" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/ccna.png" alt="Cisco CCNA" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/nse1.svg" alt="Fortinet NSE 1 — Information Security Awareness" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/nse2.svg" alt="Fortinet NSE 2 — The Threat Landscape" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/nse3.png" alt="Fortinet NSE 3 — Network Security Associate" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/nse4.svg" alt="Fortinet NSE 4 — Network Security Professional" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/splunkfun1.png" alt="Splunk Fundamentals 1" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/certlogo/splunkfun2.png" alt="Splunk Fundamentals 2" loading="lazy" /></div>
+								<a class="proof-tile" style="--glow: 240, 154, 58;" href="speaking.html" title="RMISC"><img src="images/speaklogo/rmisc.png" alt="RMISC" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 0, 113, 188;" href="speaking.html" title="IEEE"><img src="images/speaklogo/IEEE.png" alt="IEEE" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 214, 40, 40;" href="speaking.html" title="BSides"><img src="images/speaklogo/bsides.png" alt="BSides" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 235, 235, 235;" href="speaking.html" title="OWASP"><img src="images/speaklogo/owasp.png" alt="OWASP" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile proof-tile-lg" style="--glow: 0, 139, 191;" href="speaking.html" title="ISSA"><img src="images/speaklogo/ISSA.png" alt="ISSA" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile proof-tile-lg" style="--glow: 0, 139, 191;" href="speaking.html" title="MSU Denver"><img src="images/speaklogo/MSU.png" alt="MSU Denver" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 235, 235, 235;" href="speaking.html" title="denhac"><img src="images/speaklogo/denhac.png" alt="denhac" loading="lazy" decoding="async" /></a>
 								<!-- Set 2 (duplicate, hidden from assistive tech) -->
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/pentest.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/secplus.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/ccna.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse1.svg" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse2.svg" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse3.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/nse4.svg" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/splunkfun1.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/certlogo/splunkfun2.png" alt="" loading="lazy" /></div>
+								<a class="proof-tile" style="--glow: 240, 154, 58;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/rmisc.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 0, 113, 188;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/IEEE.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 214, 40, 40;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/bsides.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 235, 235, 235;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/owasp.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile proof-tile-lg" style="--glow: 0, 139, 191;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/ISSA.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile proof-tile-lg" style="--glow: 0, 139, 191;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/MSU.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 235, 235, 235;" href="speaking.html" tabindex="-1" aria-hidden="true"><img src="images/speaklogo/denhac.png" alt="" loading="lazy" decoding="async" /></a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Certifications band (scrolls the other way) -->
+					<div class="proof-band" data-reveal>
+						<a class="proof-band-label" href="certifications.html">
+							<span class="proof-num">9</span>
+							<span class="proof-word">Certifications</span>
+						</a>
+						<div class="proof-marquee">
+							<div class="proof-track proof-track-b">
+								<!-- Set 1 -->
+								<a class="proof-tile" style="--glow: 220, 45, 45;" href="certifications.html" title="CompTIA PenTest+"><img src="images/certlogo/pentest.png" alt="CompTIA PenTest+" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 220, 45, 45;" href="certifications.html" title="CompTIA Security+"><img src="images/certlogo/secplus.png" alt="CompTIA Security+" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 0, 139, 191;" href="certifications.html" title="Cisco CCNA"><img src="images/certlogo/ccna.png" alt="Cisco CCNA" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 44, 204, 211;" href="certifications.html" title="Fortinet NSE 1"><img src="images/certlogo/nse1.svg" alt="Fortinet NSE 1" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 35, 163, 169;" href="certifications.html" title="Fortinet NSE 2"><img src="images/certlogo/nse2.svg" alt="Fortinet NSE 2" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 41, 111, 176;" href="certifications.html" title="Fortinet NSE 3"><img src="images/certlogo/nse3.png" alt="Fortinet NSE 3" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 218, 41, 28;" href="certifications.html" title="Fortinet NSE 4"><img src="images/certlogo/nse4.svg" alt="Fortinet NSE 4" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 99, 190, 123;" href="certifications.html" title="Splunk Fundamentals 1"><img src="images/certlogo/splunkfun1.png" alt="Splunk Fundamentals 1" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 99, 190, 123;" href="certifications.html" title="Splunk Fundamentals 2"><img src="images/certlogo/splunkfun2.png" alt="Splunk Fundamentals 2" loading="lazy" decoding="async" /></a>
+								<!-- Set 2 (duplicate, hidden from assistive tech) -->
+								<a class="proof-tile" style="--glow: 220, 45, 45;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/pentest.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 220, 45, 45;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/secplus.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 0, 139, 191;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/ccna.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 44, 204, 211;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/nse1.svg" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 35, 163, 169;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/nse2.svg" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 41, 111, 176;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/nse3.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 218, 41, 28;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/nse4.svg" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 99, 190, 123;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/splunkfun1.png" alt="" loading="lazy" decoding="async" /></a>
+								<a class="proof-tile" style="--glow: 99, 190, 123;" href="certifications.html" tabindex="-1" aria-hidden="true"><img src="images/certlogo/splunkfun2.png" alt="" loading="lazy" decoding="async" /></a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
-		<!-- Speaking -->
-			<section id="speaking" class="wrapper style2 certs speaking">
+		<!-- Featured Projects: a curated selection; full archive on projects.html. -->
+			<section id="featured" class="wrapper style2">
 				<div class="inner">
-					<div class="glass-panel" data-reveal>
-						<header class="align-center">
-							<h2>Speaking</h2>
-							<p class="section-lead">Conferences and organizations where I've presented my research and work.</p>
-						</header>
-						<!-- Auto-scrolling logo marquee. The track holds two identical
-						     sets of logos; it animates by -50% so the second set seamlessly
-						     continues the first, looping with no visible jump. Pauses on
-						     hover; falls back to a static wrapping row under reduced motion. -->
-						<div class="logo-marquee" aria-label="Speaking engagements">
-							<div class="logo-track">
-								<!-- Set 1 -->
-								<div class="logo-item"><img class="logo-lg" src="images/speaklogo/rmisc.png" alt="RMISC — Rocky Mountain Information Security Conference" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/speaklogo/IEEE.png" alt="IEEE — Institute of Electrical and Electronics Engineers" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/speaklogo/bsides.png" alt="BSides" loading="lazy" /></div>
-								<div class="logo-item"><img src="images/speaklogo/owasp.png" alt="OWASP — Open Worldwide Application Security Project" loading="lazy" /></div>
-								<div class="logo-item"><img class="logo-xl" src="images/speaklogo/ISSA.png" alt="ISSA — Information Systems Security Association" loading="lazy" /></div>
-								<div class="logo-item"><img class="logo-xl" src="images/speaklogo/MSU.png" alt="Metropolitan State University of Denver" loading="lazy" /></div>
-								<div class="logo-item"><img class="logo-lg" src="images/speaklogo/denhac.png" alt="denhac — Denver hackerspace" loading="lazy" /></div>
-								<!-- Set 2 (duplicate, hidden from assistive tech) -->
-								<div class="logo-item" aria-hidden="true"><img class="logo-lg" src="images/speaklogo/rmisc.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/IEEE.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/bsides.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img src="images/speaklogo/owasp.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img class="logo-xl" src="images/speaklogo/ISSA.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img class="logo-xl" src="images/speaklogo/MSU.png" alt="" loading="lazy" /></div>
-								<div class="logo-item" aria-hidden="true"><img class="logo-lg" src="images/speaklogo/denhac.png" alt="" loading="lazy" /></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-		<!-- Projects -->
-			<section id="projects" class="wrapper style2">
-				<div class="inner">
-					<header class="align-center">
-						<h2>Projects</h2>
+					<header class="align-center featured-head" data-reveal>
+						<h2>Featured Projects</h2>
+						<p class="featured-lead">A few highlights from my work — tools, research, and write-ups.</p>
 					</header>
 					<div class="grid-style">
 
-		<!-- pqcscan -->
+		<!-- PQCScan -->
 						<div data-reveal>
 							<a href="projects/pqcscan.html" class="box" style="--glow: 240, 154, 58;">
 								<div class="image fit">
@@ -231,9 +221,9 @@
 									</header>
 									<p>A scanner for post-quantum cryptography — checks systems for quantum-resistant readiness.</p>
 									<ul class="tags">
+										<li>Post-Quantum Cryptography</li>
 										<li>Rust</li>
-										<li>Cryptography</li>
-										<li>PQC</li>
+										<li>Open Source</li>
 									</ul>
 								</div>
 							</a>
@@ -279,49 +269,9 @@
 							</a>
 						</div>
 
-		<!-- TryHackMe -->
-						<div data-reveal>
-							<a href="projects/tryhackme.html" class="box" style="--glow: 112, 157, 191;">
-								<div class="image fit">
-									<img src="images/projects/tryhackme.webp" alt="TryHackMe walkthroughs banner" loading="lazy" decoding="async" />
-								</div>
-								<div class="content">
-									<header class="align-center">
-										<h2>TryHackMe</h2>
-									</header>
-									<p>Detailed walkthroughs of TryHackMe boxes, documenting each step and takeaway.</p>
-									<ul class="tags">
-										<li>Write-ups</li>
-										<li>Linux</li>
-										<li>Web</li>
-									</ul>
-								</div>
-							</a>
-						</div>
-
-		<!-- Python Pentesting -->
-						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
-								<div class="image fit">
-									<img src="images/projects/pythondev.webp" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
-								</div>
-								<div class="content">
-									<header class="align-center">
-										<h2>Python Penetration Testing</h2>
-									</header>
-									<p>A collection of home-baked Python tools for offensive security tasks.</p>
-									<ul class="tags">
-										<li>Python</li>
-										<li>Automation</li>
-										<li>Tooling</li>
-									</ul>
-								</div>
-							</a>
-						</div>
-
 		<!-- Reverse Engineering -->
 						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Reverse-Engineering" class="box" style="--glow: 0, 218, 234;">
+							<a href="projects/reverse-engineering.html" class="box" style="--glow: 0, 218, 234;">
 								<div class="image fit">
 									<img src="images/projects/RE.webp" alt="Reverse engineering banner" loading="lazy" decoding="async" />
 								</div>
@@ -339,47 +289,10 @@
 							</a>
 						</div>
 
-		<!-- Exploit dev -->
-						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
-								<div class="image fit">
-									<img src="images/projects/exploitdev.webp" alt="Exploit development banner" loading="lazy" decoding="async" />
-								</div>
-								<div class="content">
-									<header class="align-center">
-										<h2>Exploit Development</h2>
-									</header>
-									<p>Hands-on practice writing my own exploits, from buffer overflows upward.</p>
-									<ul class="tags">
-										<li>C</li>
-										<li>Memory</li>
-										<li>Shellcode</li>
-									</ul>
-								</div>
-							</a>
-						</div>
-
-		<!-- Machine Learning -->
-						<div data-reveal>
-							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
-								<div class="image fit">
-									<img src="images/projects/ML.webp" alt="Machine learning banner" loading="lazy" decoding="async" />
-								</div>
-								<div class="content">
-									<header class="align-center">
-										<h2>Machine Learning</h2>
-									</header>
-									<p>Practicing something outside of security — experiments and models in ML.</p>
-									<ul class="tags">
-										<li>Python</li>
-										<li>ML</li>
-										<li>Data</li>
-									</ul>
-								</div>
-							</a>
-						</div>
-
 					</div>
+					<p class="featured-all" data-reveal>
+						<a class="featured-all-link" href="projects.html">View all projects <span aria-hidden="true">→</span></a>
+					</p>
 				</div>
 			</section>
 

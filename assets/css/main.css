@@ -114,6 +114,574 @@
 	}
 
 /* ==========================================================================
+   Interior pages (Certifications / Speaking / Projects)
+   These load main.css but have no rotating #bg, so a fixed dark backdrop
+   stands in for it. A slim sticky top nav replaces the homepage dot-nav.
+   ========================================================================== */
+
+	/* Static dark backdrop with a soft purple glow, echoing the project pages. */
+	.page-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background:
+			radial-gradient(120vw 80vh at 80% -10%, rgba(124, 58, 237, 0.16), transparent 60%),
+			radial-gradient(90vw 70vh at -10% 110%, rgba(138, 70, 128, 0.14), transparent 55%),
+			#101014;
+	}
+
+	.site-nav {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-justify-content: space-between;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.5rem;
+		background: rgba(16, 16, 20, 0.72);
+		-webkit-backdrop-filter: blur(14px);
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+		.site-nav .back {
+			display: -webkit-inline-flex;
+			display: -ms-inline-flexbox;
+			display: inline-flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			gap: 0.5rem;
+			color: #e6def0;
+			font-size: 0.9rem;
+			letter-spacing: 0.03em;
+			text-decoration: none;
+		}
+
+			.site-nav .back:hover { color: #fff; }
+
+			.site-nav .back:before {
+				content: '';
+				width: 0.55rem;
+				height: 0.55rem;
+				border-left: 2px solid currentColor;
+				border-bottom: 2px solid currentColor;
+				transform: rotate(45deg);
+			}
+
+		.site-nav .nav-links {
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			gap: 1.5rem;
+		}
+
+			.site-nav .nav-links a {
+				color: #b8b2c2;
+				font-size: 0.85rem;
+				letter-spacing: 0.04em;
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+				.site-nav .nav-links a:hover,
+				.site-nav .nav-links a[aria-current="page"] { color: #ffffff; }
+
+	/* Interior page hero header (eyebrow + title + lead). */
+	.page-hero {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: 4rem 1.5rem 1rem;
+		text-align: center;
+	}
+
+		.page-hero .eyebrow {
+			display: inline-block;
+			margin-bottom: 1rem;
+			padding: 0.35rem 0.9rem;
+			border-radius: 2rem;
+			font-size: 0.7rem;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #c98fc0;
+			border: 1px solid rgba(201, 143, 192, 0.5);
+			background: rgba(201, 143, 192, 0.08);
+		}
+
+		.page-hero h1 {
+			margin: 0.5rem 0;
+			font-size: clamp(2.4rem, 6vw, 4rem);
+			font-weight: 600;
+			line-height: 1.1;
+			color: #fff;
+			text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.5);
+		}
+
+		.page-hero .lead {
+			font-size: 1.1rem;
+			color: #b8b2c2;
+			max-width: 42rem;
+			margin: 0.5rem auto 0;
+		}
+
+/* ==========================================================================
+   Homepage "Featured Projects" section
+   ========================================================================== */
+
+	.featured-head {
+		margin-bottom: 2.5rem;
+	}
+
+		.featured-lead {
+			max-width: 42rem;
+			margin: 0.5rem auto 0;
+			color: #b8b2c2;
+		}
+
+	/* "View all projects" link below the featured grid. */
+	.featured-all {
+		margin: 2.5rem 0 0 0;
+		text-align: center;
+	}
+
+		.featured-all-link {
+			display: -webkit-inline-flex;
+			display: -ms-inline-flexbox;
+			display: inline-flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.75rem 1.5rem;
+			border-radius: 2rem;
+			border: 1px solid rgba(201, 143, 192, 0.5);
+			font-weight: 600;
+			letter-spacing: 0.04em;
+			color: #e9e4f0;
+			text-decoration: none;
+			transition:
+				border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+				background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+				transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+			.featured-all-link span {
+				display: inline-block;
+				transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			.featured-all-link:hover {
+				border-color: rgba(201, 143, 192, 0.9);
+				background: rgba(201, 143, 192, 0.12);
+				transform: translateY(-2px);
+			}
+
+				.featured-all-link:hover span { transform: translateX(5px); }
+
+/* ==========================================================================
+   Homepage "Proof" section: big stats + cinematic auto-scrolling logo bands
+   ========================================================================== */
+
+	.proof .inner {
+		max-width: 68rem;
+	}
+
+	/* One band = a stat label pinned to the left + the scrolling marquee. */
+	.proof-band {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		gap: 1.5rem;
+		margin-top: 1.25rem;
+	}
+
+	/* Stat caption anchored to its own band, tying the number to its logos. */
+	.proof-band-label {
+		-webkit-flex: 0 0 auto;
+		-ms-flex: 0 0 auto;
+		flex: 0 0 auto;
+		width: 9rem;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		padding-right: 1.5rem;
+		border-right: 1px solid rgba(255, 255, 255, 0.12);
+		text-decoration: none;
+		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+		.proof-band-label:hover { transform: translateY(-3px); }
+
+		.proof-num {
+			font-size: 3.75rem;
+			line-height: 1;
+			font-weight: 700;
+			background: linear-gradient(180deg, #ffffff 0%, #c98fc0 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: #c98fc0; /* fallback */
+		}
+
+		.proof-word {
+			margin-top: 0.4rem;
+			font-size: 0.7rem;
+			font-weight: 600;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+			color: #9a94a6;
+			transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+			.proof-band-label:hover .proof-word { color: #e9e4f0; }
+
+	.proof-marquee {
+		position: relative;
+		-webkit-flex: 1 1 auto;
+		-ms-flex: 1 1 auto;
+		flex: 1 1 auto;
+		min-width: 0;
+		/* Generous vertical padding gives the hover lift + forward pop room to
+		   grow without being clipped by overflow: hidden (needed horizontally
+		   for the seamless CSS scroll loop). */
+		padding: 3rem 0;
+		/* Horizontally scrollable so the marquee can be dragged / swiped /
+		   wheeled manually. main.js (initProofMarquee) nudges scrollLeft each
+		   frame for the auto-scroll and pauses it during manual interaction.
+		   The CSS animation fallback (no-JS) still runs via .no-js-scroll. */
+		overflow-x: auto;
+		overflow-y: hidden;
+		-ms-overflow-style: none;      /* IE/Edge: hide scrollbar */
+		scrollbar-width: none;         /* Firefox: hide scrollbar */
+		cursor: grab;
+		/* Fade logos in/out at the edges for a premium, polished look. */
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+		mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+	}
+
+		/* WebKit: hide the scrollbar (keep it scrollable). */
+		.proof-marquee::-webkit-scrollbar { display: none; }
+
+		.proof-marquee.is-dragging { cursor: grabbing; }
+
+		/* Two identical tile sets = seamless loop. By default the track animates
+		   with CSS (works with no JS). main.js switches to scrollLeft-based
+		   auto-scroll (setting animation:none inline) so the same band can also
+		   be dragged / swiped / wheeled manually. */
+		.proof-track {
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			gap: 1.25rem;
+			width: max-content;
+			-webkit-animation: proof-scroll 55s linear infinite;
+			animation: proof-scroll 55s linear infinite;
+		}
+
+			.proof-track-b {
+				-webkit-animation-direction: reverse;
+				animation-direction: reverse;
+			}
+
+		/* CSS-fallback pause on hover (only relevant before JS takes over). */
+		.proof-marquee:hover .proof-track {
+			-webkit-animation-play-state: paused;
+			animation-play-state: paused;
+		}
+
+	@-webkit-keyframes proof-scroll {
+		from { -webkit-transform: translateX(0); transform: translateX(0); }
+		to   { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+	}
+	@keyframes proof-scroll {
+		from { transform: translateX(0); }
+		to   { transform: translateX(-50%); }
+	}
+
+	/* Glass logo tile — full brand colour, depth, glow on hover. */
+	.proof-tile {
+		-webkit-flex: 0 0 auto;
+		-ms-flex: 0 0 auto;
+		flex: 0 0 auto;
+		position: relative;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		width: 11rem;
+		height: 7rem;
+		padding: 1.25rem;
+		border-radius: 14px;
+		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.25);
+		background:
+			radial-gradient(120% 120% at 50% 0%, rgba(var(--glow, 255, 255, 255), 0.08), transparent 70%),
+			rgba(20, 18, 26, 0.75);
+		box-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1rem -0.25rem rgba(var(--glow, 124, 58, 237), 0.2);
+		transition:
+			-webkit-transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+		.proof-tile img {
+			max-width: 100%;
+			max-height: 100%;
+			-o-object-fit: contain;
+			object-fit: contain;
+			/* --tile-scale lets specific logos that read small (ISSA, MSU) render
+			   larger without changing the tile/marquee rhythm. */
+			-webkit-transform: scale(var(--tile-scale, 1));
+			transform: scale(var(--tile-scale, 1));
+			transition: -webkit-transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+		/* Logos that read small at the base size — bump ~75% larger. */
+		.proof-tile-lg { --tile-scale: 1.75; }
+
+		.proof-tile:hover {
+			/* Pop TOWARD the viewer (forward on Z) rather than up. */
+			-webkit-transform: perspective(600px) translateZ(60px) translateY(-4px);
+			transform: perspective(600px) translateZ(60px) translateY(-4px);
+			border-color: rgba(var(--glow, 124, 58, 237), 1);
+			box-shadow:
+				0 2rem 3.5rem rgba(0, 0, 0, 0.6),
+				0 0 4.5rem rgba(var(--glow, 124, 58, 237), 0.95);
+		}
+
+			.proof-tile:hover img {
+				-webkit-transform: scale(calc(var(--tile-scale, 1) * 1.14));
+				transform: scale(calc(var(--tile-scale, 1) * 1.14));
+			}
+
+		/* Pointer-tracking tilt — pronounced: the tile leans AND physically
+		   shifts toward the cursor (--rx/--ry rotation, --tx/--ty shift set by
+		   main.js). Overrides the plain :hover lift while actively tracking; the
+		   transition is dropped so it follows the pointer with no lag. */
+		.proof-tile.is-tilting {
+			/* Pops TOWARD the viewer via a forward translateZ (with the shared
+			   perspective) instead of a big upward lift — while keeping the
+			   pointer-tracking tilt (--rx/--ry) and shift (--tx/--ty). */
+			-webkit-transform:
+				perspective(600px)
+				translate3d(var(--tx, 0), var(--ty, 0), 90px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-4px);
+			transform:
+				perspective(600px)
+				translate3d(var(--tx, 0), var(--ty, 0), 90px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-4px);
+			transition:
+				box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(var(--glow, 124, 58, 237), 1);
+			box-shadow:
+				0 2.25rem 4rem rgba(0, 0, 0, 0.65),
+				0 0 5rem rgba(var(--glow, 124, 58, 237), 1);
+			z-index: 2;
+		}
+
+	@media screen and (max-width: 736px) {
+		/* Stack the stat label above its band on small screens. */
+		.proof-band {
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			-webkit-align-items: flex-start;
+			-ms-flex-align: start;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+		.proof-band-label {
+			width: auto;
+			-webkit-flex-direction: row;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			-webkit-align-items: baseline;
+			-ms-flex-align: baseline;
+			align-items: baseline;
+			gap: 0.6rem;
+			padding-right: 0;
+			border-right: 0;
+		}
+		.proof-num { font-size: 2.5rem; }
+		.proof-word { margin-top: 0; }
+		.proof-tile { width: 8.5rem; height: 5.5rem; padding: 1rem; }
+	}
+
+	/* Reduced motion: freeze the scroll and show a static, centered, wrapping
+	   set of tiles (the duplicate set is hidden). */
+	/* Reduced motion: freeze the scroll and show a static, centered, wrapping
+	   set of tiles (the duplicate set is hidden). */
+	@media (prefers-reduced-motion: reduce) {
+
+		.proof-track {
+			-webkit-animation: none !important;
+			animation: none !important;
+			width: 100%;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			gap: 1rem;
+		}
+
+			.proof-track .proof-tile[aria-hidden="true"] { display: none; }
+
+		.proof-marquee {
+			-webkit-mask-image: none;
+			mask-image: none;
+		}
+	}
+
+/* ==========================================================================
+   Detail lists (Certifications + Speaking dedicated pages)
+   ========================================================================== */
+
+	.cert-detail .inner,
+	.talk-detail .inner {
+		max-width: 52rem;
+	}
+
+	.detail-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.detail-item {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 1.5rem 1.75rem;
+		border-radius: var(--panel-radius);
+		border: 1px solid rgba(var(--glow, 255, 255, 255), 0.25);
+		background: var(--panel-surface);
+		transition: border-color 0.3s ease, transform 0.3s ease;
+	}
+
+		.detail-item:hover {
+			border-color: rgba(var(--glow, 124, 58, 237), 0.6);
+			transform: translateX(4px);
+		}
+
+		.detail-logo {
+			-webkit-flex: 0 0 auto;
+			-ms-flex: 0 0 auto;
+			flex: 0 0 auto;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			width: 4.5rem;
+		}
+
+			.detail-logo img {
+				max-width: 100%;
+				max-height: 3.5rem;
+				width: auto;
+				height: auto;
+				object-fit: contain;
+			}
+
+			/* Some marks read small — give speaking's larger logos more room. */
+			.detail-logo-lg img { max-height: 4.25rem; }
+			.detail-logo-xl img { max-height: 5rem; }
+
+		.detail-body { min-width: 0; }
+
+		.detail-body h3 {
+			margin: 0 0 0.2rem 0;
+			font-size: 1.05rem;
+			font-weight: 600;
+			color: #ffffff;
+		}
+
+		.detail-meta {
+			margin: 0 0 0.4rem 0;
+			font-size: 0.8rem;
+			letter-spacing: 0.03em;
+			color: rgb(var(--glow, 201, 143, 192));
+		}
+
+		.detail-body p:last-child {
+			margin: 0;
+			font-size: 0.9rem;
+			line-height: 1.6;
+			color: #b8b2c2;
+		}
+
+		.detail-verify {
+			display: inline-block;
+			margin-top: 0.5rem;
+			font-size: 0.82rem;
+			font-weight: 600;
+			color: rgb(var(--glow, 201, 143, 192));
+		}
+
+	/* Placeholder-style hint for the [bracketed] scaffolding text so it's
+	   visually obvious what still needs filling in. */
+	.detail-date {
+		font-style: italic;
+		opacity: 0.85;
+	}
+
+	@media screen and (max-width: 480px) {
+		.detail-item {
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			text-align: center;
+			gap: 1rem;
+		}
+	}
+
+/* ==========================================================================
    Wrapper / sections
    ========================================================================== */
 
@@ -183,7 +751,39 @@
 		border-radius: var(--panel-radius);
 		box-shadow: var(--panel-shadow);
 		padding: 3rem;
+		/* Eases the tilt back to rest on mouseleave (see .glass-panel.is-tilting). */
+		transition:
+			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 	}
+
+		/* Pointer-tracking 3D tilt — same cinematic feel as the project cards.
+		   JS (initCardTilt) sets --rx/--ry; while tilting the transform
+		   transition is dropped so it tracks the cursor with no lag. */
+		/* Red glow on hover. */
+		.glass-panel:hover {
+			border-color: rgba(220, 45, 45, 0.6);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(220, 45, 45, 0.35);
+		}
+
+		.glass-panel.is-tilting {
+			transform:
+				perspective(900px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-8px)
+				scale(1.01);
+			transition:
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(220, 45, 45, 0.65);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(220, 45, 45, 0.45);
+		}
 
 		@media screen and (max-width: 736px) {
 			.glass-panel { padding: 2rem; }
@@ -284,6 +884,29 @@
 				0 0 2.75rem rgba(var(--glow, 124, 58, 237), 0.7);
 		}
 
+		/* Pointer-tracking 3D tilt (enabled by main.js on fine pointers). The
+		   card rotates toward the cursor. JS sets --rx/--ry (rotation, deg).
+		   While actively tilting we drop the transform transition so the card
+		   tracks the pointer with no lag; on mouseleave the class is removed so
+		   it eases smoothly back to rest. */
+		a.box.is-tilting {
+			transform:
+				perspective(900px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-8px)
+				scale(1.02);
+			transition:
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(var(--glow, 124, 58, 237), 0.85);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(var(--glow, 124, 58, 237), 0.7);
+		}
+
+
+
 			a.box:hover .image.fit img {
 				transform: scale(1.08);
 			}
@@ -335,14 +958,18 @@
 	}
 
 		.box .content .tags li {
-			padding: 0.25rem 0.65rem;
+			padding: 0.3rem 0.8rem;
 			border-radius: 1rem;
-			font-size: 0.68rem;
+			font-size: 0.72rem;
 			text-transform: uppercase;
 			letter-spacing: 0.08em;
-			color: rgba(var(--glow, 255, 255, 255), 0.95);
-			border: 1px solid rgba(var(--glow, 255, 255, 255), 0.35);
-			background: rgba(var(--glow, 255, 255, 255), 0.08);
+			/* Unified pill design (matches the project-page hero pills exactly):
+			   bold weight + full accent colour + a stronger 0.5 border. The
+			   bold weight is what gives them the same vibrancy. */
+			font-weight: 600;
+			color: rgb(var(--glow, 124, 58, 237));
+			border: 1px solid rgba(var(--glow, 124, 58, 237), 0.5);
+			background: rgba(var(--glow, 124, 58, 237), 0.08);
 		}
 
 /* ==========================================================================
@@ -542,7 +1169,19 @@
 		   other slides, and stay there while the subtitle types in below. */
 		#bg > article .caption .title-block {
 			position: relative;
+			/* Pointer tilt-shift on hover (text stays white). JS sets
+			   --tilt-rx/--tilt-ry; eases back to flat on leave. */
+			transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+			transform-origin: center;
 		}
+
+			#bg > article .caption .title-block.is-tilting {
+				transform:
+					perspective(700px)
+					rotateX(var(--tilt-rx, 0deg))
+					rotateY(var(--tilt-ry, 0deg));
+				transition: none;
+			}
 
 		#bg > article .caption h2 {
 			font-size: 7rem;
@@ -773,7 +1412,23 @@
 
 	.about .inner { max-width: 66rem; }
 
-		.about h2 { margin-bottom: 1.5rem; }
+		/* Only the heading carries the purple glow; the body stays light.
+		   (.wrapper.style2.about beats the generic .wrapper.style2 h2 white.) */
+		/* Heading stays white at rest and glows red when the About panel is
+		   hovered, matching the panel's red hover glow. */
+		.wrapper.style2.about h2 {
+			margin-bottom: 1.5rem;
+			color: #ffffff;
+			text-shadow: none;
+			transition:
+				color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+				text-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+			.about .glass-panel:hover h2 {
+				color: #ff4d4d;
+				text-shadow: 0 0 1.75rem rgba(220, 45, 45, 0.65);
+			}
 
 		.about .about-lead {
 			text-align: center;
@@ -899,16 +1554,24 @@
 				object-fit: contain;
 				opacity: 0.92;
 				/* Cinematic hover (same feel as the project cards): lift + subtle
-				   scale, on the same eased curve/duration. */
+				   scale + a brand-colour glow, on the same eased curve/duration.
+				   drop-shadow hugs the logo's shape (not a box), and reads the
+				   per-logo --glow set inline on each .logo-item. */
 				transform: translateY(0) scale(1);
+				-webkit-filter: drop-shadow(0 0 0 rgba(var(--glow, 201, 143, 192), 0));
+				filter: drop-shadow(0 0 0 rgba(var(--glow, 201, 143, 192), 0));
 				transition:
 					opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+					transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					-webkit-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+					filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
 				.logo-item img:hover {
 					opacity: 1;
 					transform: translateY(-6px) scale(1.08);
+					-webkit-filter: drop-shadow(0 0.4rem 1.25rem rgba(var(--glow, 201, 143, 192), 0.8));
+					filter: drop-shadow(0 0.4rem 1.25rem rgba(var(--glow, 201, 143, 192), 0.8));
 				}
 
 			/* A couple of speaking logos (denhac, RMISC) read small at the base
