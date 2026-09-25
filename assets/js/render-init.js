@@ -5,10 +5,9 @@
    the generated cards get tilt/reveal wired up.
 
    data-cards values:
-     "featured"       homepage Featured grid — the featured subset, in order
-     "archive-intro"  projects.html first grid — the first two archive cards
-                      (kept above the "Moar" scroll cue, preserving that design)
-     "archive-more"   projects.html #more grid — the remaining archive cards
+     "featured"  homepage Featured grid — the featured subset, in order
+     "archive"   projects.html grid — the full project list (one grid, so row
+                 spacing is uniform across every card)
 
    If SiteData isn't available (script failed to load) the static fallback
    markup already in each grid is left in place. */
@@ -26,8 +25,6 @@
 		var featured = data.featuredProjects ? data.featuredProjects() : all.filter(function (p) { return p.featured; });
 
 		// How many cards sit in the archive intro grid (above the scroll cue).
-		var INTRO_COUNT = 2;
-
 		targets.forEach(function (target) {
 			var kind = target.getAttribute('data-cards');
 			var wrapperClass = target.getAttribute('data-card-class') || null;
@@ -36,10 +33,8 @@
 
 			if (kind === 'featured') {
 				list = featured;
-			} else if (kind === 'archive-intro') {
-				list = all.slice(0, INTRO_COUNT);
-			} else if (kind === 'archive-more') {
-				list = all.slice(INTRO_COUNT);
+			} else if (kind === 'archive') {
+				list = all;
 			} else {
 				return;
 			}

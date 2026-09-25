@@ -1299,23 +1299,6 @@
    Scroll-down cue
    ========================================================================== */
 
-	/* Scroll cue between the two projects grids (projects.html). */
-	.proj-scroll-cue {
-		margin: 0.5rem 0 2.5rem;
-		/* Fades out once the visitor scrolls down (main.js toggles is-hidden). */
-		transition:
-			opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-			-webkit-transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-		.proj-scroll-cue.is-hidden {
-			opacity: 0;
-			-webkit-transform: translateY(0.5rem);
-			transform: translateY(0.5rem);
-			pointer-events: none;
-		}
-
 	.scroll-cue {
 		display: -webkit-flex;
 		display: -ms-flexbox;

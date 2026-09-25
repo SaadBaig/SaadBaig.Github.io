@@ -46,9 +46,9 @@
 				<div class="inner">
 					<!-- Archive cards: static below as the no-JS/SEO fallback (this
 					     archive is the canonical crawlable project list);
-					     render-init.js re-renders from projects-data.js. The intro
-					     grid holds the first two cards above the scroll cue. -->
-					<div class="grid-style" data-cards="archive-intro" data-card-class="proj-card">
+					     render-init.js re-renders from projects-data.js. One grid,
+					     so spacing between every project box is uniform. -->
+					<div class="grid-style" data-cards="archive" data-card-class="proj-card">
 
 		<!-- pqcscan -->
 						<div class="proj-card" data-reveal>
@@ -89,15 +89,6 @@
 								</div>
 							</a>
 						</div>
-					</div>
-
-		<!-- Scroll cue inviting the visitor to keep going past the first row. -->
-					<a class="scroll-cue proj-scroll-cue" href="#more" aria-label="Scroll for more projects">
-						<span class="scroll-cue-text">Moar</span>
-						<span class="scroll-cue-chevron"></span>
-					</a>
-
-					<div class="grid-style" id="more" data-cards="archive-more" data-card-class="proj-card">
 
 		<!-- Hack The Box CPTS -->
 						<div class="proj-card" data-reveal>

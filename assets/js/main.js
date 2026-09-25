@@ -156,20 +156,6 @@
 	}
 
 	/* ----------------------------------------------------------------------
-	   Projects page: fade the "Scroll" cue out once the visitor scrolls down.
-	   ---------------------------------------------------------------------- */
-	function initProjScrollCue() {
-		var cue = document.querySelector('.proj-scroll-cue');
-		if (!cue) return;
-
-		function onScroll() {
-			cue.classList.toggle('is-hidden', window.pageYOffset > 40);
-		}
-		window.addEventListener('scroll', onScroll, { passive: true });
-		onScroll();
-	}
-
-	/* ----------------------------------------------------------------------
 	   Scroll-spy dot navigation: reveal past the hero + mark the active section.
 	   ---------------------------------------------------------------------- */
 	function initDotNav() {
@@ -444,7 +430,6 @@
 		initCaptionFade();
 		initReveal();
 		initDotNav();
-		initProjScrollCue();
 		initCardTilt();
 		initProofMarquee();
 	}
