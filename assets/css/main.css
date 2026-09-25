@@ -236,6 +236,12 @@
    Homepage "Featured Projects" section
    ========================================================================== */
 
+	/* Pull the Featured Projects section up a little (default .wrapper top
+	   padding is 6rem). */
+	#featured.wrapper {
+		padding-top: 3rem;
+	}
+
 	.featured-head {
 		margin-bottom: 2.5rem;
 	}
