@@ -194,75 +194,6 @@
 	}
 
 	/* ----------------------------------------------------------------------
-	   Pointer-tracking 3D tilt for project cards + proof-marquee logo tiles.
-	   As the mouse moves over one it rotates slightly toward the cursor, giving
-	   an interactive, cinematic feel. Skipped for reduced-motion users and
-	   coarse (touch) pointers.
-	   ---------------------------------------------------------------------- */
-	function initCardTilt() {
-		var cards = document.querySelectorAll('a.box, .proof-tile, .glass-panel');
-		if (!cards.length || reduceMotion) return;
-
-		// Only for devices with a fine pointer (mouse/trackpad), not touch.
-		if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-		var MAX_TILT = 3.5;  // degrees of rotation at the card edges (project cards)
-		var MAX_SHIFT = 5;   // px the card physically shifts toward the cursor
-
-		function bindCard(card) {
-			var frame = null; // rAF handle so we only update once per frame
-			// Marquee tiles get a stronger, more playful reaction than the
-			// larger project cards. The About panel uses the same feel as the
-			// project cards.
-			var isTile = card.classList.contains('proof-tile');
-			var tilt = isTile ? 11 : MAX_TILT;
-			var shift = isTile ? 11 : MAX_SHIFT;
-
-			function onMove(e) {
-				var rect = card.getBoundingClientRect();
-				// Pointer position within the card, 0..1 on each axis.
-				var px = (e.clientX - rect.left) / rect.width;
-				var py = (e.clientY - rect.top) / rect.height;
-				// Convert to a -1..1 offset from centre.
-				var dx = px - 0.5;
-				var dy = py - 0.5;
-
-				if (frame) return;
-				frame = window.requestAnimationFrame(function () {
-					frame = null;
-					// Rotate toward the cursor: moving right tilts the right
-					// edge back (negative rotateY), moving down tilts the
-					// bottom back (positive rotateX). Also physically shift the
-					// card toward the cursor for a more pronounced reaction.
-					card.style.setProperty('--ry', (dx * tilt).toFixed(2) + 'deg');
-					card.style.setProperty('--rx', (-dy * tilt).toFixed(2) + 'deg');
-					card.style.setProperty('--tx', (dx * shift).toFixed(1) + 'px');
-					card.style.setProperty('--ty', (dy * shift).toFixed(1) + 'px');
-				});
-			}
-
-			function onEnter() { card.classList.add('is-tilting'); }
-
-			function onLeave() {
-				if (frame) { window.cancelAnimationFrame(frame); frame = null; }
-				// Remove the class so the base transition eases the card back,
-				// then clear the vars once at rest.
-				card.classList.remove('is-tilting');
-				card.style.removeProperty('--rx');
-				card.style.removeProperty('--ry');
-				card.style.removeProperty('--tx');
-				card.style.removeProperty('--ty');
-			}
-
-			card.addEventListener('mouseenter', onEnter);
-			card.addEventListener('mousemove', onMove);
-			card.addEventListener('mouseleave', onLeave);
-		}
-
-		for (var i = 0; i < cards.length; i++) bindCard(cards[i]);
-	}
-
-	/* ----------------------------------------------------------------------
 	   Proof marquees: auto-scroll that also supports manual scrolling. The
 	   band is natively scrollable (overflow-x), so drag / swipe / wheel /
 	   trackpad all work. We drive the auto-scroll by nudging scrollLeft each
@@ -430,7 +361,6 @@
 		initCaptionFade();
 		initReveal();
 		initDotNav();
-		initCardTilt();
 		initProofMarquee();
 	}
 

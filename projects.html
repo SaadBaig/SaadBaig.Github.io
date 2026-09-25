@@ -11,7 +11,12 @@
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-300.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/reading-nav.css" />
 		<style>
+			/* Page accent (cyan) — drives the reading-nav rail + back button glow
+			   and the footer name, matching this page's vibe. */
+			:root { --glow: 0, 218, 234; }
+
 			/* Page-specific backdrop image (only projects.html). A dark overlay
 			   keeps the glass cards and text readable over the photo. */
 			.page-backdrop {
@@ -28,12 +33,9 @@
 		<!-- Static dark backdrop (stands in for the homepage's rotating banner). -->
 		<div class="page-backdrop" aria-hidden="true"></div>
 
-		<!-- Interior top nav. -->
-		<nav class="site-nav" aria-label="Site navigation">
-			<a class="back" href="index.html">Home</a>
-			<div class="nav-links">
-				<a href="projects.html" aria-current="page">Projects</a>
-			</div>
+		<!-- Floating reading-progress nav (matches the project detail pages). -->
+		<nav class="reading-nav" aria-label="Page navigation">
+			<a class="nav-back" href="index.html" aria-label="Home" title="Home"><span class="nav-ico" aria-hidden="true"></span></a>
 		</nav>
 
 		<main>
@@ -212,7 +214,7 @@
 
 		<!-- Machine Learning -->
 						<div class="proj-card" data-reveal>
-							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;" target="_blank" rel="noopener">
+							<a href="projects/machine-learning.html" class="box" style="--glow: 0, 139, 191;">
 								<div class="image fit">
 									<img src="images/projects/ML.webp" alt="Machine learning banner" loading="lazy" decoding="async" />
 								</div>
@@ -240,7 +242,7 @@
 			<div class="inner">
 				<header class="align-center">
 					<div class="copyright">
-						Built by <span class="copyright-name" style="color: #00daea;">Saad Baig</span>
+						Built by <span class="copyright-name" style="--glow: 0, 218, 234;">Saad Baig</span>
 					</div>
 				</header>
 			</div>
@@ -252,5 +254,11 @@
 		<script src="assets/js/render-cards.js" defer></script>
 		<script src="assets/js/render-init.js" defer></script>
 		<script src="assets/js/main.js" defer></script>
+		<!-- Pointer-tilt on the project cards (same feel as the homepage grid). -->
+		<script src="assets/js/tilt.js" defer data-tilt-selector="a.box" data-tilt-max="3.5" data-tilt-shift="5"></script>
+		<!-- Floating reading-progress nav: rail fill + pointer-tilt on the
+		     control (shared with the detail pages, which live in projects/). -->
+		<script src="assets/js/reading-nav.js" defer></script>
+		<script src="assets/js/tilt.js" defer data-tilt-selector=".reading-nav a" data-tilt-max="12" data-tilt-shift="4"></script>
 	</body>
 </html>

@@ -12,7 +12,7 @@
    to load), we leave the static cards untouched.
 
    ORDERING: runs before main.js so the generated `a.box` / `[data-reveal]`
-   elements exist when initCardTilt / initReveal bind. All are `defer` scripts;
+   elements exist when tilt.js / initReveal bind. All are `defer` scripts;
    defer preserves document order.
 
    Markup emitted (must match the existing CSS/JS hooks exactly):

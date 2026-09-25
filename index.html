@@ -302,7 +302,7 @@
 				<div class="inner">
 					<header class="align-center">
 						<div class="copyright">
-							Built by <span class="copyright-name">Saad Baig</span>
+							Built by <span class="copyright-name" style="--glow: 201, 143, 192;">Saad Baig</span>
 						</div>
 					</header>
 				</div>
@@ -318,6 +318,13 @@
 			<script src="assets/js/marquee-clone.js" defer></script>
 			<script src="assets/js/main.js" defer></script>
 			<script src="assets/js/enhance.js" defer></script>
+			<!-- Single-source pointer-tilt (assets/js/tilt.js), one invocation per
+			     intensity tier — replaces the old initCardTilt in main.js:
+			     project cards + About panel (subtle), proof-marquee logo tiles
+			     (stronger, playful), and the "View all projects" button. -->
+			<script src="assets/js/tilt.js" defer data-tilt-selector="a.box, .glass-panel" data-tilt-max="3.5" data-tilt-shift="5"></script>
+			<script src="assets/js/tilt.js" defer data-tilt-selector=".proof-tile" data-tilt-max="11" data-tilt-shift="11"></script>
+			<script src="assets/js/tilt.js" defer data-tilt-selector=".featured-all-link" data-tilt-max="10" data-tilt-shift="4"></script>
 
 	</body>
 </html>

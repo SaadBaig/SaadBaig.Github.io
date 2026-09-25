@@ -130,69 +130,9 @@
 			#101014;
 	}
 
-	.site-nav {
-		position: sticky;
-		top: 0;
-		z-index: 50;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-align-items: center;
-		-ms-flex-align: center;
-		align-items: center;
-		-webkit-justify-content: space-between;
-		-ms-flex-pack: justify;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 1rem 1.5rem;
-		background: rgba(16, 16, 20, 0.72);
-		-webkit-backdrop-filter: blur(14px);
-		backdrop-filter: blur(14px);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-	}
-
-		.site-nav .back {
-			display: -webkit-inline-flex;
-			display: -ms-inline-flexbox;
-			display: inline-flex;
-			-webkit-align-items: center;
-			-ms-flex-align: center;
-			align-items: center;
-			gap: 0.5rem;
-			color: #e6def0;
-			font-size: 0.9rem;
-			letter-spacing: 0.03em;
-			text-decoration: none;
-		}
-
-			.site-nav .back:hover { color: #fff; }
-
-			.site-nav .back:before {
-				content: '';
-				width: 0.55rem;
-				height: 0.55rem;
-				border-left: 2px solid currentColor;
-				border-bottom: 2px solid currentColor;
-				transform: rotate(45deg);
-			}
-
-		.site-nav .nav-links {
-			display: -webkit-flex;
-			display: -ms-flexbox;
-			display: flex;
-			gap: 1.5rem;
-		}
-
-			.site-nav .nav-links a {
-				color: #b8b2c2;
-				font-size: 0.85rem;
-				letter-spacing: 0.04em;
-				text-decoration: none;
-				transition: color 0.2s ease;
-			}
-
-				.site-nav .nav-links a:hover,
-				.site-nav .nav-links a[aria-current="page"] { color: #ffffff; }
+	/* The reading-progress nav (rail + floating back/GitHub controls) lives in
+	   the shared assets/css/reading-nav.css, linked by this page and the detail
+	   pages — no longer duplicated here and in project.css. */
 
 	/* Interior page hero header (eyebrow + title + lead). */
 	.page-hero {
@@ -258,7 +198,10 @@
 		text-align: center;
 	}
 
+		/* Accent-driven so the text lights up in the accent on hover, just like
+		   a project card title. Uses the site purple as its --glow. */
 		.featured-all-link {
+			--glow: 201, 143, 192;
 			display: -webkit-inline-flex;
 			display: -ms-inline-flexbox;
 			display: inline-flex;
@@ -268,7 +211,7 @@
 			gap: 0.5rem;
 			padding: 0.75rem 1.5rem;
 			border-radius: 2rem;
-			border: 1px solid rgba(201, 143, 192, 0.5);
+			border: 1px solid rgba(var(--glow), 0.5);
 			font-weight: 600;
 			letter-spacing: 0.04em;
 			color: #e9e4f0;
@@ -276,6 +219,7 @@
 			transition:
 				border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
 				background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+				color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
 				transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 		}
 
@@ -284,13 +228,38 @@
 				transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
-			.featured-all-link:hover {
-				border-color: rgba(201, 143, 192, 0.9);
-				background: rgba(201, 143, 192, 0.12);
+			.featured-all-link:hover,
+			.featured-all-link:focus-visible {
+				border-color: rgba(var(--glow), 0.9);
+				background: rgba(var(--glow), 0.12);
+				color: rgb(var(--glow));   /* text + arrow light up in the accent */
 				transform: translateY(-2px);
 			}
 
-				.featured-all-link:hover span { transform: translateX(5px); }
+				.featured-all-link:hover span,
+				.featured-all-link:focus-visible span { transform: translateX(5px); }
+
+			/* Shared pointer-tilt (tilt.js sets --rx/--ry/--tx/--ty). */
+			.featured-all-link.is-tilting {
+				transform:
+					perspective(500px)
+					translate3d(var(--tx, 0), var(--ty, 0), 0)
+					rotateX(var(--rx, 0deg))
+					rotateY(var(--ry, 0deg))
+					translateY(-2px);
+				transition:
+					border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+					background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+					color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+		@media (prefers-reduced-motion: reduce) {
+			.featured-all-link:hover,
+			.featured-all-link:focus-visible,
+			.featured-all-link.is-tilting { transform: none; }
+			.featured-all-link:hover span,
+			.featured-all-link:focus-visible span { transform: none; }
+		}
 
 /* ==========================================================================
    Homepage "Proof" section: big stats + cinematic auto-scrolling logo bands
@@ -662,9 +631,10 @@
 		color: #ffffff;
 	}
 
-		/* "Saad Baig" credited in red. */
+		/* "Saad Baig" credited in the page's accent colour (set via --glow on
+		   the footer), matching the per-page vibe like the detail pages. */
 		.wrapper.style3 .copyright .copyright-name {
-			color: #ff4d4d;
+			color: rgb(var(--glow, 201, 143, 192));
 		}
 
 	/* Tighten the gap between the last cards and the footer. */
@@ -687,8 +657,8 @@
 	}
 
 		/* Pointer-tracking 3D tilt — same cinematic feel as the project cards.
-		   JS (initCardTilt) sets --rx/--ry; while tilting the transform
-		   transition is dropped so it tracks the cursor with no lag. */
+		   tilt.js sets --rx/--ry; while tilting the transform transition is
+		   dropped so it tracks the cursor with no lag. */
 		/* Red glow on hover. */
 		.glass-panel:hover {
 			border-color: rgba(220, 45, 45, 0.6);

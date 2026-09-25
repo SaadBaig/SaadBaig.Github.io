@@ -42,60 +42,9 @@
 	a { color: rgb(var(--glow)); text-decoration: none; }
 	a:hover { text-decoration: underline; }
 
-	/* --- Top bar ----------------------------------------------------------- */
-	.topbar {
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 1rem 1.5rem;
-		background: rgba(16, 16, 20, 0.72);
-		-webkit-backdrop-filter: blur(14px);
-		backdrop-filter: blur(14px);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-	}
-
-		.topbar .back {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.5rem;
-			color: #e6def0;
-			font-size: 0.9rem;
-			letter-spacing: 0.03em;
-		}
-
-			.topbar .back:hover { color: #fff; text-decoration: none; }
-
-			.topbar .back:before {
-				content: '';
-				width: 0.55rem;
-				height: 0.55rem;
-				border-left: 2px solid currentColor;
-				border-bottom: 2px solid currentColor;
-				transform: rotate(45deg);
-			}
-
-		.topbar .repo-link {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.5rem;
-			padding: 0.45rem 1rem;
-			border-radius: 2rem;
-			font-size: 0.82rem;
-			letter-spacing: 0.05em;
-			color: rgb(var(--glow));
-			border: 1px solid rgba(var(--glow), 0.5);
-			background: rgba(var(--glow), 0.08);
-			transition: background 0.2s ease, border-color 0.2s ease;
-		}
-
-			.topbar .repo-link:hover {
-				background: rgba(var(--glow), 0.18);
-				text-decoration: none;
-			}
+	/* Reading-progress nav (rail + floating back/GitHub controls) now lives in
+	   the shared assets/css/reading-nav.css, linked by every page that shows
+	   it — so these rules are no longer duplicated here and in main.css. */
 
 	/* --- Hero --------------------------------------------------------------- */
 	.proj-hero {
@@ -145,15 +94,16 @@
 			gap: 0.5rem;
 		}
 
-			.proj-hero .tags li {
+			/* Shared tag-pill recipe — the project-hero tags AND the glow-card
+			   tags use the exact same pill (full accent, 0.5 border, bold), so
+			   they share one rule instead of two identical blocks. */
+			.proj-hero .tags li,
+			.glow-card-tags li {
 				padding: 0.3rem 0.8rem;
 				border-radius: 1rem;
 				font-size: 0.72rem;
 				text-transform: uppercase;
 				letter-spacing: 0.08em;
-				/* Match the eyebrow's vibrancy exactly: full accent, stronger
-				   border, and the same bold weight (the missing weight was what
-				   made the pills read dimmer than the eyebrow). */
 				font-weight: 600;
 				color: rgb(var(--glow));
 				border: 1px solid rgba(var(--glow), 0.5);
@@ -179,7 +129,7 @@
 		}
 
 		/* Pointer-tracking 3D tilt — same cinematic effect as the project
-		   cards. The shared hero-tilt.js sets --rx/--ry and toggles
+		   cards. The shared tilt.js sets --rx/--ry and toggles
 		   .is-tilting; while tilting the transform transition is dropped so it
 		   tracks the cursor with no lag, then eases back to flat on leave.
 		   (This was previously defined twice with slightly different values —
@@ -203,8 +153,8 @@
 	   One glass/glow card used by the write-up grid (writeups.html) and the
 	   reverse-engineering featured card. Each instance sets its own --glow.
 	   Previously these rules were duplicated inline on both pages (~80% the
-	   same); consolidated here since both pages load project.css. Page-specific
-	   extras (wu-card's 16:9 image band, re-card's tags/CTA) stay inline. */
+	   same); consolidated here since both pages load project.css. The write-up
+	   grid's 16:9 image band stays inline in writeups.html. */
 	.glow-card {
 		display: block;
 		overflow: hidden;
@@ -236,7 +186,7 @@
 				0 0 2.75rem rgba(var(--glow), 0.6);
 		}
 
-		/* Pointer-tracking 3D tilt — shared hero-tilt.js sets --rx/--ry and
+		/* Pointer-tracking 3D tilt — shared tilt.js sets --rx/--ry and
 		   toggles .is-tilting; the transform transition is dropped while
 		   tilting so it tracks the cursor with no lag. */
 		.glow-card.is-tilting {
@@ -292,7 +242,8 @@
 				line-height: 1.6;
 			}
 
-		/* Tag pills + CTA (used by the reverse-engineering card). */
+		/* Tag pills + CTA (used by the reverse-engineering card). The li pill
+		   styling is shared with .proj-hero .tags li above. */
 		.glow-card-tags {
 			list-style: none;
 			margin: 0 0 1.25rem;
@@ -301,18 +252,6 @@
 			flex-wrap: wrap;
 			gap: 0.5rem;
 		}
-
-			.glow-card-tags li {
-				padding: 0.3rem 0.8rem;
-				border-radius: 1rem;
-				font-size: 0.72rem;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				font-weight: 600;
-				border: 1px solid rgba(var(--glow), 0.5);
-				background: rgba(var(--glow), 0.08);
-				color: rgb(var(--glow));
-			}
 
 		.glow-card-cta {
 			display: inline-flex;
@@ -342,30 +281,13 @@
 
 		.proj-footer a { color: rgb(var(--glow)); }
 
+		/* "Saad Baig" credited in the page's accent colour — one shared rule so
+		   every detail-page footer matches its own --glow (no inline hexes). */
+		.proj-footer .built-name { color: rgb(var(--glow)); }
+
 	/* --- Reduced motion ----------------------------------------------------- */
 	@media (prefers-reduced-motion: reduce) {
 		html { scroll-behavior: auto; }
-	}
-
-	/* Match the main site's mobile breakpoint (736px) rather than 600px, so
-	   detail pages adapt at the same width as the homepage/archive. */
-	@media screen and (max-width: 736px) {
-		.topbar { padding: 0.85rem 1rem; }
-	}
-
-	/* Narrow phones: the topbar holds a back link (up to "Back to Reverse
-	   Engineering") plus the "View on GitHub" pill. Trim type/padding so both
-	   fit without overflowing at ~320px, and allow the back label to wrap
-	   rather than push the pill off-screen. */
-	@media screen and (max-width: 420px) {
-		.topbar { gap: 0.6rem; padding: 0.7rem 0.85rem; }
-		.topbar .back { font-size: 0.8rem; }
-		.topbar .repo-link {
-			padding: 0.4rem 0.7rem;
-			font-size: 0.72rem;
-			white-space: nowrap;
-			flex: 0 0 auto;
-		}
 	}
 
 /* ==========================================================================
@@ -396,7 +318,7 @@
 			color: #fff;
 			line-height: 1.25;
 			margin: 2rem 0 0.9rem;
-			/* Offset so TOC jumps don't hide the heading under the sticky topbar. */
+			/* Small offset so in-page TOC jumps leave a little breathing room. */
 			scroll-margin-top: 5rem;
 		}
 
@@ -510,4 +432,125 @@
 
 	@media screen and (max-width: 736px) {
 		.readme-body { padding: 1.5rem; }
+	}
+
+/* ==========================================================================
+   Rendered Jupyter notebook (.ipynb) — see render-notebook.js
+   Lives in the same frosted panel as .readme-body; markdown cells inherit the
+   readme typography, code + outputs get notebook-specific framing.
+   ========================================================================== */
+
+	.notebook {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: 1rem 1.5rem 5rem;
+	}
+
+	.notebook-body {
+		padding: 2.5rem;
+		border-radius: 12px;
+		background: rgba(22, 20, 28, 0.6);
+		-webkit-backdrop-filter: blur(16px) saturate(120%);
+		backdrop-filter: blur(16px) saturate(120%);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+		.notebook-body > :first-child { margin-top: 0; }
+
+		/* Markdown cells reuse the readme heading/text rhythm. */
+		.nb-md h1, .nb-md h2, .nb-md h3, .nb-md h4 {
+			color: #fff;
+			line-height: 1.25;
+			margin: 1.75rem 0 0.9rem;
+		}
+		.nb-md h1 { font-size: 1.8rem; font-weight: 600; }
+		.nb-md h2 {
+			font-size: 1.4rem;
+			font-weight: 600;
+			padding-bottom: 0.4rem;
+			border-bottom: 1px solid rgba(var(--glow), 0.3);
+		}
+		.nb-md h3 { font-size: 1.1rem; font-weight: 600; color: #e6def0; }
+		.nb-md p { margin: 0 0 1rem; color: #cdc8d6; }
+		.nb-md a { color: rgb(var(--glow)); }
+		.nb-md ul, .nb-md ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+		.nb-md strong { color: #fff; font-weight: 600; }
+
+		/* Each code cell: a subtle left accent rule ties input + its outputs. */
+		.nb-code-cell {
+			margin: 1.5rem 0;
+			border-left: 2px solid rgba(var(--glow), 0.4);
+			padding-left: 1rem;
+		}
+
+		/* Code input block. */
+		.nb-code {
+			margin: 0 0 0.75rem;
+			padding: 1.1rem 1.25rem;
+			overflow-x: auto;
+			border-radius: 10px;
+			background: #0b0b0f;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			line-height: 1.5;
+		}
+
+			.nb-code code {
+				font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+				font-size: 0.82rem;
+				color: #c9d1d9;
+				white-space: pre;
+			}
+
+		/* Any output block (stream / result / figure / error). */
+		.nb-output {
+			margin: 0 0 0.75rem;
+			font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+			font-size: 0.8rem;
+		}
+
+		.nb-stream, .nb-result {
+			padding: 0.75rem 1rem;
+			overflow-x: auto;
+			border-radius: 8px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			color: #b8b2c2;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+
+		/* Figures (matplotlib PNGs etc.) — centered on a light card so dark
+		   plot backgrounds stay legible. */
+		.nb-figure {
+			text-align: center;
+			margin: 0 0 0.75rem;
+		}
+
+			.nb-figure img {
+				max-width: 100%;
+				height: auto;
+				border-radius: 8px;
+				background: #fff;               /* many plots are transparent */
+				padding: 0.5rem;
+				box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.45);
+			}
+
+		.nb-error {
+			padding: 0.75rem 1rem;
+			border-radius: 8px;
+			background: rgba(220, 45, 45, 0.1);
+			border: 1px solid rgba(220, 45, 45, 0.4);
+			color: #ffb4b4;
+			overflow-x: auto;
+			white-space: pre-wrap;
+		}
+
+	.notebook-loading {
+		text-align: center;
+		color: #8a8494;
+		padding: 3rem 1rem;
+	}
+
+	@media screen and (max-width: 736px) {
+		.notebook-body { padding: 1.5rem; }
 	}

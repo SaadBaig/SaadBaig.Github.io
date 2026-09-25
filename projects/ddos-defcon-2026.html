@@ -12,13 +12,14 @@
 		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="project.css" />
+		<link rel="stylesheet" href="../assets/css/reading-nav.css" />
 		<style>:root { --glow: 9, 174, 191; }</style>
 	</head>
 	<body>
 
-		<nav class="topbar">
-			<a class="back" href="../projects.html">Back to projects</a>
-			<a class="repo-link" href="https://github.com/SaadBaig/DDoSing-DEFCON-2026" target="_blank" rel="noopener">View on GitHub ↗</a>
+		<nav class="reading-nav" aria-label="Page navigation">
+			<a class="nav-back" href="../projects.html" aria-label="Back to projects" title="Back to projects"><span class="nav-ico" aria-hidden="true"></span></a>
+			<a class="nav-repo" href="https://github.com/SaadBaig/DDoSing-DEFCON-2026" target="_blank" rel="noopener" aria-label="View on GitHub" title="View on GitHub"></a>
 		</nav>
 
 		<header class="proj-hero">
@@ -37,7 +38,7 @@
 		</main>
 
 		<footer class="proj-footer">
-			<p>Built by <a href="../index.html">Saad Baig</a> · <a href="https://github.com/SaadBaig/DDoSing-DEFCON-2026" target="_blank" rel="noopener">Source on GitHub</a></p>
+			<p>Built by <span class="built-name">Saad Baig</span></p>
 		</footer>
 
 		<!-- Full README embedded verbatim; rendered client-side by render.js. -->
@@ -415,7 +416,10 @@ repeater/
 </script>
 		<script src="marked.min.js" defer></script>
 		<script src="render.js" defer></script>
-		<script src="hero-tilt.js" defer></script>
+		<script src="../assets/js/tilt.js" defer></script>
+		<script src="../assets/js/reading-nav.js" defer></script>
+		<!-- Same pointer-tracking tilt on the floating nav controls. -->
+		<script src="../assets/js/tilt.js" defer data-tilt-selector=".reading-nav a" data-tilt-max="12" data-tilt-shift="4"></script>
 
 	</body>
 </html>

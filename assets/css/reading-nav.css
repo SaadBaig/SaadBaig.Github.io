@@ -1,0 +1,169 @@
+/* ==========================================================================
+   Reading-progress nav — the floating back/GitHub controls + top scroll rail.
+   Shared by every page that shows the nav (homepage archive + all project
+   detail pages), so the rules live in ONE place instead of being duplicated
+   across main.css and project.css.
+
+   Colour comes from the page's --glow accent; a neutral purple default keeps
+   it sane on pages that don't set one (e.g. index/projects).
+   ========================================================================== */
+
+	/* Default accent only for pages that don't set their own :root --glow
+	   (index/projects). Declared on :root — NOT on .reading-nav — so a detail
+	   page's own :root --glow (defined later, in its inline <style>) wins and
+	   the nav glows that page's colour. Setting --glow on .reading-nav here
+	   would shadow the inherited page value and make every nav the same purple. */
+	:root { --glow: 201, 143, 192; }
+
+	/* Slim top rail; the fill width is driven by --scroll-progress, set by
+	   reading-nav.js as the visitor scrolls (0% at top → 100% at bottom). */
+	.reading-rail {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		z-index: 60;
+		background: rgba(255, 255, 255, 0.06);
+		pointer-events: none;
+	}
+
+		.reading-rail-fill {
+			height: 100%;
+			width: var(--scroll-progress, 0%);
+			background: rgb(var(--glow));
+			box-shadow: 0 0 0.75rem rgba(var(--glow), 0.8);
+			transition: width 0.1s linear;
+		}
+
+	/* Floating control cluster (back/home + GitHub), top-left, over content. */
+	.reading-nav {
+		position: fixed;
+		top: 0.9rem;
+		left: 0.9rem;
+		z-index: 61;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+		/* Shared round glass control. */
+		.reading-nav a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 2.6rem;
+			border-radius: 2rem;
+			color: #e6def0;
+			text-decoration: none;
+			background: rgba(16, 16, 20, 0.72);
+			-webkit-backdrop-filter: blur(14px);
+			backdrop-filter: blur(14px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.4);
+			transition:
+				transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+				background 0.3s ease,
+				border-color 0.3s ease,
+				box-shadow 0.3s ease,
+				color 0.3s ease;
+		}
+
+		/* The back control: an arrow-only circular button (its accessible name
+		   is on the link's aria-label). On hover/focus the chevron lights up in
+		   the page's accent --glow (which differs per page) and picks up a soft
+		   glow, and it nudges left to signal "back". */
+		.reading-nav .nav-back {
+			width: 2.6rem;
+			padding: 0;
+		}
+
+			.reading-nav .nav-back .nav-ico {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			/* Chevron drawn with borders (no asset). */
+			.reading-nav .nav-back .nav-ico:before {
+				content: '';
+				width: 0.55rem;
+				height: 0.55rem;
+				border-left: 2px solid currentColor;
+				border-bottom: 2px solid currentColor;
+				transform: rotate(45deg);
+				transition:
+					transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+					border-color 0.3s ease,
+					filter 0.3s ease;
+			}
+
+			.reading-nav .nav-back:hover,
+			.reading-nav .nav-back:focus-visible {
+				border-color: rgba(var(--glow), 0.7);
+				background: rgba(var(--glow), 0.14);
+				box-shadow:
+					0 0.75rem 1.75rem rgba(0, 0, 0, 0.5),
+					0 0 1.5rem rgba(var(--glow), 0.5);
+			}
+
+				/* Arrow glows the accent colour and drifts left on hover. */
+				.reading-nav .nav-back:hover .nav-ico:before,
+				.reading-nav .nav-back:focus-visible .nav-ico:before {
+					border-color: rgb(var(--glow));
+					filter: drop-shadow(0 0 0.4rem rgba(var(--glow), 0.9));
+					transform: rotate(45deg) translate(-0.1rem, -0.1rem);
+				}
+
+		/* The GitHub control: circular icon button in the accent colour. */
+		.reading-nav .nav-repo {
+			width: 2.6rem;
+			color: rgb(var(--glow));
+			border-color: rgba(var(--glow), 0.5);
+			background: rgba(var(--glow), 0.1);
+		}
+
+			.reading-nav .nav-repo svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+
+			.reading-nav .nav-repo:hover,
+			.reading-nav .nav-repo:focus-visible {
+				color: #fff;
+				border-color: rgba(var(--glow), 0.85);
+				background: rgba(var(--glow), 0.22);
+				box-shadow:
+					0 0.75rem 1.75rem rgba(0, 0, 0, 0.5),
+					0 0 1.5rem rgba(var(--glow), 0.55);
+			}
+
+		/* Subtle lift toward the viewer on hover/focus (matches the site's feel). */
+		.reading-nav a:hover,
+		.reading-nav a:focus-visible { transform: translateY(-2px); }
+
+		/* Pointer-tracking tilt + shift — the same cinematic reaction as the
+		   project cards/logo tiles. tilt.js sets --rx/--ry/--tx/--ty while the
+		   pointer is over the control; the transition is dropped so it tracks
+		   with no lag, then eases back on leave. */
+		.reading-nav a.is-tilting {
+			transform:
+				perspective(400px)
+				translate3d(var(--tx, 0), var(--ty, 0), 0)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-2px);
+			transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+		}
+
+	@media screen and (max-width: 736px) {
+		.reading-nav { top: 0.6rem; left: 0.6rem; gap: 0.5rem; }
+		.reading-nav a { height: 2.9rem; }         /* larger tap targets on touch */
+		.reading-nav .nav-back,
+		.reading-nav .nav-repo { width: 2.9rem; }
+		.reading-nav .nav-back .nav-ico { width: 2.9rem; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.reading-rail-fill { transition: none; }
+		.reading-nav a { transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
+		.reading-nav a:hover,
+		.reading-nav a:focus-visible { transform: none; }
+	}

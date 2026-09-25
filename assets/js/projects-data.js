@@ -115,7 +115,7 @@
 		},
 		{
 			title: 'Machine Learning',
-			href: 'https://github.com/SaadBaig/Machine-Learning',
+			href: 'projects/machine-learning.html',
 			glow: '0, 139, 191',
 			img: 'projects/ML.webp',
 			alt: 'Machine learning banner',

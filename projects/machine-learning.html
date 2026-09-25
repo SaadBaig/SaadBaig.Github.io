@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Machine Learning — Saad Baig</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Experiments and models in machine learning — practicing something outside of security. First up: a convolutional neural network trained on CIFAR images." />
+		<meta name="theme-color" content="#008bbf" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="../icon-180.png" />
+		<!-- Preload the two most-used font weights so detail-page text paints fast. -->
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
+		<link rel="stylesheet" href="project.css" />
+		<link rel="stylesheet" href="../assets/css/reading-nav.css" />
+		<style>
+			:root { --glow: 0, 139, 191; }
+
+			/* The CNN card uses the shared .glow-card; its wrapper scopes a teal
+			   accent (matching the CNN detail page) to just this card, while the
+			   rest of the page keeps the blue --glow on :root. */
+			.ml-card-wrap {
+				--glow: 20, 184, 166;
+				max-width: 60rem;
+				margin: 2rem auto 0;
+				padding: 0 1.5rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<nav class="reading-nav" aria-label="Page navigation">
+			<a class="nav-back" href="../projects.html" aria-label="Back to projects" title="Back to projects"><span class="nav-ico" aria-hidden="true"></span></a>
+			<a class="nav-repo" href="https://github.com/SaadBaig/Machine-Learning" target="_blank" rel="noopener" aria-label="View on GitHub" title="View on GitHub"></a>
+		</nav>
+
+		<header class="proj-hero">
+			<h1>Machine Learning</h1>
+			<p class="tagline">Experiments and models outside of security. First up: a convolutional neural network trained on the CIFAR image dataset.</p>
+		</header>
+
+		<!-- CNN project card (shared .glow-card, teal accent via wrap) -->
+		<div class="ml-card-wrap">
+			<a class="glow-card" href="cnn-cifar.html">
+				<div class="glow-card-image">
+					<img src="../images/projects/ML.webp" alt="CNN on CIFAR images — convolutional neural network" loading="lazy" decoding="async" />
+				</div>
+				<div class="glow-card-body">
+					<span class="glow-card-eyebrow">Featured notebook</span>
+					<h2>CNN on CIFAR Images</h2>
+					<p>A convolutional neural network trained to classify the CIFAR image dataset — walking through data exploration, the model architecture, training, and results, rendered from the Jupyter notebook.</p>
+					<ul class="glow-card-tags">
+						<li>Python</li>
+						<li>TensorFlow</li>
+						<li>CNN</li>
+						<li>CIFAR</li>
+					</ul>
+				</div>
+			</a>
+		</div>
+
+		<footer class="proj-footer">
+			<p>Built by <span class="built-name">Saad Baig</span></p>
+		</footer>
+
+		<!-- Shared pointer-tracking tilt, bound to the CNN card. -->
+		<script src="../assets/js/tilt.js" defer data-tilt-selector=".ml-card-wrap .glow-card" data-tilt-max="10"></script>
+		<script src="../assets/js/reading-nav.js" defer></script>
+		<!-- Same pointer-tracking tilt on the floating nav controls. -->
+		<script src="../assets/js/tilt.js" defer data-tilt-selector=".reading-nav a" data-tilt-max="12" data-tilt-shift="4"></script>
+
+	</body>
+</html>
