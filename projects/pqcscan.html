@@ -7,6 +7,10 @@
 		<meta name="description" content="Scan SSH/TLS servers for post-quantum cryptography support, validate real handshake behavior, and assess quantum risk." />
 		<meta name="theme-color" content="#f09a3a" />
 		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="../icon-180.png" />
+		<!-- Preload the two most-used font weights so detail-page text paints fast. -->
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="project.css" />
 		<style>
 			:root { --glow: 240, 154, 58; }
@@ -320,9 +324,9 @@ The code is idiomatic Rust with zero warnings. Pull requests and issues are welc
 The original pqcscan was created by Vincent Berg at [Anvil Secure](https://anvilsecure.com). This fork adds handshake validation, risk assessment, and related features.
 
 </script>
-		<script src="marked.min.js"></script>
-		<script src="render.js"></script>
-		<script src="hero-tilt.js"></script>
+		<script src="marked.min.js" defer></script>
+		<script src="render.js" defer></script>
+		<script src="hero-tilt.js" defer></script>
 
 	</body>
 </html>

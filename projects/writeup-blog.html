@@ -7,6 +7,10 @@
 		<meta name="description" content="TryHackMe Blog box write-up — reconnaissance, exploitation, and privilege escalation, documented step by step." />
 		<meta name="theme-color" content="#709dbf" />
 		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="../icon-180.png" />
+		<!-- Preload the two most-used font weights so detail-page text paints fast. -->
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="project.css" />
 		<style>:root { --glow: 112, 157, 191; }</style>
 	</head>
@@ -38,8 +42,8 @@
 
 A TryHackMe write-up. Loading the full walkthrough from GitHub&#8230;
 </script>
-		<script src="marked.min.js"></script>
-		<script src="render.js"></script>
+		<script src="marked.min.js" defer></script>
+		<script src="render.js" defer></script>
 
 	</body>
 </html>

@@ -44,7 +44,11 @@
 
 			<section id="projects" class="wrapper style2">
 				<div class="inner">
-					<div class="grid-style">
+					<!-- Archive cards: static below as the no-JS/SEO fallback (this
+					     archive is the canonical crawlable project list);
+					     render-init.js re-renders from projects-data.js. The intro
+					     grid holds the first two cards above the scroll cue. -->
+					<div class="grid-style" data-cards="archive-intro" data-card-class="proj-card">
 
 		<!-- pqcscan -->
 						<div class="proj-card" data-reveal>
@@ -93,7 +97,27 @@
 						<span class="scroll-cue-chevron"></span>
 					</a>
 
-					<div class="grid-style" id="more">
+					<div class="grid-style" id="more" data-cards="archive-more" data-card-class="proj-card">
+
+		<!-- Hack The Box CPTS -->
+						<div class="proj-card" data-reveal>
+							<a href="projects/cpts.html" class="box" style="--glow: 138, 92, 209;">
+								<div class="image fit">
+									<img src="images/projects/cpts.webp" alt="Hack The Box Academy — Certified Penetration Testing Specialist banner" loading="lazy" decoding="async" />
+								</div>
+								<div class="content">
+									<header class="align-center">
+										<h2>Hack The Box CPTS</h2>
+									</header>
+									<p>Working toward the HTB Certified Penetration Testing Specialist — methodology, CTF walkthroughs, and flags.</p>
+									<ul class="tags">
+										<li>Pentesting</li>
+										<li>CTF</li>
+										<li>HTB</li>
+									</ul>
+								</div>
+							</a>
+						</div>
 
 		<!-- Pentesting Methodology -->
 						<div class="proj-card" data-reveal>
@@ -137,7 +161,7 @@
 
 		<!-- Python Pentesting -->
 						<div class="proj-card" data-reveal>
-							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;">
+							<a href="https://github.com/SaadBaig/Python-Pentesting-Practice" class="box" style="--glow: 20, 202, 113;" target="_blank" rel="noopener">
 								<div class="image fit">
 									<img src="images/projects/pythondev.webp" alt="Python penetration testing tools banner" loading="lazy" decoding="async" />
 								</div>
@@ -177,7 +201,7 @@
 
 		<!-- Exploit dev -->
 						<div class="proj-card" data-reveal>
-							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;">
+							<a href="https://github.com/SaadBaig/Basic-Exploitation-Practice" class="box" style="--glow: 191, 0, 107;" target="_blank" rel="noopener">
 								<div class="image fit">
 									<img src="images/projects/exploitdev.webp" alt="Exploit development banner" loading="lazy" decoding="async" />
 								</div>
@@ -197,7 +221,7 @@
 
 		<!-- Machine Learning -->
 						<div class="proj-card" data-reveal>
-							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;">
+							<a href="https://github.com/SaadBaig/Machine-Learning" class="box" style="--glow: 0, 139, 191;" target="_blank" rel="noopener">
 								<div class="image fit">
 									<img src="images/projects/ML.webp" alt="Machine learning banner" loading="lazy" decoding="async" />
 								</div>
@@ -231,6 +255,11 @@
 			</div>
 		</section>
 
+		<!-- Data layer + card renderer run before main.js so generated cards
+		     get tilt/reveal wired up. defer preserves this order. -->
+		<script src="assets/js/projects-data.js" defer></script>
+		<script src="assets/js/render-cards.js" defer></script>
+		<script src="assets/js/render-init.js" defer></script>
 		<script src="assets/js/main.js" defer></script>
 	</body>
 </html>

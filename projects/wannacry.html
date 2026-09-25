@@ -7,6 +7,10 @@
 		<meta name="description" content="A full Ghidra reverse-engineering walkthrough of the WannaCry ransomware — hunting the killswitch URL, tracing the entry point, service creation, and the path to EternalBlue." />
 		<meta name="theme-color" content="#00daea" />
 		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="../icon-180.png" />
+		<!-- Preload the two most-used font weights so detail-page text paints fast. -->
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="project.css" />
 		<style>:root { --glow: 0, 218, 234; }</style>
 	</head>
@@ -67,38 +71,12 @@ Wannacry.exe is launched. First thing it checks for is the kill switch URL using
 
 _Loading the full write-up from GitHub&#8230;_
 </script>
-		<!-- Pointer-tracking 3D tilt for the hero image (same cinematic feel as
-		     the project cards). Skipped for reduced-motion + touch. -->
-		<script>
-		(function () {
-			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-			if (reduce || !fine) return;
-			var el = document.querySelector('.proj-hero-image');
-			if (!el) return;
-			var MAX = 6, frame = null;
-			el.addEventListener('mouseenter', function () { el.classList.add('is-tilting'); });
-			el.addEventListener('mousemove', function (e) {
-				var r = el.getBoundingClientRect();
-				var dx = (e.clientX - r.left) / r.width - 0.5;
-				var dy = (e.clientY - r.top) / r.height - 0.5;
-				if (frame) return;
-				frame = requestAnimationFrame(function () {
-					frame = null;
-					el.style.setProperty('--ry', (dx * MAX).toFixed(2) + 'deg');
-					el.style.setProperty('--rx', (-dy * MAX).toFixed(2) + 'deg');
-				});
-			});
-			el.addEventListener('mouseleave', function () {
-				if (frame) { cancelAnimationFrame(frame); frame = null; }
-				el.classList.remove('is-tilting');
-				el.style.removeProperty('--rx');
-				el.style.removeProperty('--ry');
-			});
-		})();
-		</script>
-		<script src="marked.min.js"></script>
-		<script src="render.js"></script>
+		<script src="marked.min.js" defer></script>
+		<script src="render.js" defer></script>
+		<!-- Shared hero-image tilt (replaces the previously inlined copy) so all
+		     detail pages use one implementation. Self-guards for reduced-motion,
+		     touch, and pages without a .proj-hero-image. -->
+		<script src="hero-tilt.js" defer></script>
 
 	</body>
 </html>

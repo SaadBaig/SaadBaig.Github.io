@@ -7,6 +7,10 @@
 		<meta name="description" content="Turning hacked Temu WiFi repeaters into a botnet for an offensive DDoS contest — a full device teardown and exploitation writeup." />
 		<meta name="theme-color" content="#09aebf" />
 		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="../icon-180.png" />
+		<!-- Preload the two most-used font weights so detail-page text paints fast. -->
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-300.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins/poppins-700.woff2" crossorigin />
 		<link rel="stylesheet" href="project.css" />
 		<style>:root { --glow: 9, 174, 191; }</style>
 	</head>
@@ -409,9 +413,9 @@ repeater/
 
 
 </script>
-		<script src="marked.min.js"></script>
-		<script src="render.js"></script>
-		<script src="hero-tilt.js"></script>
+		<script src="marked.min.js" defer></script>
+		<script src="render.js" defer></script>
+		<script src="hero-tilt.js" defer></script>
 
 	</body>
 </html>

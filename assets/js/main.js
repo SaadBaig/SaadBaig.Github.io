@@ -303,7 +303,7 @@
 		var wideEnough = window.innerWidth > 736;
 		if (!finePointer || !wideEnough) return;
 
-		var SPEED = 0.4; // px per frame (~24px/s at 60fps)
+		var SPEED = 0.69; // px per frame (~41px/s at 60fps)
 
 		marquees.forEach(function (marquee) {
 			var track = marquee.querySelector('.proof-track');

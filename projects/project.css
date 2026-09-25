@@ -179,27 +179,11 @@
 		}
 
 		/* Pointer-tracking 3D tilt — same cinematic effect as the project
-		   cards. JS (inline on the page) sets --rx/--ry and toggles .is-tilting;
-		   while tilting the transform transition is dropped so it tracks the
-		   cursor with no lag, then eases back to flat on leave. */
-		.proj-hero-image.is-tilting img {
-			transform:
-				perspective(1000px)
-				rotateX(var(--rx, 0deg))
-				rotateY(var(--ry, 0deg))
-				scale(1.02);
-			transition:
-				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-			border-color: rgba(var(--glow), 0.7);
-			box-shadow:
-				0 1.5rem 3.5rem rgba(0, 0, 0, 0.6),
-				0 0 2.5rem rgba(var(--glow), 0.45);
-		}
-
-		/* Pointer-tracking 3D tilt (enabled per-page by a small script). The
-		   image leans toward the cursor; JS sets --rx/--ry and drops the
-		   transition while tilting so it tracks with no lag. */
+		   cards. The shared hero-tilt.js sets --rx/--ry and toggles
+		   .is-tilting; while tilting the transform transition is dropped so it
+		   tracks the cursor with no lag, then eases back to flat on leave.
+		   (This was previously defined twice with slightly different values —
+		   a leftover from per-page inline tilt; now unified in one rule.) */
 		.proj-hero-image.is-tilting img {
 			transform:
 				perspective(1100px)
@@ -213,6 +197,139 @@
 			box-shadow:
 				0 1.5rem 4rem rgba(0, 0, 0, 0.6),
 				0 0 3rem -0.5rem rgba(var(--glow), 0.45);
+		}
+
+	/* --- Shared glow card --------------------------------------------------
+	   One glass/glow card used by the write-up grid (writeups.html) and the
+	   reverse-engineering featured card. Each instance sets its own --glow.
+	   Previously these rules were duplicated inline on both pages (~80% the
+	   same); consolidated here since both pages load project.css. Page-specific
+	   extras (wu-card's 16:9 image band, re-card's tags/CTA) stay inline. */
+	.glow-card {
+		display: block;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		border-radius: 14px;
+		border: 1px solid rgba(var(--glow), 0.3);
+		background: rgba(20, 18, 26, 0.8);
+		box-shadow:
+			0 0.5rem 1.5rem rgba(0, 0, 0, 0.45),
+			0 0 1.5rem -0.25rem rgba(var(--glow), 0.25);
+		transition:
+			transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+		/* The card is an <a>; keep it underline-free in every state (overrides
+		   the shell's global a:hover underline). */
+		.glow-card:hover,
+		.glow-card:focus,
+		.glow-card:hover * { text-decoration: none; }
+
+		.glow-card:hover {
+			transform: translateY(-8px);
+			border-color: rgba(var(--glow), 0.85);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(var(--glow), 0.6);
+		}
+
+		/* Pointer-tracking 3D tilt — shared hero-tilt.js sets --rx/--ry and
+		   toggles .is-tilting; the transform transition is dropped while
+		   tilting so it tracks the cursor with no lag. */
+		.glow-card.is-tilting {
+			transform:
+				perspective(900px)
+				rotateX(var(--rx, 0deg))
+				rotateY(var(--ry, 0deg))
+				translateY(-8px)
+				scale(1.02);
+			transition:
+				box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			border-color: rgba(var(--glow), 0.85);
+			box-shadow:
+				0 1.5rem 3rem rgba(0, 0, 0, 0.55),
+				0 0 2.75rem rgba(var(--glow), 0.6);
+		}
+
+		.glow-card-image {
+			position: relative;
+			overflow: hidden;
+		}
+
+			.glow-card-image img {
+				display: block;
+				width: 100%;
+				height: auto;
+				transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			.glow-card:hover .glow-card-image img { transform: scale(1.05); }
+
+		.glow-card-body { padding: 1.75rem 2rem 2rem; }
+
+			.glow-card-eyebrow {
+				font-size: 0.7rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: rgb(var(--glow));
+			}
+
+			.glow-card-body h2 {
+				margin: 0.5rem 0 0.5rem;
+				font-size: 1.6rem;
+				color: #fff;
+				transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+
+			.glow-card-body p {
+				margin: 0 0 1rem;
+				color: #c7c2cf;
+				line-height: 1.6;
+			}
+
+		/* Tag pills + CTA (used by the reverse-engineering card). */
+		.glow-card-tags {
+			list-style: none;
+			margin: 0 0 1.25rem;
+			padding: 0;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+			.glow-card-tags li {
+				padding: 0.3rem 0.8rem;
+				border-radius: 1rem;
+				font-size: 0.72rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-weight: 600;
+				border: 1px solid rgba(var(--glow), 0.5);
+				background: rgba(var(--glow), 0.08);
+				color: rgb(var(--glow));
+			}
+
+		.glow-card-cta {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.4rem;
+			font-weight: 600;
+			font-size: 0.9rem;
+			color: rgb(var(--glow));
+		}
+
+			.glow-card-cta span { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+			.glow-card:hover .glow-card-cta span { transform: translateX(5px); }
+
+		@media (prefers-reduced-motion: reduce) {
+			.glow-card, .glow-card-image img, .glow-card-cta span { transition: none; }
+			.glow-card:hover, .glow-card.is-tilting { transform: none; }
+			.glow-card:hover .glow-card-image img { transform: none; }
 		}
 
 	/* --- Footer ------------------------------------------------------------- */
@@ -230,8 +347,25 @@
 		html { scroll-behavior: auto; }
 	}
 
-	@media screen and (max-width: 600px) {
+	/* Match the main site's mobile breakpoint (736px) rather than 600px, so
+	   detail pages adapt at the same width as the homepage/archive. */
+	@media screen and (max-width: 736px) {
 		.topbar { padding: 0.85rem 1rem; }
+	}
+
+	/* Narrow phones: the topbar holds a back link (up to "Back to Reverse
+	   Engineering") plus the "View on GitHub" pill. Trim type/padding so both
+	   fit without overflowing at ~320px, and allow the back label to wrap
+	   rather than push the pill off-screen. */
+	@media screen and (max-width: 420px) {
+		.topbar { gap: 0.6rem; padding: 0.7rem 0.85rem; }
+		.topbar .back { font-size: 0.8rem; }
+		.topbar .repo-link {
+			padding: 0.4rem 0.7rem;
+			font-size: 0.72rem;
+			white-space: nowrap;
+			flex: 0 0 auto;
+		}
 	}
 
 /* ==========================================================================
@@ -374,6 +508,6 @@
 		padding: 3rem 1rem;
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 736px) {
 		.readme-body { padding: 1.5rem; }
 	}
