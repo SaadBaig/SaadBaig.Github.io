@@ -24,7 +24,6 @@
 		var all = data.projects;
 		var featured = data.featuredProjects ? data.featuredProjects() : all.filter(function (p) { return p.featured; });
 
-		// How many cards sit in the archive intro grid (above the scroll cue).
 		targets.forEach(function (target) {
 			var kind = target.getAttribute('data-cards');
 			var wrapperClass = target.getAttribute('data-card-class') || null;

@@ -47,20 +47,24 @@
 		gap: 0.6rem;
 	}
 
-		/* Shared round glass control. */
+		/* Shared round glass control. Tinted with the page's --glow accent at
+		   rest (accent chevron + faint accent border/glow) so the control
+		   matches the page theme even before hover; it intensifies on hover. */
 		.reading-nav a {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
 			height: 2.6rem;
 			border-radius: 2rem;
-			color: #e6def0;
+			color: rgb(var(--glow));
 			text-decoration: none;
 			background: rgba(16, 16, 20, 0.72);
 			-webkit-backdrop-filter: blur(14px);
 			backdrop-filter: blur(14px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.4);
+			border: 1px solid rgba(var(--glow), 0.4);
+			box-shadow:
+				0 0.5rem 1.25rem rgba(0, 0, 0, 0.4),
+				0 0 0.75rem -0.25rem rgba(var(--glow), 0.4);
 			transition:
 				transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
 				background 0.3s ease,
@@ -115,26 +119,6 @@
 					transform: rotate(45deg) translate(-0.1rem, -0.1rem);
 				}
 
-		/* The GitHub control: circular icon button in the accent colour. */
-		.reading-nav .nav-repo {
-			width: 2.6rem;
-			color: rgb(var(--glow));
-			border-color: rgba(var(--glow), 0.5);
-			background: rgba(var(--glow), 0.1);
-		}
-
-			.reading-nav .nav-repo svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
-
-			.reading-nav .nav-repo:hover,
-			.reading-nav .nav-repo:focus-visible {
-				color: #fff;
-				border-color: rgba(var(--glow), 0.85);
-				background: rgba(var(--glow), 0.22);
-				box-shadow:
-					0 0.75rem 1.75rem rgba(0, 0, 0, 0.5),
-					0 0 1.5rem rgba(var(--glow), 0.55);
-			}
-
 		/* Subtle lift toward the viewer on hover/focus (matches the site's feel). */
 		.reading-nav a:hover,
 		.reading-nav a:focus-visible { transform: translateY(-2px); }
@@ -156,8 +140,7 @@
 	@media screen and (max-width: 736px) {
 		.reading-nav { top: 0.6rem; left: 0.6rem; gap: 0.5rem; }
 		.reading-nav a { height: 2.9rem; }         /* larger tap targets on touch */
-		.reading-nav .nav-back,
-		.reading-nav .nav-repo { width: 2.9rem; }
+		.reading-nav .nav-back { width: 2.9rem; }
 		.reading-nav .nav-back .nav-ico { width: 2.9rem; }
 	}
 

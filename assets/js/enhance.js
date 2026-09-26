@@ -1,7 +1,8 @@
 /* ==========================================================================
    enhance.js — progressive enhancements layered on top of the base site:
-   terminal-style hero intro, easter eggs, and PWA service-worker
-   registration. All features degrade gracefully.
+   terminal-style hero intro, easter eggs, and teardown of any previously
+   registered service worker (the site no longer uses one). All features
+   degrade gracefully.
    ========================================================================== */
 (function () {
 	'use strict';
